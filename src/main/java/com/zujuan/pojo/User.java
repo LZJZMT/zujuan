@@ -78,7 +78,9 @@ public class User implements UserDetails {
      * @mbg.generated
      */
     private static final long serialVersionUID = 1L;
+    public User(){
 
+    }
     public User(Long id,String username, String password, String phone, String email, Date registertime,Integer type) {
         this.id = id;
         this.username = username;

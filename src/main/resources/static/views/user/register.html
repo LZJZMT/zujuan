@@ -23,9 +23,14 @@
       </div>
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
         <div class="layui-form-item">
-          <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" for="LAY-user-login-cellphone"></label>
-          <input type="text" name="cellphone" id="LAY-user-login-cellphone" lay-verify="phone" placeholder="手机" class="layui-input">
+          <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-nickname"></label>
+          <input type="text" name="username" id="LAY-user-login-nickname" lay-verify="nickname" placeholder="用户名" class="layui-input">
         </div>
+        <div class="layui-form-item">
+          <label class="layadmin-user-login-icon layui-icon layui-icon-table" for="LAY-user-login-cellphone"></label>
+          <input type="text" name="email" id="LAY-user-login-cellphone" lay-verify="email" placeholder="邮箱地址" class="layui-input">
+        </div>
+
         <div class="layui-form-item">
           <div class="layui-row">
             <div class="layui-col-xs7">
@@ -47,10 +52,7 @@
           <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-repass"></label>
           <input type="password" name="repass" id="LAY-user-login-repass" lay-verify="required" placeholder="确认密码" class="layui-input">
         </div>
-        <div class="layui-form-item">
-          <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-nickname"></label>
-          <input type="text" name="nickname" id="LAY-user-login-nickname" lay-verify="nickname" placeholder="昵称" class="layui-input">
-        </div>
+
         <div class="layui-form-item">
           <input type="checkbox" name="agreement" lay-skin="primary" title="同意用户协议" checked>
         </div>
@@ -104,11 +106,12 @@
       if(!field.agreement){
         return layer.msg('你必须同意用户协议才能注册');
       }
-      
+      layer.msg(JSON.stringify(field));
       //请求接口
       admin.req({
-        url: layui.setter.base + 'json/user/reg.js' //实际使用请改成服务端真实接口
+        url: '/user/register' //实际使用请改成服务端真实接口
         ,data: field
+        ,method:"post"
         ,done: function(res){        
           layer.msg('注册成功', {
             offset: '15px'

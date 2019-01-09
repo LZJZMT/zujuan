@@ -68,10 +68,11 @@ layui.define('view', function(exports){
         ,value = elemPhone.val();
 
         if(seconds !== options.seconds || $(this).hasClass(DISABLED)) return;
+        var reg=new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/);
 
-        if(!/^1\d{10}$/.test(value)){
+        if(!reg.test(value)){
           elemPhone.focus();
-          return layer.msg('请输入正确的手机号')
+          return layer.msg('请输入正确的邮箱地址')
         };
         
         if(typeof options.ajax === 'object'){
@@ -80,21 +81,20 @@ layui.define('view', function(exports){
         }
         
         admin.req($.extend(true, {
-          url: '/auth/code'
+          url: '/user/sendEmail'
           ,type: 'get'
           ,data: {
-            phone: value
-          }
-          ,success: function(res){
-            layer.msg('验证码已发送至你的手机，请注意查收', {
-              icon: 1
-              ,shade: 0
-            });
-            options.elemVercode.focus();
-            countDown();
-            success && success(res);
+            email: value,
+            type:0//0是注册 邮件发送
           }
         }, options.ajax));
+        layer.msg('验证码已发送至你的邮箱，请注意查收', {
+          icon: 1
+          ,shade: 0
+        });
+        options.elemVercode.focus();
+        countDown();
+        success && success(res);
       });
     }
     
