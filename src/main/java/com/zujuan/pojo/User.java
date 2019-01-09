@@ -2,7 +2,7 @@ package com.zujuan.pojo;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class User implements UserDetails {

@@ -8,6 +8,8 @@ import com.zujuan.utils.GetCurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Description:
  * @Author: LZJ
@@ -27,5 +29,17 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setPassword(password);
         um.updateByExampleSelective(user, example);
+    }
+
+    @Override
+    public void insertUser(User u) {
+        um.insert(u);
+    }
+
+    @Override
+    public List getByUsername(String username) {
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        return um.selectByExample(example);
     }
 }
