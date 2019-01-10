@@ -1,7 +1,5 @@
-
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>开启单元格编辑 - 数据表格</title>
@@ -12,21 +10,16 @@
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
 </head>
 <body>
-
   <div class="layui-card layadmin-header">
     <div class="layui-breadcrumb" lay-filter="breadcrumb">
-      <a lay-href="">主页</a>
-      <a><cite>组件</cite></a>
-      <a><cite>数据表格</cite></a>
-      <a><cite>开启单元格编辑</cite></a>
+      <a><cite>知识点管理</cite></a>
     </div>
   </div>
-  
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md12">
         <div class="layui-card">
-          <div class="layui-card-header">开启单元格编辑</div>
+          <div class="layui-card-header">知识点管理</div>
           <div class="layui-card-body">
             <table class="layui-hide" id="test-table-cellEdit" lay-filter="test-table-cellEdit"></table>
           </div>
@@ -34,7 +27,9 @@
       </div>
     </div>
   </div>
-  
+  <script type="text/html" id="test-table-operate-barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>
   <script src="../../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
@@ -45,19 +40,35 @@
     var table = layui.table;
     
     table.render({
+      width:380,
       elem: '#test-table-cellEdit'
       ,url: layui.setter.base + 'json/table/demo.js'
       ,cols: [[
         {type:'checkbox'}
-        ,{field:'id', title:'ID', width:80, sort: true}
-        ,{field:'username', title:'用户名', width:120, sort: true, edit: 'text'}
-        ,{field:'email', title:'邮箱', edit: 'text', minWidth: 150}
-        ,{field:'sex', title:'性别', width:80, edit: 'text'}
-        ,{field:'city', title:'城市', edit: 'text', minWidth: 100}
-        ,{field:'experience', title:'积分', sort: true, edit: 'text'}
+        //,{field:'id', title:'ID', width:80, sort: true}
+        ,{align:'center' ,field:'zsdName', title:'知识点名称', width:250, sort: false, edit: 'text'}
+       // ,{field:'email', title:'邮箱', edit: 'text', minWidth: 150}
+        //,{field:'sex', title:'性别', width:80, edit: 'text'}
+        //,{field:'city', title:'城市', edit: 'text', minWidth: 100}
+        //,{field:'experience', title:'积分', sort: true, edit: 'text'}
+        ,{ align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]]
+      ,page: true
     })
-    
+    //监听工具条
+    table.on('tool(test-table-cellEdit)', function(obj){
+      layer.confirm('真的删除行么');
+      // var data = obj.data;
+      // if(obj.event === 'detail'){
+      //   layer.msg('ID：'+ data.id + ' 的查看操作');
+      // } else
+        if(obj.event === 'del'){
+        layer.confirm('真的删除行么', function(index){
+          obj.del();
+          layer.close(index);
+        });
+      }
+    });
     //监听单元格编辑
     table.on('edit(test-table-cellEdit)', function(obj){
       var value = obj.value //得到修改后的值

@@ -7,9 +7,11 @@ import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
 import com.zujuan.utils.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -23,7 +25,7 @@ import java.util.Map;
  * @Date： 2019/1/8 17:38
  */
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -36,6 +38,7 @@ public class UserController {
     private SendMail sendMail;
 
     @RequestMapping("/changePwd")
+    @ResponseBody
     public Map changePwd(String oldPassword, String password) {
         HashMap map = new HashMap();
         map.put("code","0");
@@ -55,7 +58,7 @@ public class UserController {
         return map;
 
     }
-
+    @ResponseBody
     @RequestMapping("/sendEmail")
     public Map sendEmail(String email,String type){
         Map result = GetResultBean.getResultMap();
@@ -76,7 +79,7 @@ public class UserController {
         return result;
 
     }
-
+    @ResponseBody
     @RequestMapping("/register")
     public Map register(User u,String vercode){
         Map resultMap = GetResultBean.getResultMap();;
@@ -100,6 +103,15 @@ public class UserController {
             request.getSession().setAttribute("registerCheckCode",null);
         }
         return resultMap;
+    }
+
+    @RequestMapping("/info")
+    public String getInfo(ModelMap map){
+
+        User user = GetCurrentUser.getCurrentUser();
+        map.addAttribute("user",user);
+        System.out.println(user);
+        return "set/user/info";
     }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyErrorController implements ErrorController {
     @Override
     public String getErrorPath() {
-        return "/404.html";
+        return "redirect:/views/404.html";
     }
 
     @RequestMapping("/error")

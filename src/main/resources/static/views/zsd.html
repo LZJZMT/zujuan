@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 内容系统 - 评论管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card" style="width: 1000px;margin:0 auto">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <!--<div class="layui-inline">-->
+                    <!--<label class="layui-form-label">ID</label>-->
+                    <!--<div class="layui-input-inline">-->
+                        <!--<input type="text" name="cid" placeholder="请输入" autocomplete="off" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="layui-inline">
+                    <label class="layui-form-label">知识点名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="zsdname" placeholder="请输入知识点名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!--<div class="layui-inline">-->
+                    <!--<label class="layui-form-label">评论内容</label>-->
+                    <!--<div class="layui-input-inline">-->
+                        <!--<input type="text" name="content" placeholder="请输入" autocomplete="off" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-comm" data-type="reload" lay-submit
+                            lay-filter="LAY-app-contcomm-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body" >
+            <div style="padding-bottom: 10px;">
+                <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
+                <button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>
+                <button class="layui-btn layuiadmin-btn-comm" data-type="reload">刷新</button>
+            </div>
+            <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
+            <script type="text/html" id="table-content-com">
+                <!--<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>-->
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                        class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , table = layui.table;
+        table.render({
+            //width: 430,
+            elem: '#LAY-app-content-comm'
+            , url: '/zsd/list'
+            , method: 'post'
+            , cols: [[
+                {type: 'checkbox', width: 100}
+                , {title: '序号', width: 100, type: 'numbers'}
+                //,{field:'id', title:'ID', width:80, sort: true}-->
+                , {align: 'center', field: 'zsdname', title: '知识点名称', width: 550, sort: false, edit: 'text'}
+                // ,{field:'email', title:'邮箱', edit: 'text', minWidth: 150}-->
+                //,{field:'sex', title:'性别', width:80, edit: 'text'}-->
+                //,{field:'city', title:'城市', edit: 'text', minWidth: 100}-->
+                //,{field:'experience', title:'积分', sort: true, edit: 'text'}-->
+                , {title:'操作',align: 'center', fixed: 'right', toolbar: '#table-content-com'}
+            ]]
+            , page: true
+            , even: true //斑马线效果
+        })
+        //监听工具条
+        table.on('tool(LAY-app-content-comm)', function (obj) {
+            <!--layer.confirm('真的删除行么');-->
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                })
+
+            }
+        })
+
+
+        //监听搜索
+        form.on('submit(LAY-app-contcomm-search)', function (data) {
+            var field = data.field;
+
+            //执行重载
+            table.reload('LAY-app-content-comm', {
+                where: field
+            });
+        });
+
+        //点击事件
+        var active = {
+            batchdel: function () {
+                var checkStatus = table.checkStatus('LAY-app-content-comm')
+                    , checkData = checkStatus.data; //得到选中的数据
+
+                if (checkData.length === 0) {
+                    return layer.msg('请选择数据');
+                }
+
+                layer.confirm('确定删除吗？', function (index) {
+
+                    //执行 Ajax 后重载
+                    /*
+                    admin.req({
+                      url: 'xxx'
+                      //,……
+                    });
+                    */
+                    table.reload('LAY-app-content-comm');
+                    layer.msg('已删除');
+                });
+            }
+            , add: function () {
+                layer.open({
+                    type: 2
+                    , title: '添加知识点'
+                    , content: 'addForm.html'
+                    , area: ['320px', '220px']
+                    , btn: ['确定', '取消']
+                    , yes: function (index, layero) {
+                        var iframeWindow = window['layui-layer-iframe' + index]
+                            , submitID = 'LAY-user-front-submit'
+                            , submit = layero.find('iframe').contents().find('#' + submitID);
+                        //监听提交
+                        iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                            var field = data.field; //获取提交的字段
+                            //提交 Ajax 成功后，静态更新表格中的数据
+                            $.ajax({
+                                url:'/zsd/add'
+                                ,type: 'post'
+                                ,data: field
+                                ,success:function (res) {
+                                    if (res.code == 0){
+                                        layer.msg(res.msg);
+                                        table.reload();
+                                    }else {
+                                        layer.msg(res.msg, {
+                                            offset: 't',
+                                            anim: 6
+                                        });
+                                    }
+                                }
+                            });
+                            // table.reload('LAY-user-front-submit'); //数据刷新
+                            // layer.close(index); //关闭弹层
+                        });
+
+                        submit.trigger('click');
+                    }
+                });
+            }
+            ,reload:function () {
+                table.reload('LAY-app-content-comm');
+            }
+        }
+
+
+        $('.layui-btn.layuiadmin-btn-comm').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    })
+    ;
+</script>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--<meta charset="utf-8">-->
+<!--<title>开启单元格编辑 - 数据表格</title>-->
+<!--<meta name="renderer" content="webkit">-->
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">-->
+<!--<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">-->
+<!--<link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="layui-card layadmin-header">-->
+<!--<div class="layui-breadcrumb" lay-filter="breadcrumb">-->
+<!--<a><cite>知识点管理</cite></a>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="layui-fluid">-->
+<!--<div class="layui-row layui-col-space15">-->
+<!--<div class="layui-col-md12">-->
+<!--<div class="layui-card">-->
+<!--<div class="layui-card-header">知识点管理</div>-->
+<!--<div class="layui-card-body">-->
+<!--<table class="layui-hide" id="test-table-cellEdit" lay-filter="test-table-cellEdit"></table>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<script type="text/html" id="test-table-operate-barDemo">-->
+<!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+<!--</script>-->
+<!--<script src="../layuiadmin/layui/layui.js"></script>-->
+<!--<script>-->
+<!--layui.config({-->
+<!--base: '../layuiadmin/' //静态资源所在路径-->
+<!--}).extend({-->
+<!--index: 'lib/index' //主入口模块-->
+<!--}).use(['index', 'table'], function(){-->
+<!--var table = layui.table;-->
+
+<!--table.render({-->
+<!--width:380,-->
+<!--elem: '#test-table-cellEdit'-->
+<!--,url: '/zsd/list'-->
+<!--,method:'post'-->
+<!--,cols: [[-->
+<!--{type:'checkbox'}-->
+<!--//,{field:'id', title:'ID', width:80, sort: true}-->
+<!--,{align:'center' ,field:'zsdName', title:'知识点名称', width:250, sort: false, edit: 'text'}-->
+<!--// ,{field:'email', title:'邮箱', edit: 'text', minWidth: 150}-->
+<!--//,{field:'sex', title:'性别', width:80, edit: 'text'}-->
+<!--//,{field:'city', title:'城市', edit: 'text', minWidth: 100}-->
+<!--//,{field:'experience', title:'积分', sort: true, edit: 'text'}-->
+<!--,{ align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}-->
+<!--]]-->
+<!--,page: true-->
+<!--})-->
+<!--//监听工具条-->
+<!--table.on('tool(test-table-cellEdit)', function(obj){-->
+<!--layer.confirm('真的删除行么');-->
+<!--// var data = obj.data;-->
+<!--// if(obj.event === 'detail'){-->
+<!--//   layer.msg('ID：'+ data.id + ' 的查看操作');-->
+<!--// } else-->
+<!--if(obj.event === 'del'){-->
+<!--layer.confirm('真的删除行么', function(index){-->
+<!--obj.del();-->
+<!--layer.close(index);-->
+<!--});-->
+<!--}-->
+<!--});-->
+<!--//监听单元格编辑-->
+<!--table.on('edit(test-table-cellEdit)', function(obj){-->
+<!--var value = obj.value //得到修改后的值-->
+<!--,data = obj.data //得到所在行所有键值-->
+<!--,field = obj.field; //得到字段-->
+<!--layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value, {-->
+<!--offset: '15px'-->
+<!--});-->
+<!--});-->
+
+<!--});-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

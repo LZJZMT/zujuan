@@ -88,16 +88,16 @@ layui.define(['form', 'upload'], function(exports){
     layer.msg(JSON.stringify(obj.field));
     
     //提交修改
-    /*
+
     admin.req({
-      url: ''
+      url: 'updateUser'
       ,data: obj.field
       ,success: function(){
         
       }
     });
-    */
-    return false;
+
+    //return false;
   });
 
   //上传头像

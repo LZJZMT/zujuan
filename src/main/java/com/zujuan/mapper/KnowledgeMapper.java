@@ -2,8 +2,9 @@ package com.zujuan.mapper;
 
 import com.zujuan.pojo.Knowledge;
 import com.zujuan.pojo.KnowledgeExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface KnowledgeMapper {
     /**
@@ -93,4 +94,6 @@ public interface KnowledgeMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Knowledge record);
+
+    List list(Integer start, Integer limit);
 }
