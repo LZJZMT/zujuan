@@ -89,11 +89,12 @@
     
       //请求登入接口
       admin.req({
-        url: "http://localhost:8080/user/login" //实际使用请改成服务端真实接口
+        url: "/user/login" //实际使用请改成服务端真实接口
         ,data: obj.field
         ,method: 'post'
         ,done: function(res){
           //登入成功的提示与跳转
+          if (res.ok) {
             layer.msg('登入成功', {
               offset: '15px'
               ,icon: 1
@@ -101,6 +102,13 @@
             }, function(){
               location.href = '/views/index'; //后台主页
             });
+          }else{
+            layer.msg('账号或密码错误', {
+              offset: '15px',
+              animate:6
+            })
+          }
+
 
 
 

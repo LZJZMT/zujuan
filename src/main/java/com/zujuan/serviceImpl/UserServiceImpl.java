@@ -42,4 +42,14 @@ public class UserServiceImpl implements UserService {
         example.createCriteria().andUsernameEqualTo(username);
         return um.selectByExample(example);
     }
+
+    @Override
+    public List queryByExample(UserExample userExample) {
+        return um.selectByExample(userExample);
+    }
+
+    @Override
+    public void updateUserByExample(User newUser, UserExample userExample1) {
+        um.updateByExampleSelective(newUser,userExample1);
+    }
 }

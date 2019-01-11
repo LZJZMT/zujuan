@@ -12,10 +12,19 @@
 
 <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
     <div class="layui-form-item">
+
+        <label class="layui-form-label">父知识点</label>
+        <div class="layui-input-inline">
+            <select name="parentid" id="zsdSelectId">
+                <option value="">无</option>
+            </select>
+        </div>
+
         <label class="layui-form-label">知识点名称</label>
         <div class="layui-input-inline">
             <input type="text" name="zsdname" lay-verify="required" placeholder="请输入知识点名称" autocomplete="off" class="layui-input">
         </div>
+
     </div>
     <!--<div class="layui-form-item">
         <label class="layui-form-label">手机</label>
@@ -55,7 +64,26 @@
     }).use(['index', 'form'], function(){
         var $ = layui.$
             ,form = layui.form ;
+        selectRoleName(layui.$,form);    // 调用查询方法
+
     })
+
+    function selectRoleName($,form){
+        $.ajax({
+            url:"/zsd/getAllParentZsd",
+            type:"GET",
+            success:function(list){
+                var role = document.getElementById("zsdSelectId");        //add_role_name给select定义的id
+                for(var i=0;i<list.length;i++){
+                    var option = document.createElement("option");    // 创建添加option属性
+                    option.setAttribute("value",list[i].id);                  // 给option的value添加值
+                    option.innerText=list[i].zsdname;             // 打印option对应的纯文本
+                    role.appendChild(option);                          // 给select 添加option子标签
+                    form.render("select");                                // 刷性select，显示出数据
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

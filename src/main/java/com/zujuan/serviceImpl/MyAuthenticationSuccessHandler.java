@@ -24,6 +24,7 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         Map<String,Object> map=new HashMap<>();
         map.put("code", "0");
+        map.put("ok", true);
         map.put("msg", "登录成功");
         String res = JSON.toJSONString(map);
         response.setContentType("application/json;charset=UTF-8");

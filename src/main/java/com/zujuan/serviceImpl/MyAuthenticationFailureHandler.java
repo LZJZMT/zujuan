@@ -23,7 +23,8 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         Map<String,Object> map=new HashMap<>();
-        map.put("code", "1");
+        map.put("code", "0");
+        map.put("ok", false);
         map.put("msg", "用户名或密码错误");
         String res = JSON.toJSONString(map);
         response.setContentType("application/json;charset=UTF-8");

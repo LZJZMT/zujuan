@@ -56,13 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler).permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/layuiadmin/**",
-                    "/**/register.html", "/user/register","/**/forget.html","/user/forget","/user/sendEmail")
+                    "/**/findPwd","/**/register.html", "/user/register","/**/forget.html","/user/forget","/user/sendEmail")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()//关闭frame保护
                 .and().rememberMe()                                   // 记住我相关配置
                 .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(120)
+                .tokenValiditySeconds(1200)//1200秒免登陆
                 .and()
                 .csrf().disable()
         ;

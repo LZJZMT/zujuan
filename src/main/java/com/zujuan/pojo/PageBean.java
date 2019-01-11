@@ -20,4 +20,11 @@ public class PageBean {
         code = "0";
         msg = "OK";
     }
+
+    public PageBean( String count, List data) {
+        this.code = "0";
+        this.msg = "OK";
+        this.count = count;
+        this.data = data;
+    }
 }

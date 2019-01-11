@@ -96,4 +96,6 @@ public interface KnowledgeMapper {
     int updateByPrimaryKey(Knowledge record);
 
     List list(Integer start, Integer limit);
+
+    List getParentIdisNull();
 }

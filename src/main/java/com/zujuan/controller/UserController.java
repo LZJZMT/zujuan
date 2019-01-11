@@ -2,6 +2,7 @@ package com.zujuan.controller;
 
 import com.zujuan.pojo.MailBean;
 import com.zujuan.pojo.User;
+import com.zujuan.pojo.UserExample;
 import com.zujuan.service.UserService;
 import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
@@ -112,6 +113,45 @@ public class UserController {
         map.addAttribute("user",user);
         System.out.println(user);
         return "set/user/info";
+    }
+
+    @ResponseBody
+    @RequestMapping("/findPwd")
+    public Map getInfo(User user,String vercode){
+        Map resultMap = GetResultBean.getResultMap();
+        if (StringUtils.isEmpty(vercode) || !vercode.equals(request.getSession().getAttribute("registerCheckCode"))){
+            resultMap.put("code","1");
+            resultMap.put("msg","验证码错误");
+            return resultMap;
+        }else {
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andUsernameEqualTo(user.getUsername())
+            .andEmailEqualTo(user.getEmail());
+            List list = us.queryByExample(userExample);
+            if (list.size() == 0){
+                resultMap.put("code","1");
+                resultMap.put("msg","账户名与邮箱不匹配");
+            }else {
+                try {
+                    User newUser = new User();
+                    String newPwd = Integer.toString((int) ((Math.random() * 9 + 1) * 100000));
+                    newUser.setPassword(newPwd);
+                    User originUser = (User) list.get(0);//原始用户
+                    UserExample userExample1 = new UserExample();
+                    userExample1.createCriteria().andIdEqualTo(originUser.getId());
+                    us.updateUserByExample(newUser,userExample1);
+                    resultMap.put("code","0");
+                    resultMap.put("msg",newPwd);
+                } catch (Exception e) {
+                    resultMap.put("code","1");
+                    resultMap.put("msg",e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
+        //验证码一次有效 使用后清除
+        request.getSession().setAttribute("registerCheckCode",null);
+        return resultMap;
     }
 
 }

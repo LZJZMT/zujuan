@@ -83,6 +83,10 @@
     -->
     id, zsdName, parentId
   </sql>
+  <select id="getParentIdisNull" resultMap="BaseResultMap">
+    select id, zsdName, parentId  from  knowledge
+    where parentid is null
+  </select>
   <select id="selectByExample" parameterType="com.zujuan.pojo.KnowledgeExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
