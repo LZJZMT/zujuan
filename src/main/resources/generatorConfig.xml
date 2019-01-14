@@ -12,7 +12,7 @@
             <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
             <property name="suppressDate" value="true" />
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="false" />
+            <property name="suppressAllComments" value="true" />
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/zujuansys" userId="root" password="qqqq">
@@ -23,16 +23,16 @@
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="pojo" targetProject="src/main">
+        <javaModelGenerator targetPackage="com.zujuan.pojo" targetProject="src/main">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main">
+        <sqlMapGenerator targetPackage="com.zujuan.mapper" targetProject="src/main">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="mapper" targetProject="src/main">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.mapper" targetProject="src/main/resource">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
