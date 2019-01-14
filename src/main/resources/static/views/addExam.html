@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>新增题目</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-form" lay-filter="layuiadmin-form-list" id="layuiadmin-form-list" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item">
+        <div class="layui-row">
+            <label class="layui-form-label">题目类型</label>
+            <div class="layui-col-xs3">
+                <select name="type" id="examType" lay-filter="selectExamType" lay-verify="required" lay-search="">
+
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">问题</label>
+        <div class="layui-input-block">
+            <textarea name="content" lay-verify="required" autocomplete="off" class="layui-textarea"
+                      placeholder="请输入问题"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item option">
+        <label class="layui-form-label">A选项</label>
+        <div class="layui-input-block">
+            <input type="text" name="optionA" lay-verify="required" placeholder="请输入A选项" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item option">
+        <label class="layui-form-label">B选项</label>
+        <div class="layui-input-block">
+            <input type="text" name="optionB" lay-verify="required" placeholder="请输入B选项" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item option">
+        <label class="layui-form-label">C选项</label>
+        <div class="layui-input-block">
+            <input type="text" name="optionC" lay-verify="required" placeholder="请输入C选项" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item option">
+        <label class="layui-form-label">D选项</label>
+        <div class="layui-input-block">
+            <input type="text" name="optionD" lay-verify="required" placeholder="请输入D选项" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">正确答案</label>
+        <div class="layui-input-block">
+            <input type="text" name="answer" lay-verify="required" placeholder="请输入正确答案" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-row">
+            <label class="layui-form-label">所属知识点</label>
+
+            <div class="layui-col-xs3">
+                <select name="knowId" id="knowSelectId"
+                        lay-filter="selectFatherZsd" lay-verify="required" lay-search="">
+                    <option value="1000000">-&#45;&#45;请选择-&#45;&#45;</option>
+                </select>
+            </div>
+
+            <div class="layui-col-xs3">
+                <select name="knowIdChild" id="knowSelectIdChild"
+                        lay-filter="selectChildZsd" lay-verify="" lay-search="">
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!--<div class=" layui-form-item">-->
+<!--<label class="layui-form-label">置顶</label>-->
+<!--<div class="layui-input-block">-->
+<!--<input type="checkbox" lay-filter="switch" lay-verify="required" name="switch" lay-skin="switch" lay-text="ON|OFF">-->
+<!--</div>-->
+<!--</div>-->
+<div class="layui-form-item">
+    <label class="layui-form-label">题目所需图片</label>
+    <div class="layui-input-inline layui-hide">
+        <input type="text" id="imgInput" name="fileName" placeholder="请上传图片" autocomplete="off" class="layui-input">
+    </div>
+    <button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-list">上传图片
+    </button>
+    <div class="layui-upload-list" >
+        <img class="layui-upload-img" id="test-upload-normal-img" width="130px" height="90px" style="margin-left: 40px">
+        <p id="test-upload-demoText"></p>
+    </div>
+</div>
+<div class="layui-form-item ">
+    <input type="button" lay-submit lay-filter="LAY-app-forum-submit" id="LAY-app-forum-submit"
+           class="layui-btn" value="确认" style="margin-left: 110px">
+    <input type="button" lay-filter="LAY-app-forum-close" id="LAY-app-forum-close"
+           class="layui-btn" value="关闭" style="margin-left: 20px">
+</div>
+</div>
+
+<script src="../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#layuiadmin-upload-list'
+            , url: '/upload/file'
+            /*,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#test-upload-normal-img').attr('src', result); //图片链接（base64）
+                });
+            }*/
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }else{
+                    layer.msg("文件上传成功");
+                    $('#test-upload-normal-img').attr('src', res.src);
+                }
+                //上传成功
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#test-upload-demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+
+       /* upload.render({
+            elem: '#layuiadmin-upload-list'
+            , url: '/upload/file'
+            // , accept: 'images'
+            // , method: 'get'
+            // , acceptMime: 'image/!*'
+            , done: function(res){
+                console.log('上传完毕');
+                $("#imgInput").val(res.src)
+            }
+        });*/
+
+
+        /*填充题型Select*/
+        $.ajax({
+            url: "/examType/listAll",
+            type: "GET",
+            success: function (list) {
+                var role = document.getElementById("examType");        //add_role_name给select定义的id
+                $("#examType").empty();
+                for (var i = 0; i < list.length; i++) {
+                    var option = document.createElement("option");    // 创建添加option属性
+                    option.setAttribute("value", list[i].tid);                  // 给option的value添加值
+                    option.innerText = list[i].name;             // 打印option对应的纯文本
+                    role.appendChild(option);                          // 给select 添加option子标签
+                    form.render("select");                                // 刷性select，显示出数据
+                }
+            }
+        });
+
+        selectRoleName(layui.$, form, "/zsd/getAllParentZsd", "knowSelectId");
+
+        /*知识点select二级联动*/
+        form.on('select(selectFatherZsd)', function (data) {
+            selectRoleName(layui.$, form, "/zsd/getZsdByParebtId", "knowSelectIdChild", 'parentId=' + data.value)
+            console.log(data.value);
+        })
+
+        form.on('select(selectExamType)', function (data) {
+            if (data.elem[data.elem.selectedIndex].text != '选择题'){
+                $(".option").addClass("layui-hide");
+            }else{
+                $(".option").removeClass("layui-hide");
+            }
+        })
+
+
+
+    })
+
+    //ajax加载知识点
+    function selectRoleName($, form, ajaxUrl, knowSelectId, data) {
+        $.ajax({
+            url: ajaxUrl,
+            type: "GET",
+            data: data,
+            success: function (list) {
+                var role = document.getElementById(knowSelectId);        //add_role_name给select定义的id
+                if (knowSelectId != "knowSelectId")
+                    $("#" + knowSelectId).empty();
+                for (var i = 0; i < list.length; i++) {
+                    var option = document.createElement("option");    // 创建添加option属性
+                    option.setAttribute("value", list[i].id);                  // 给option的value添加值
+                    option.innerText = list[i].zsdname;             // 打印option对应的纯文本
+                    role.appendChild(option);                          // 给select 添加option子标签
+                    form.render("select");                                // 刷性select，显示出数据
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

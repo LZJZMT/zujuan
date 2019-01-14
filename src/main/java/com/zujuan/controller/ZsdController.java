@@ -108,4 +108,11 @@ public class ZsdController {
     public List<Knowledge> getAllParentZsd(){
         return ks.listParent();
     }
+
+    @RequestMapping("getZsdByParebtId")
+    public  List<Knowledge> getByParentId(Long parentId){
+        KnowledgeExample knowledgeExample = new KnowledgeExample();
+        knowledgeExample.createCriteria().andParentidEqualTo(parentId);
+        return ks.selectByExample(knowledgeExample);
+    }
 }

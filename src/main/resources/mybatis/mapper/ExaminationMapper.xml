@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zujuan.mapper.ExaminationMapper">
+  <resultMap id="BaseResultMap" type="com.zujuan.pojo.Examination">
+    <id column="eid" jdbcType="BIGINT" property="eid" />
+    <result column="option" jdbcType="VARCHAR" property="option" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="degree" jdbcType="DOUBLE" property="degree" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="know_id" jdbcType="BIGINT" property="knowId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zujuan.pojo.Examination">
+    <result column="question" jdbcType="LONGVARCHAR" property="question" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    eid, option, answer, img_url, degree, type, know_id
+  </sql>
+  <sql id="Blob_Column_List">
+    question
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zujuan.pojo.ExaminationExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from examination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zujuan.pojo.ExaminationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from examination
+    where eid = #{eid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from examination
+    where eid = #{eid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zujuan.pojo.ExaminationExample">
+    delete from examination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zujuan.pojo.Examination">
+    insert into examination (eid, option, answer, 
+      img_url, degree, type, 
+      know_id, question)
+    values (#{eid,jdbcType=BIGINT}, #{option,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{degree,jdbcType=DOUBLE}, #{type,jdbcType=INTEGER}, 
+      #{knowId,jdbcType=BIGINT}, #{question,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zujuan.pojo.Examination">
+    insert into examination
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eid != null">
+        eid,
+      </if>
+      <if test="option != null">
+        option,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="degree != null">
+        degree,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="knowId != null">
+        know_id,
+      </if>
+      <if test="question != null">
+        question,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eid != null">
+        #{eid,jdbcType=BIGINT},
+      </if>
+      <if test="option != null">
+        #{option,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null">
+        #{degree,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="knowId != null">
+        #{knowId,jdbcType=BIGINT},
+      </if>
+      <if test="question != null">
+        #{question,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zujuan.pojo.ExaminationExample" resultType="java.lang.Long">
+    select count(*) from examination
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update examination
+    <set>
+      <if test="record.eid != null">
+        eid = #{record.eid,jdbcType=BIGINT},
+      </if>
+      <if test="record.option != null">
+        option = #{record.option,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answer != null">
+        answer = #{record.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgUrl != null">
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.degree != null">
+        degree = #{record.degree,jdbcType=DOUBLE},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.knowId != null">
+        know_id = #{record.knowId,jdbcType=BIGINT},
+      </if>
+      <if test="record.question != null">
+        question = #{record.question,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update examination
+    set eid = #{record.eid,jdbcType=BIGINT},
+      option = #{record.option,jdbcType=VARCHAR},
+      answer = #{record.answer,jdbcType=VARCHAR},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      degree = #{record.degree,jdbcType=DOUBLE},
+      type = #{record.type,jdbcType=INTEGER},
+      know_id = #{record.knowId,jdbcType=BIGINT},
+      question = #{record.question,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update examination
+    set eid = #{record.eid,jdbcType=BIGINT},
+      option = #{record.option,jdbcType=VARCHAR},
+      answer = #{record.answer,jdbcType=VARCHAR},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      degree = #{record.degree,jdbcType=DOUBLE},
+      type = #{record.type,jdbcType=INTEGER},
+      know_id = #{record.knowId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zujuan.pojo.Examination">
+    update examination
+    <set>
+      <if test="option != null">
+        option = #{option,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null">
+        degree = #{degree,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="knowId != null">
+        know_id = #{knowId,jdbcType=BIGINT},
+      </if>
+      <if test="question != null">
+        question = #{question,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where eid = #{eid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zujuan.pojo.Examination">
+    update examination
+    set option = #{option,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=DOUBLE},
+      type = #{type,jdbcType=INTEGER},
+      know_id = #{knowId,jdbcType=BIGINT},
+      question = #{question,jdbcType=LONGVARCHAR}
+    where eid = #{eid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zujuan.pojo.Examination">
+    update examination
+    set option = #{option,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=DOUBLE},
+      type = #{type,jdbcType=INTEGER},
+      know_id = #{knowId,jdbcType=BIGINT}
+    where eid = #{eid,jdbcType=BIGINT}
+  </update>
+
+</mapper>
