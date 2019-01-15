@@ -34,4 +34,7 @@ public interface ExaminationMapper {
     int updateByPrimaryKeyWithBLOBs(Examination record);
 
     int updateByPrimaryKey(Examination record);
+
+    List list(Integer start, Integer limit);
+
 }

@@ -1,5 +1,5 @@
 {
-  "code": 0
+  "code":0
   ,"msg": ""
   ,"data": [{
     "name": "component"

@@ -5,7 +5,9 @@ import java.io.Serializable;
 public class Examination implements Serializable {
     private Long eid;
 
-    private String option;
+    private String question;
+
+    private String optionJson;
 
     private String answer;
 
@@ -17,8 +19,6 @@ public class Examination implements Serializable {
 
     private Long knowId;
 
-    private String question;
-
     private static final long serialVersionUID = 1L;
 
     public Long getEid() {
@@ -29,12 +29,20 @@ public class Examination implements Serializable {
         this.eid = eid;
     }
 
-    public String getOption() {
-        return option;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setOption(String option) {
-        this.option = option == null ? null : option.trim();
+    public void setQuestion(String question) {
+        this.question = question == null ? null : question.trim();
+    }
+
+    public String getOptionJson() {
+        return optionJson;
+    }
+
+    public void setOptionJson(String optionJson) {
+        this.optionJson = optionJson == null ? null : optionJson.trim();
     }
 
     public String getAnswer() {
@@ -77,14 +85,6 @@ public class Examination implements Serializable {
         this.knowId = knowId;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question == null ? null : question.trim();
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -98,13 +98,13 @@ public class Examination implements Serializable {
         }
         Examination other = (Examination) that;
         return (this.getEid() == null ? other.getEid() == null : this.getEid().equals(other.getEid()))
-            && (this.getOption() == null ? other.getOption() == null : this.getOption().equals(other.getOption()))
+            && (this.getQuestion() == null ? other.getQuestion() == null : this.getQuestion().equals(other.getQuestion()))
+            && (this.getOptionJson() == null ? other.getOptionJson() == null : this.getOptionJson().equals(other.getOptionJson()))
             && (this.getAnswer() == null ? other.getAnswer() == null : this.getAnswer().equals(other.getAnswer()))
             && (this.getImgUrl() == null ? other.getImgUrl() == null : this.getImgUrl().equals(other.getImgUrl()))
             && (this.getDegree() == null ? other.getDegree() == null : this.getDegree().equals(other.getDegree()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getKnowId() == null ? other.getKnowId() == null : this.getKnowId().equals(other.getKnowId()))
-            && (this.getQuestion() == null ? other.getQuestion() == null : this.getQuestion().equals(other.getQuestion()));
+            && (this.getKnowId() == null ? other.getKnowId() == null : this.getKnowId().equals(other.getKnowId()));
     }
 
     @Override
@@ -112,13 +112,13 @@ public class Examination implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getEid() == null) ? 0 : getEid().hashCode());
-        result = prime * result + ((getOption() == null) ? 0 : getOption().hashCode());
+        result = prime * result + ((getQuestion() == null) ? 0 : getQuestion().hashCode());
+        result = prime * result + ((getOptionJson() == null) ? 0 : getOptionJson().hashCode());
         result = prime * result + ((getAnswer() == null) ? 0 : getAnswer().hashCode());
         result = prime * result + ((getImgUrl() == null) ? 0 : getImgUrl().hashCode());
         result = prime * result + ((getDegree() == null) ? 0 : getDegree().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getKnowId() == null) ? 0 : getKnowId().hashCode());
-        result = prime * result + ((getQuestion() == null) ? 0 : getQuestion().hashCode());
         return result;
     }
 
@@ -129,13 +129,13 @@ public class Examination implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", eid=").append(eid);
-        sb.append(", option=").append(option);
+        sb.append(", question=").append(question);
+        sb.append(", optionJson=").append(optionJson);
         sb.append(", answer=").append(answer);
         sb.append(", imgUrl=").append(imgUrl);
         sb.append(", degree=").append(degree);
         sb.append(", type=").append(type);
         sb.append(", knowId=").append(knowId);
-        sb.append(", question=").append(question);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

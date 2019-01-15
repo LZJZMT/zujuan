@@ -26,35 +26,35 @@
     <div class="layui-form-item">
         <label class="layui-form-label">问题</label>
         <div class="layui-input-block">
-            <textarea name="content" lay-verify="required" autocomplete="off" class="layui-textarea"
+            <textarea name="question" lay-verify="required" autocomplete="off" class="layui-textarea"
                       placeholder="请输入问题"></textarea>
         </div>
     </div>
     <div class="layui-form-item option">
         <label class="layui-form-label">A选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionA" lay-verify="required" placeholder="请输入A选项" autocomplete="off"
+            <input type="text" name="optionA" placeholder="请输入A选项" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item option">
         <label class="layui-form-label">B选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionB" lay-verify="required" placeholder="请输入B选项" autocomplete="off"
+            <input type="text" name="optionB" placeholder="请输入B选项" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item option">
         <label class="layui-form-label">C选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionC" lay-verify="required" placeholder="请输入C选项" autocomplete="off"
+            <input type="text" name="optionC" placeholder="请输入C选项" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item option">
         <label class="layui-form-label">D选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionD" lay-verify="required" placeholder="请输入D选项" autocomplete="off"
+            <input type="text" name="optionD" placeholder="请输入D选项" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -84,33 +84,39 @@
 
         </div>
     </div>
-
-
-</div>
-<!--<div class=" layui-form-item">-->
-<!--<label class="layui-form-label">置顶</label>-->
-<!--<div class="layui-input-block">-->
-<!--<input type="checkbox" lay-filter="switch" lay-verify="required" name="switch" lay-skin="switch" lay-text="ON|OFF">-->
-<!--</div>-->
-<!--</div>-->
-<div class="layui-form-item">
-    <label class="layui-form-label">题目所需图片</label>
-    <div class="layui-input-inline layui-hide">
-        <input type="text" id="imgInput" name="fileName" placeholder="请上传图片" autocomplete="off" class="layui-input">
+    <div class="layui-form-item">
+        <div class="layui-row">
+            <label class="layui-form-label">难度</label>
+            <div class="layui-col-xs3">
+                <select name="degree" id="examdegree" lay-verify="required">
+                    <option value="1">简单</option>
+                    <option value="2">一般</option>
+                    <option value="3">较难</option>
+                    <option value="4">困难</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-list">上传图片
-    </button>
-    <div class="layui-upload-list" >
-        <img class="layui-upload-img" id="test-upload-normal-img" width="130px" height="90px" style="margin-left: 40px">
-        <p id="test-upload-demoText"></p>
+    <div class="layui-form-item">
+        <label class="layui-form-label">题目所需图片</label>
+        <div class="layui-input-inline layui-hide">
+            <input type="text" id="imgInput" name="fileName" placeholder="请上传图片" autocomplete="off" class="layui-input">
+        </div>
+        <button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-list">上传图片
+        </button>
+        <input class="layui-hide layui-input" name="imgUrl" value="" id="imgUrlInput">
+        <div class="layui-upload-list">
+            <img class="layui-upload-img" id="test-upload-normal-img" width="130px" height="90px"
+                 style="margin-left: 40px">
+            <p id="test-upload-demoText"></p>
+        </div>
     </div>
-</div>
-<div class="layui-form-item ">
-    <input type="button" lay-submit lay-filter="LAY-app-forum-submit" id="LAY-app-forum-submit"
-           class="layui-btn" value="确认" style="margin-left: 110px">
-    <input type="button" lay-filter="LAY-app-forum-close" id="LAY-app-forum-close"
-           class="layui-btn" value="关闭" style="margin-left: 20px">
-</div>
+    <div class="layui-form-item ">
+        <input type="button" lay-submit lay-filter="LAY-app-forum-submit" id="LAY-app-forum-submit"
+               class="layui-btn" value="确认" style="margin-left: 110px">
+        <input type="button" lay-filter="LAY-app-forum-close" id="LAY-app-forum-close"
+               class="layui-btn" value="关闭" style="margin-left: 20px">
+    </div>
 </div>
 
 <script src="../layuiadmin/layui/layui.js"></script>
@@ -121,50 +127,65 @@
         index: 'lib/index' //主入口模块
     }).use(['index', 'form', 'upload'], function () {
         var $ = layui.$
-            , form = layui.form
+            , form = layui.form, admin = layui.admin
             , upload = layui.upload;
 
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#layuiadmin-upload-list'
             , url: '/upload/file'
-            /*,before: function(obj){
-                //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#test-upload-normal-img').attr('src', result); //图片链接（base64）
-                });
-            }*/
-            ,done: function(res){
+            , done: function (res) {
                 //如果上传失败
-                if(res.code > 0){
+                if (res.code > 0) {
                     return layer.msg('上传失败');
-                }else{
+                } else {
                     layer.msg("文件上传成功");
                     $('#test-upload-normal-img').attr('src', res.src);
+                    $('#imgUrlInput').attr('value', res.src);
+
                 }
                 //上传成功
             }
-            ,error: function(){
+            , error: function () {
                 //演示失败状态，并实现重传
                 var demoText = $('#test-upload-demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function(){
+                demoText.html('<span style="color: #ff4b1a;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
                     uploadInst.upload();
                 });
             }
         });
 
-       /* upload.render({
-            elem: '#layuiadmin-upload-list'
-            , url: '/upload/file'
-            // , accept: 'images'
-            // , method: 'get'
-            // , acceptMime: 'image/!*'
-            , done: function(res){
-                console.log('上传完毕');
-                $("#imgInput").val(res.src)
-            }
-        });*/
+        //提交
+        form.on('submit(LAY-app-forum-submit)', function (obj) {
+            console.log(obj)
+            //请求登入接口
+            admin.req({
+                url: "/exam/add" //实际使用请改成服务端真实接口
+                , data: obj.field
+                , method: 'post'
+                , done: function (res) {
+                    //登入成功的提示与跳转
+                    if (res.code == 0) {
+                        layer.msg('新增成功', {
+                            offset: '15px'
+                            , icon: 1
+                            , time: 500
+                        }, function () {
+                            window.location.reload()
+                        });
+                    } else {
+                        layer.msg('新增失败', {
+                            offset: '15px',
+                            animate: 6
+                        })
+                    }
+
+
+                }
+            });
+
+        });
 
 
         /*填充题型Select*/
@@ -193,13 +214,12 @@
         })
 
         form.on('select(selectExamType)', function (data) {
-            if (data.elem[data.elem.selectedIndex].text != '选择题'){
+            if (data.elem[data.elem.selectedIndex].text != '选择题') {
                 $(".option").addClass("layui-hide");
-            }else{
+            } else {
                 $(".option").removeClass("layui-hide");
             }
         })
-
 
 
     })
