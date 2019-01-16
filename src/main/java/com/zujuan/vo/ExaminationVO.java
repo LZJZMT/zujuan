@@ -12,5 +12,7 @@ import lombok.Data;
 @Data
 public class ExaminationVO extends Examination {
     private String zsdname;
+    private String typeString;
+    private String degreeString;
 
 }

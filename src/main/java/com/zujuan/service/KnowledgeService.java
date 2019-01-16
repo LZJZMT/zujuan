@@ -24,4 +24,6 @@ public interface KnowledgeService {
     List selectByExample(KnowledgeExample example);
 
     long countByExample(KnowledgeExample example);
+
+    Knowledge selectByPrimary(Long id);
 }

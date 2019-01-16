@@ -9,7 +9,11 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+    <style>
+        body{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
+    </style>
 </head>
+
 <body>
 
 <div class="layui-fluid">
@@ -25,8 +29,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">类型</label>
                     <div class="layui-input-inline">
-                        <select name="type" id="typeId" lay-verify="required">
-                            <option >全部</option>
+                        <select name="type" id="typeId">
+                            <option value="">全部</option>
                             <option value="1">选择题</option>
                             <option value="2">填空题</option>
                             <option value="3">判断题</option>
@@ -37,8 +41,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">难度</label>
                     <div class="layui-input-inline">
-                        <select name="degree" id="examdegree" lay-verify="required">
-                            <option >全部</option>
+                        <select name="degree" id="examdegree" >
+                            <option value="">全部</option>
                             <option value="1">简单</option>
                             <option value="2">一般</option>
                             <option value="3">较难</option>
@@ -64,12 +68,12 @@
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
                 <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
-                <button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>
+                <!--<button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>-->
                 <button class="layui-btn layuiadmin-btn-comm" data-type="reload">刷新</button>
             </div>
             <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
             <script type="text/html" id="table-content-com">
-                <!--<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>-->
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>修改</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
                         class="layui-icon layui-icon-delete"></i>删除</a>
             </script>
@@ -95,12 +99,12 @@
                 , cols: [[
                     {type: 'checkbox'}
                     , {title: '序号',  type: 'numbers'}
-                    , {align: 'center', field: 'question', title: '题目内容',minWidth:200,width:'30%',sort: false, edit: 'text'}
-                    ,{field:'answer', title:'答案', edit: 'text'}
-                    ,{field:'degree', title:'难度',minWidth:50, width:'10%', edit: 'text',sort: true}
-                    ,{field:'zsdname', title:'关联知识点', width:'10%', edit: 'select'}
-                    ,{field:'type', title:'类型',minWidth:50,width:'10%', sort: false, edit: 'text'}
-                    , {title: '操作', align: 'center',maxWidth:50, fixed: 'right', toolbar: '#table-content-com'}
+                    , {align: 'center', field: 'question', title: '题目内容',sort: true}
+                    ,{field:'answer', title:'答案'}
+                    ,{field:'degreeString', title:'难度',sort: false}
+                    ,{field:'zsdname', title:'关联知识点'}
+                    ,{field:'typeString', title:'类型', sort: false}
+                    , {title: '操作', align: 'center',  toolbar: '#table-content-com'}
                 ]]
                 , page: true
                 , even: true //斑马线效果
@@ -111,8 +115,8 @@
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', function (index) {
                         $.ajax({
-                            url: '/zsd/delById',
-                            data: {id: obj.data.id},
+                            url: '/exam/delById',
+                            data: {id: obj.data.eid},
                             //'id='+obj.data.id,
                             //我想传obj.data.id 这个值是1，后台要接受id这个参数
                             type: 'post',
@@ -131,6 +135,15 @@
 
                     })
 
+                }else{
+                        var index = layer.open({
+                            title:'修改试题信息',
+                            type: 2,
+                            content: '/exam/editExam?eid='+obj.data.eid,
+                            area: ['300px', '300px'],
+                            maxmin: true
+                        });
+                        layer.full(index);
                 }
             })
 
@@ -143,29 +156,7 @@
                     where: field
                 });
             });
-            //监听单元格单击修改
-            table.on('edit(LAY-app-content-comm)', function (obj) {
-                var value = obj.value//更改后得字段
-                    , data = obj.data //更改前得键值对
-                    , newField = obj.field; //更改得字段名
-                $.ajax({
-                    url: '/zsd/updateZsd'
-                    , type: 'post'
-                    , data: JSON.parse('{"id":"'+data.id+'",'+'"'+newField+'":"'+value+'"}')
-                    , success: function (res) {
-                        if (res.code == 0) {
-                            layer.msg(res.msg);
-                        } else {
-                            layer.msg(res.msg, {
-                                anim: 6
-                            });
-                        }
-                    }
-                });
-                /*layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value, {
-                    offset: '15px'
-                })*/
-            })
+
 
             //点击事件
             var active = {
@@ -178,7 +169,7 @@
                     }
                     layer.confirm('确定删除吗？', function (index) {
                         $.ajax({
-                            url: '/zsd/batchDel',
+                            url: '/exam/batchDel',
                             data: JSON.stringify(checkData),
                             type: 'post',
                             dataType: 'json',
@@ -261,91 +252,3 @@
 </script>
 </body>
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--<meta charset="utf-8">-->
-<!--<title>开启单元格编辑 - 数据表格</title>-->
-<!--<meta name="renderer" content="webkit">-->
-<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
-<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">-->
-<!--<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">-->
-<!--<link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="layui-card layadmin-header">-->
-<!--<div class="layui-breadcrumb" lay-filter="breadcrumb">-->
-<!--<a><cite>知识点管理</cite></a>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="layui-fluid">-->
-<!--<div class="layui-row layui-col-space15">-->
-<!--<div class="layui-col-md12">-->
-<!--<div class="layui-card">-->
-<!--<div class="layui-card-header">知识点管理</div>-->
-<!--<div class="layui-card-body">-->
-<!--<table class="layui-hide" id="test-table-cellEdit" lay-filter="test-table-cellEdit"></table>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<script type="text/html" id="test-table-operate-barDemo">-->
-<!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
-<!--</script>-->
-<!--<script src="../layuiadmin/layui/layui.js"></script>-->
-<!--<script>-->
-<!--layui.config({-->
-<!--base: '../layuiadmin/' //静态资源所在路径-->
-<!--}).extend({-->
-<!--index: 'lib/index' //主入口模块-->
-<!--}).use(['index', 'table'], function(){-->
-<!--var table = layui.table;-->
-
-<!--table.render({-->
-<!--width:380,-->
-<!--elem: '#test-table-cellEdit'-->
-<!--,url: '/zsd/list'-->
-<!--,method:'post'-->
-<!--,cols: [[-->
-<!--{type:'checkbox'}-->
-<!--//,{field:'id', title:'ID', width:80, sort: true}-->
-<!--,{align:'center' ,field:'zsdName', title:'知识点名称', width:250, sort: false, edit: 'text'}-->
-<!--// ,{field:'email', title:'邮箱', edit: 'text', minWidth: 150}-->
-<!--//,{field:'sex', title:'性别', width:80, edit: 'text'}-->
-<!--//,{field:'city', title:'城市', edit: 'text', minWidth: 100}-->
-<!--//,{field:'experience', title:'积分', sort: true, edit: 'text'}-->
-<!--,{ align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}-->
-<!--]]-->
-<!--,page: true-->
-<!--})-->
-<!--//监听工具条-->
-<!--table.on('tool(test-table-cellEdit)', function(obj){-->
-<!--layer.confirm('真的删除行么');-->
-<!--// var data = obj.data;-->
-<!--// if(obj.event === 'detail'){-->
-<!--//   layer.msg('ID：'+ data.id + ' 的查看操作');-->
-<!--// } else-->
-<!--if(obj.event === 'del'){-->
-<!--layer.confirm('真的删除行么', function(index){-->
-<!--obj.del();-->
-<!--layer.close(index);-->
-<!--});-->
-<!--}-->
-<!--});-->
-<!--//监听单元格编辑-->
-<!--table.on('edit(test-table-cellEdit)', function(obj){-->
-<!--var value = obj.value //得到修改后的值-->
-<!--,data = obj.data //得到所在行所有键值-->
-<!--,field = obj.field; //得到字段-->
-<!--layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value, {-->
-<!--offset: '15px'-->
-<!--});-->
-<!--});-->
-
-<!--});-->
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->

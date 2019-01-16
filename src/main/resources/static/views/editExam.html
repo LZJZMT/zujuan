@@ -17,7 +17,8 @@
         <div class="layui-row">
             <label class="layui-form-label">题目类型</label>
             <div class="layui-col-xs3">
-                <select name="type" id="examType" lay-filter="selectExamType" lay-verify="required" lay-search="">
+                <select name="type"  id="examType" lay-filter="selectExamType" lay-verify="required" lay-search="">
+                    <option th:each="examType:${examTypes}" th:selected="${exVo.type} == ${examType.tid}" th:value="${examType.tid}" th:text="${examType.name}"></option>
 
                 </select>
             </div>
@@ -26,36 +27,37 @@
     <div class="layui-form-item">
         <label class="layui-form-label">问题</label>
         <div class="layui-input-block">
+            <input type="hidden" th:value="${exVo.eid}" name="eid">
             <textarea name="question" lay-verify="required" autocomplete="off" class="layui-textarea"
-                      placeholder="请输入问题"></textarea>
+                      placeholder="请输入问题" th:text="${exVo.question}"></textarea>
         </div>
     </div>
-    <div class="layui-form-item option">
+    <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':' layui-form-item option'">
         <label class="layui-form-label">A选项</label>
         <div class="layui-input-block">
             <input type="text" name="optionA" placeholder="请输入A选项" autocomplete="off"
-                   class="layui-input">
+                   class="layui-input" th:value="${option==null?'':option.A}">
         </div>
     </div>
-    <div class="layui-form-item option">
+    <div class="" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':'layui-form-item option'">
         <label class="layui-form-label">B选项</label>
         <div class="layui-input-block">
             <input type="text" name="optionB" placeholder="请输入B选项" autocomplete="off"
-                   class="layui-input">
+                   class="layui-input" th:value="${option==null?'':option.B}">
         </div>
     </div>
-    <div class="layui-form-item option">
+    <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':'layui-form-item option'">
         <label class="layui-form-label">C选项</label>
         <div class="layui-input-block">
             <input type="text" name="optionC" placeholder="请输入C选项" autocomplete="off"
-                   class="layui-input">
+                   class="layui-input" th:value="${option==null?'':option.C}">
         </div>
     </div>
-    <div class="layui-form-item option">
+    <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':'layui-form-item option'">
         <label class="layui-form-label">D选项</label>
         <div class="layui-input-block">
             <input type="text" name="optionD" placeholder="请输入D选项" autocomplete="off"
-                   class="layui-input">
+                   class="layui-input" th:value="${option==null?'':option.D}">
         </div>
     </div>
 
@@ -66,13 +68,16 @@
             <div class="layui-col-xs3">
                 <select name="knowId" id="knowSelectId"
                         lay-filter="selectFatherZsd" lay-verify="required" lay-search="">
-                    <option value="1000000">-&#45;&#45;请选择-&#45;&#45;</option>
+                    <option th:each="zsd:${father}" th:selected="${fatherId} == ${zsd.id}" th:value="${zsd.id}" th:text="${zsd.zsdname}"></option>
+
                 </select>
             </div>
 
             <div class="layui-col-xs3">
                 <select name="knowIdChild" id="knowSelectIdChild"
                         lay-filter="selectChildZsd" lay-verify="" lay-search="">
+                    <option th:each="zsd:${child}" th:selected="${exVo.knowId} == ${zsd.id}" th:value="${zsd.id}" th:text="${zsd.zsdname}"></option>
+
                 </select>
             </div>
 
@@ -80,7 +85,7 @@
                 <label class="layui-form-label">正确答案</label>
                 <div class="layui-input-block">
                     <input type="text" name="answer" lay-verify="required" placeholder="请输入正确答案" autocomplete="off"
-                           class="layui-input">
+                           class="layui-input" th:value="${exVo.answer}">
                 </div>
             </div>
 
@@ -91,10 +96,10 @@
             <label class="layui-form-label">难度</label>
             <div class="layui-col-xs3">
                 <select name="degree" id="examdegree" lay-verify="required">
-                    <option value="1">简单</option>
-                    <option value="2">一般</option>
-                    <option value="3">较难</option>
-                    <option value="4">困难</option>
+                    <option value="1" th:selected="${exVo.degree}==1.0">简单</option>
+                    <option value="2" th:selected="${exVo.degree}==2.0">一般</option>
+                    <option value="3" th:selected="${exVo.degree}==3.0">较难</option>
+                    <option value="4" th:selected="${exVo.degree}==4.0">困难</option>
                 </select>
             </div>
         </div>
@@ -109,7 +114,7 @@
         <input class="layui-hide layui-input" name="imgUrl" value="" id="imgUrlInput">
         <div class="layui-upload-list">
             <img class="layui-upload-img" id="test-upload-normal-img" width="130px" height="90px"
-                 style="margin-left: 40px">
+                 style="margin-left: 40px" th:src="${exVo.imgUrl}">
             <p id="test-upload-demoText"></p>
         </div>
     </div>
@@ -131,6 +136,16 @@
         var $ = layui.$
             , form = layui.form, admin = layui.admin
             , upload = layui.upload;
+        /*var eid;
+        var reg = new RegExp("(^|&)" + "eid" + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)  eid = unescape(r[2]);
+        admin.req({
+            url:'/exam/getById?eid='+eid,
+            success:function (res) {
+                console.log(res)
+            }
+        })*/
 
         //普通图片上传
         var uploadInst = upload.render({
@@ -160,7 +175,6 @@
 
         //提交
         form.on('submit(LAY-app-forum-submit)', function (obj) {
-            console.log(obj)
             //请求登入接口
             admin.req({
                 url: "/exam/add" //实际使用请改成服务端真实接口
@@ -174,7 +188,11 @@
                             , icon: 1
                             , time: 500
                         }, function () {
-                            window.location.reload()
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);//关闭当前页
+
+                            //刷新父
+                            window.parent.location.reload();
                         });
                     } else {
                         layer.msg('新增失败', {
@@ -191,12 +209,12 @@
 
 
         /*填充题型Select*/
-        $.ajax({
+        /*$.ajax({
             url: "/examType/listAll",
             type: "GET",
             success: function (list) {
                 var role = document.getElementById("examType");        //add_role_name给select定义的id
-                $("#examType").empty();
+                // $("#examType").empty();
                 for (var i = 0; i < list.length; i++) {
                     var option = document.createElement("option");    // 创建添加option属性
                     option.setAttribute("value", list[i].tid);                  // 给option的value添加值
@@ -205,9 +223,9 @@
                     form.render("select");                                // 刷性select，显示出数据
                 }
             }
-        });
+        });*/
 
-        selectRoleName(layui.$, form, "/zsd/getAllParentZsd", "knowSelectId");
+        //selectRoleName(layui.$, form, "/zsd/getAllParentZsd", "knowSelectId");
 
         /*知识点select二级联动*/
         form.on('select(selectFatherZsd)', function (data) {

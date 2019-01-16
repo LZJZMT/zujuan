@@ -1,16 +1,22 @@
 package com.zujuan.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.zujuan.pojo.Examination;
-import com.zujuan.pojo.ExaminationExample;
-import com.zujuan.pojo.PageBean;
+import com.alibaba.fastjson.JSONArray;
+import com.zujuan.pojo.*;
 import com.zujuan.service.ExamService;
+import com.zujuan.service.ExamTypeService;
+import com.zujuan.service.KnowledgeService;
+import com.zujuan.utils.BeanUtil;
 import com.zujuan.utils.GetResultBean;
+import com.zujuan.utils.ResultViewMap;
+import com.zujuan.vo.ExaminationVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,16 +30,22 @@ import java.util.Map;
  */
 
 @RequestMapping("/exam")
-@RestController
+@Controller
 public class ExamController {
 
     @Autowired
     private ExamService es;
 
+    @Autowired
+    private ExamTypeService ets;
+    @Autowired
+    private KnowledgeService ks;
+
+    @ResponseBody
     @RequestMapping("/add")
     public Map addExam(Examination examination, String optionA, String optionB,
                        String optionC, String optionD, Long knowIdChild) {
-        System.out.println(examination);
+
         Map resultMap = GetResultBean.getResultMap();
         /*如果是选择题 添加到Map中 转JSON串加入到数据库*/
         try {
@@ -58,8 +70,14 @@ public class ExamController {
             if (knowIdChild != null) {
                 examination.setKnowId(knowIdChild);
             }
+            if(examination.getEid() != null){
+                ExaminationExample example = new ExaminationExample();
+                example.createCriteria().andEidEqualTo(examination.getEid());
+                es.updateByExample(examination, example);
+            }else {
+                es.add(examination);
+            }
 
-            es.add(examination);
         } catch (Exception e) {
             resultMap = GetResultBean.getFailResultMap();
             e.printStackTrace();
@@ -70,41 +88,46 @@ public class ExamController {
     }
 
     //搜索和获取所有知识点
+    @ResponseBody
     @RequestMapping("/list")
     public PageBean list(Examination examination, Integer page, Integer limit) {
-        System.out.println(examination);
-        if (examination == null || StringUtils.isEmpty(examination.getQuestion())
-                || StringUtils.isEmpty(examination.getDegree())
-                || StringUtils.isEmpty(examination.getType())) {
+
+        if (StringUtils.isEmpty(examination.getQuestion())
+                && StringUtils.isEmpty(examination.getDegree())
+                && StringUtils.isEmpty(examination.getType())) {
             return es.list(null, page, limit);
         } else {
             ExaminationExample example = new ExaminationExample();
-            example.createCriteria().andQuestionEqualTo("%" + examination.getQuestion() + "%")
-            .andDegreeEqualTo(examination.getDegree()).andTypeEqualTo(examination.getType());
-            List list = es.selectByExample(example);
+            ExaminationExample.Criteria criteria = example.createCriteria();
+            if (!StringUtils.isEmpty(examination.getQuestion())){
+                criteria.andQuestionLike("%" + examination.getQuestion() + "%");
+               }
+            if (!StringUtils.isEmpty(examination.getDegree())){
+                criteria.andDegreeEqualTo(examination.getDegree());
+            }
+            if (!StringUtils.isEmpty(examination.getType())){
+                criteria.andTypeEqualTo(examination.getType());
+            }
+            List list2 = es.selectByExample(example);
+            List<ExaminationVO> list = BeanUtil.copyList(list2, ExaminationVO.class);
+            Map typeViewMap = ResultViewMap.getTypeViewMap();
+            Map degreeViewMap = ResultViewMap.getDegreeViewMap();
+            for (ExaminationVO examVO : list){
+                examVO.setZsdname(ks.selectByPrimary(examVO.getKnowId()).getZsdname());
+                examVO.setTypeString((String)typeViewMap.get(examVO.getType()));
+                examVO.setDegreeString((String)degreeViewMap.get(examVO.getDegree()));
+            }
+
             long count = es.countByExample(example);
             return new PageBean(String.valueOf(count), list);
+
+
         }
 
     }
 
 
-    //更新知识点
-    @RequestMapping("/updateZsd")
-    public Map updateZsd(Examination examination) {
-        Map resultMap = GetResultBean.getResultMap();
-        try {
-            ExaminationExample example = new ExaminationExample();
-            //example.createCriteria().andId(examination.getId());
-            es.updateByExample(examination, example);
-            resultMap.put("msg", "更新成功");
-        } catch (Exception e) {
-            resultMap = GetResultBean.getFailResultMap();
-            resultMap.put("msg", e.getMessage());
-        }
-        return resultMap;
-    }
-
+    @ResponseBody
     //批量删除知识点
     @RequestMapping("/batchDel")
     public Map batchDel(@RequestBody Examination[] examinations) {
@@ -122,18 +145,74 @@ public class ExamController {
         return resultMap;
     }
 
+    @ResponseBody
     //根据ID删除知识点
     @RequestMapping("/delById")
     public Map delById(Long id) {
         Map resultMap = GetResultBean.getResultMap();
         try {
             es.del(id);
-            System.out.println(id+"已删除");
+            System.out.println(id + "已删除");
         } catch (Exception e) {
             resultMap = GetResultBean.getFailResultMap();
             resultMap.put("msg", "删除失败");
         }
         return resultMap;
+    }
+
+    //根据ID获得考试试题
+    @ResponseBody
+    @RequestMapping("/getById")
+    public Map getById(Long eid) {
+        Map resultMap = GetResultBean.getResultMap();
+        try {
+            Examination e = es.getById(eid);
+            resultMap.put("data", e);
+        } catch (Exception e) {
+            resultMap = GetResultBean.getFailResultMap();
+            resultMap.put("msg", "删除失败");
+        }
+        return resultMap;
+    }
+
+    @RequestMapping("/editExam")
+    public String editExam(Long eid, ModelMap modelMap) {
+        System.out.println(eid);
+        ExaminationVO exVo = BeanUtil.copy(es.getById(eid), ExaminationVO.class);
+        exVo.setTypeString((String) ResultViewMap.getTypeViewMap().get(exVo.getType()));
+        exVo.setDegreeString((String) ResultViewMap.getDegreeViewMap().get(exVo.getDegree()));
+        modelMap.addAttribute("exVo", exVo);
+
+        List<ExamType> examTypes = ets.listAll();
+        String optionJson = exVo.getOptionJson();
+        Map map = (Map) JSONArray.parse(optionJson);
+        modelMap.addAttribute("option", map);
+        modelMap.addAttribute("examTypes", examTypes);
+
+        List<Knowledge> fatherSelect = ks.listParent();
+        modelMap.addAttribute("father",fatherSelect);
+        boolean flag = false;
+        for (Knowledge knowledge : fatherSelect) {
+            if (knowledge.getId().equals(exVo.getKnowId())){
+                modelMap.addAttribute("fatherId",knowledge.getId());
+                 flag = true;
+                break;
+            }
+        }
+        if (!flag){
+            KnowledgeExample knowledgeExample = new KnowledgeExample();
+            KnowledgeExample knowledgeExample2 = new KnowledgeExample();
+            knowledgeExample2.createCriteria().andIdEqualTo(exVo.getKnowId());
+            Knowledge knowledge = (Knowledge) ks.selectByExample(knowledgeExample2).get(0);
+            modelMap.addAttribute("fatherId",knowledge.getParentid());
+
+            knowledgeExample.createCriteria().andParentidEqualTo(knowledge.getParentid());
+            List childSelect = ks.selectByExample(knowledgeExample);
+            modelMap.addAttribute("child",childSelect);
+        }
+
+
+        return "editExam";
     }
 
 

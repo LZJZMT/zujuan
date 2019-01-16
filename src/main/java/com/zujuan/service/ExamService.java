@@ -19,4 +19,6 @@ public interface ExamService {
     List selectByExample(ExaminationExample example);
 
     long countByExample(ExaminationExample example);
+
+    Examination getById(Long id);
 }

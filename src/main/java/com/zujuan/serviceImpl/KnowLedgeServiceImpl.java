@@ -73,4 +73,9 @@ public class KnowLedgeServiceImpl implements KnowledgeService {
     public long countByExample(KnowledgeExample example) {
         return km.countByExample(example);
     }
+
+    @Override
+    public Knowledge selectByPrimary(Long id) {
+        return km.selectByPrimaryKey(id);
+    }
 }

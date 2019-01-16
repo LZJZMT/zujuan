@@ -37,7 +37,6 @@ public class BeanUtil {
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-            System.out.println(voObj);
         }
         return voList;
     }

@@ -7,11 +7,13 @@ import com.zujuan.pojo.ExaminationExample;
 import com.zujuan.pojo.PageBean;
 import com.zujuan.service.ExamService;
 import com.zujuan.utils.BeanUtil;
+import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExaminationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -32,9 +34,12 @@ public class ExamServiceImpl implements ExamService {
         if (examination == null) {
             List<Examination> list = em.list((page - 1) * limit, limit);
             List<ExaminationVO> examinationVOS = BeanUtil.copyList(list, ExaminationVO.class);
-
+            Map typeViewMap = ResultViewMap.getTypeViewMap();
+            Map degreeViewMap = ResultViewMap.getDegreeViewMap();
             for (ExaminationVO examVO : examinationVOS){
                 examVO.setZsdname(km.selectByPrimaryKey(examVO.getKnowId()).getZsdname());
+                examVO.setTypeString((String)typeViewMap.get(examVO.getType()));
+                examVO.setDegreeString((String)degreeViewMap.get(examVO.getDegree()));
             }
             pageBean.setData(examinationVOS);
             long l = em.countByExample(new ExaminationExample());
@@ -66,5 +71,10 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public long countByExample(ExaminationExample example) {
         return em.countByExample(example);
+    }
+
+    @Override
+    public Examination getById(Long id) {
+        return em.selectByPrimaryKey(id);
     }
 }
