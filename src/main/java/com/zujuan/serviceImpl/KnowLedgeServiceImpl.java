@@ -5,9 +5,11 @@ import com.zujuan.pojo.Knowledge;
 import com.zujuan.pojo.KnowledgeExample;
 import com.zujuan.pojo.PageBean;
 import com.zujuan.service.KnowledgeService;
+import com.zujuan.vo.KnowledgeTreeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -77,5 +79,27 @@ public class KnowLedgeServiceImpl implements KnowledgeService {
     @Override
     public Knowledge selectByPrimary(Long id) {
         return km.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List getZsdTree() {
+        //获取所有父知识点
+        List<Knowledge> parentZsd = km.getParentIdisNull();
+
+        LinkedList<KnowledgeTreeVO> data = new LinkedList<>();
+        for (Knowledge knowledge : parentZsd) {
+            KnowledgeExample knowledgeExample = new KnowledgeExample();
+            knowledgeExample.createCriteria().andParentidEqualTo(knowledge.getId());
+
+            List<KnowledgeTreeVO> childVO = new LinkedList();
+            for (Knowledge k : km.selectByExample(knowledgeExample)) {
+                childVO.add(new KnowledgeTreeVO(k.getId(), k.getZsdname(),null));
+            }
+            data.add(new KnowledgeTreeVO(knowledge.getId(),
+                    knowledge.getZsdname(),childVO));
+
+        }
+
+        return data;
     }
 }

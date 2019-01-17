@@ -115,4 +115,9 @@ public class ZsdController {
         knowledgeExample.createCriteria().andParentidEqualTo(parentId);
         return ks.selectByExample(knowledgeExample);
     }
+
+    @RequestMapping("zsdTree")
+    public List getZsdTree() {
+        return ks.getZsdTree();
+    }
 }

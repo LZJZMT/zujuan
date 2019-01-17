@@ -177,7 +177,6 @@ public class ExamController {
 
     @RequestMapping("/editExam")
     public String editExam(Long eid, ModelMap modelMap) {
-        System.out.println(eid);
         ExaminationVO exVo = BeanUtil.copy(es.getById(eid), ExaminationVO.class);
         exVo.setTypeString((String) ResultViewMap.getTypeViewMap().get(exVo.getType()));
         exVo.setDegreeString((String) ResultViewMap.getDegreeViewMap().get(exVo.getDegree()));
@@ -213,6 +212,32 @@ public class ExamController {
 
 
         return "editExam";
+    }
+
+    @RequestMapping("seeExam")
+    public String seeExam(Long eid, ModelMap modelMap){
+        ExaminationVO vo = BeanUtil.copy(es.getById(eid), ExaminationVO.class);
+        //解析JSONString为Map
+        String optionJson = vo.getOptionJson();
+        Map map = (Map) JSONArray.parse(optionJson);
+        modelMap.addAttribute("option", map);
+
+        //转成VO类
+        vo.setTypeString((String) ResultViewMap.getTypeViewMap().get(vo.getType()));
+        vo.setDegreeString((String) ResultViewMap.getDegreeViewMap().get(vo.getDegree()));
+        vo.setZsdname(ks.selectByPrimary(vo.getKnowId()).getZsdname());
+
+        modelMap.addAttribute("vo", vo);
+
+        return "seeExam";
+    }
+
+
+    //根据多个ID，试题条件获得试题
+    @RequestMapping("/getExamForZuJuan")
+    @ResponseBody
+    public PageBean getExamForZuJuan(Long[] ids,Examination exam,Integer curPage,Integer limit){
+        return es.selectByConditionPage(ids,exam,curPage,limit);
     }
 
 

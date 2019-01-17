@@ -73,6 +73,7 @@
             </div>
             <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
             <script type="text/html" id="table-content-com">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="see"><i class="layui-icon layui-icon-edit"></i>预览</a>
                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>修改</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
                         class="layui-icon layui-icon-delete"></i>删除</a>
@@ -100,10 +101,10 @@
                     {type: 'checkbox'}
                     , {title: '序号',  type: 'numbers'}
                     , {align: 'center', field: 'question', title: '题目内容',sort: true}
-                    ,{field:'answer', title:'答案'}
-                    ,{field:'degreeString', title:'难度',sort: false}
+                    ,{field:'answer', width:120,title:'答案'}
+                    ,{field:'degreeString', width:80,title:'难度',sort: false}
                     ,{field:'zsdname', title:'关联知识点'}
-                    ,{field:'typeString', title:'类型', sort: false}
+                    ,{field:'typeString', width:100,title:'类型', sort: false}
                     , {title: '操作', align: 'center',  toolbar: '#table-content-com'}
                 ]]
                 , page: true
@@ -135,7 +136,7 @@
 
                     })
 
-                }else{
+                }else if(obj.event === 'edit'){
                         var index = layer.open({
                             title:'修改试题信息',
                             type: 2,
@@ -144,6 +145,15 @@
                             maxmin: true
                         });
                         layer.full(index);
+                }else{
+                    var index = layer.open({
+                        title:'修改试题信息',
+                        type: 2,
+                        content: '/exam/seeExam?eid='+obj.data.eid,
+                        area: ['700px', '300px'],
+                        maxmin: true
+                    });
+
                 }
             })
 

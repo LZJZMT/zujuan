@@ -13,7 +13,7 @@
 <body>
 
 <div class="layui-fluid">
-    <div class="layui-card" >
+    <div class="layui-card layui-fluid" style="float: right">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <!--<div class="layui-inline">-->
@@ -57,9 +57,13 @@
             </script>
         </div>
     </div>
+    <form class="layui-form " style="float: left">
+        <div id="xtree1" style="width:300px;padding: 10px 0 25px 5px;"></div>
+    </form>
 </div>
 
 <script src="../layuiadmin/layui/layui.js"></script>
+<script src="../layuiadmin/layui/layui-xtree.js"></script>
 <script>
     layui.config({
         base: '../layuiadmin/' //静态资源所在路径
@@ -69,20 +73,20 @@
             var $ = layui.$
                 , form = layui.form
                 , table = layui.table;
+        var xtree1 = new layuiXtree({
+            elem: 'xtree1'   //(必填) 放置xtree的容器id，不要带#号
+            , form: form     //(必填) layui 的 from
+            , data: '/zsd/zsdTree'
+        });
             table.render({
-                //width: 430,
+                width: 750,
                 elem: '#LAY-app-content-comm'
                 , url: '/zsd/list'
                 , method: 'post'
                 , cols: [[
-                    {type: 'checkbox', width: 100}
-                    , {title: '序号', width: 100, type: 'numbers'}
-                    //,{field:'id', title:'ID', width:80, sort: true}-->
-                    , {align: 'center', field: 'zsdname', title: '知识点名称', width: 550, sort: false, edit: 'text'}
-                    // ,{field:'email', title:'邮箱', edit: 'text', minWidth: 150}-->
-                    //,{field:'sex', title:'性别', width:80, edit: 'text'}-->
-                    //,{field:'city', title:'城市', edit: 'text', minWidth: 100}-->
-                    //,{field:'experience', title:'积分', sort: true, edit: 'text'}-->
+                    {type: 'checkbox', width: 80}
+                    , {title: '序号', width: 80, type: 'numbers'}
+                    , {align: 'center', field: 'zsdname', title: '知识点名称', width: 400, sort: false, edit: 'text'}
                     , {title: '操作', align: 'center', fixed: 'right', toolbar: '#table-content-com'}
                 ]]
                 , page: true
@@ -101,6 +105,7 @@
                             type: 'post',
                             success: function (res) {
                                 if (res.code == 0) {
+                                    xtree1.render();
                                     layer.msg('删除成功');
                                     obj.del();
                                     layer.close(index);
@@ -137,6 +142,7 @@
                     , data: JSON.parse('{"id":"'+data.id+'",'+'"'+newField+'":"'+value+'"}')
                     , success: function (res) {
                         if (res.code == 0) {
+                            xtree1.render();
                             layer.msg(res.msg);
                         } else {
                             layer.msg(res.msg, {
@@ -168,6 +174,7 @@
                             contentType: 'application/json',
                             success: function (res) {
                                 if (res.code == 0) {
+                                    xtree1.render();
                                     layer.msg('删除成功');
                                     table.reload();
                                     table.reload('LAY-app-content-comm');
@@ -206,6 +213,7 @@
                                         , type: 'post'
                                         , data: field
                                         , success: function (res) {
+                                            xtree1.render();
                                             if (res.code == 0) {
                                                 layer.msg(res.msg);
                                                 iframeWindow.location.reload()

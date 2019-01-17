@@ -12,6 +12,56 @@
     <result column="know_id" jdbcType="BIGINT" property="knowId" />
   </resultMap>
 
+<!--根据条件进行分页搜索-->
+  <select id="listByConditionPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from examination
+    <where>
+    <if test="examination.question != null">
+      question  LIKE CONCAT('%',#{examination.question},'%') and
+    </if>
+    <if test="examination.type != null">
+      type = #{examination.type} and
+    </if>
+    <if test="examination.degree != null">
+      degree = #{examination.degree} and
+    </if>
+    <if test="ids != null">
+      know_id IN
+      <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+    </if>
+    </where>
+    limit #{start},#{limit}
+  </select>
+
+  <!--根据条件进行分页搜索总条数-->
+  <select id="countByConditionPage" parameterType="java.util.HashMap" resultType="java.lang.Long">
+    select
+    COUNT(1)
+    from examination
+    <where>
+    <if test="examination.question != null">
+      question  LIKE CONCAT('%',#{examination.question},'%') and
+    </if>
+    <if test="examination.type != null">
+      type = #{examination.type} and
+    </if>
+    <if test="examination.degree != null">
+      degree = #{examination.degree} and
+    </if>
+    <if test="ids != null">
+      know_id IN
+      <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+    </if>
+    </where>
+  </select>
+
+
   <select id="list" parameterType="java.util.HashMap" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

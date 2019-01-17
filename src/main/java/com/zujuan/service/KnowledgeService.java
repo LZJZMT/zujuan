@@ -26,4 +26,6 @@ public interface KnowledgeService {
     long countByExample(KnowledgeExample example);
 
     Knowledge selectByPrimary(Long id);
+
+    List getZsdTree();
 }

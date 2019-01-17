@@ -1,5 +1,6 @@
 package com.zujuan.serviceImpl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.zujuan.mapper.ExaminationMapper;
 import com.zujuan.mapper.KnowledgeMapper;
 import com.zujuan.pojo.Examination;
@@ -76,5 +77,33 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Examination getById(Long id) {
         return em.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit) {
+
+        List examinationList = em.listByConditionPage(ids, exam, (curPage - 1) * limit, limit);
+        List<ExaminationVO> examinationVOS = BeanUtil.copyList(examinationList, ExaminationVO.class);
+        for (ExaminationVO vo : examinationVOS) {
+            //解析JSONString为Map
+            String optionJson = vo.getOptionJson();
+            Map map = (Map) JSONArray.parse(optionJson);
+            if(map != null){
+                vo.setOptionA((String)map.get("A"));
+                vo.setOptionB((String)map.get("B"));
+                vo.setOptionC((String)map.get("C"));
+                vo.setOptionD((String)map.get("D"));
+            }
+
+            //转成VO类
+            vo.setTypeString((String) ResultViewMap.getTypeViewMap().get(vo.getType()));
+            vo.setDegreeString((String) ResultViewMap.getDegreeViewMap().get(vo.getDegree()));
+            vo.setZsdname(km.selectByPrimaryKey(vo.getKnowId()).getZsdname());
+        }
+        Long countLong = em.countByConditionPage(ids, exam);
+        PageBean pageBean = new PageBean(String.valueOf(countLong),examinationVOS);
+
+
+        return pageBean;
     }
 }

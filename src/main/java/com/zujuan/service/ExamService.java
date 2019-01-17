@@ -21,4 +21,6 @@ public interface ExamService {
     long countByExample(ExaminationExample example);
 
     Examination getById(Long id);
+
+    PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit);
 }
