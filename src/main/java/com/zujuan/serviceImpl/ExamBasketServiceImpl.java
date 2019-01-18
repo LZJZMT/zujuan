@@ -50,4 +50,9 @@ public class ExamBasketServiceImpl implements ExamBasketService {
     public ExamBasket getById(Long id) {
         return ebm.selectByPrimaryKey(id);
     }
+
+    @Override
+    public void delByExample(ExamBasketExample examBasketExample) {
+        ebm.deleteByExample(examBasketExample);
+    }
 }

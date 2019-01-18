@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>预览题目</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/shijuan.css" media="all">
+</head>
+<body>
+<div style="position:fixed;right:10%;top:0;z-index: 999"><button class="layui-btn" id="exportPaper" onclick="
+        alert('导出');
+">导出试卷</button>
+</div>
+<div class="question-block" th:each="vo,userStat : ${voList}" th:attr="id=${'div'+vo.eid}" style="margin-bottom: 20px;width: 80%;margin-left: auto;margin-right: auto">
+    <div class="q-mc">
+        <div class="q-tit">
+            <span th:text="${userStat.index+1+'、'+vo.question}"></span>_____
+            <p style="margin-top: 6px" th:if="${vo.imgUrl}!=''">
+                <img th:src="${vo.imgUrl}">
+            </p>
+        </div>
+        <div class="exam-s" style="overflow: hidden" th:if="${vo.optionJson!=null}">
+            <div class="option-item">
+                <span style="float: left;margin-right: 2px">A:</span>
+                <span style="float: left;" th:text="${vo.optionA}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+            </div>
+            <div class="option-item">
+                <span style="float: left;margin-right: 2px">B:</span>
+                <span style="float: left;" th:text="${vo.optionB}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+            </div>
+            <div class="option-item">
+                <span style="float: left;margin-right: 2px">C:</span>
+                <span style="float: left;" th:text="${vo.optionC}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+            </div>
+            <div class="option-item">
+                <span style="float: left;margin-right: 2px">D:</span>
+                <span style="float: left;" th:text="${vo.optionD}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+            </div>
+        </div>
+    </div>
+    <div class="q-msg cfx">
+        <div class="q-attr fl">
+            题型: <span th:text="${vo.typeString}"></span>
+            <em>|</em>难度:
+            <span th:text="${vo.degreeString}"> </span>
+            <em>|</em>关联知识点:
+            <span th:text="${vo.zsdname}"> </span>
+            <em>|</em>正确答案:
+            <span th:text="${vo.answer}"> </span>
+        </div>
+        <div style="float: right;margin-top: 12px">
+            <button th:onclick="'removeById(\''+${vo.eid}+'\')'" class="layui-btn layui-btn-normal layui-btn-sm">
+                <i class="layui-icon">&#xe640;移除该题</i>
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../layuiadmin/layui/jquery.min.js"></script>
+<script>
+    function removeById(eid) {
+
+        $.ajax({
+            url:'/examBasket/delById',
+            data:{eid:eid},
+            success:function (res) {
+                if(res.code == '0'){
+                    $("#div"+eid).remove();
+                }
+            }
+        })
+    }
+
+</script>
+</html>

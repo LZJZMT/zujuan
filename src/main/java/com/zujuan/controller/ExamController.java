@@ -3,10 +3,12 @@ package com.zujuan.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.zujuan.pojo.*;
+import com.zujuan.service.ExamBasketService;
 import com.zujuan.service.ExamService;
 import com.zujuan.service.ExamTypeService;
 import com.zujuan.service.KnowledgeService;
 import com.zujuan.utils.BeanUtil;
+import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
 import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExaminationVO;
@@ -18,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -40,6 +39,9 @@ public class ExamController {
     private ExamTypeService ets;
     @Autowired
     private KnowledgeService ks;
+
+    @Autowired
+    private ExamBasketService ebs;
 
     @ResponseBody
     @RequestMapping("/add")
@@ -70,11 +72,11 @@ public class ExamController {
             if (knowIdChild != null) {
                 examination.setKnowId(knowIdChild);
             }
-            if(examination.getEid() != null){
+            if (examination.getEid() != null) {
                 ExaminationExample example = new ExaminationExample();
                 example.createCriteria().andEidEqualTo(examination.getEid());
                 es.updateByExample(examination, example);
-            }else {
+            } else {
                 es.add(examination);
             }
 
@@ -99,23 +101,23 @@ public class ExamController {
         } else {
             ExaminationExample example = new ExaminationExample();
             ExaminationExample.Criteria criteria = example.createCriteria();
-            if (!StringUtils.isEmpty(examination.getQuestion())){
+            if (!StringUtils.isEmpty(examination.getQuestion())) {
                 criteria.andQuestionLike("%" + examination.getQuestion() + "%");
-               }
-            if (!StringUtils.isEmpty(examination.getDegree())){
+            }
+            if (!StringUtils.isEmpty(examination.getDegree())) {
                 criteria.andDegreeEqualTo(examination.getDegree());
             }
-            if (!StringUtils.isEmpty(examination.getType())){
+            if (!StringUtils.isEmpty(examination.getType())) {
                 criteria.andTypeEqualTo(examination.getType());
             }
             List list2 = es.selectByExample(example);
             List<ExaminationVO> list = BeanUtil.copyList(list2, ExaminationVO.class);
             Map typeViewMap = ResultViewMap.getTypeViewMap();
             Map degreeViewMap = ResultViewMap.getDegreeViewMap();
-            for (ExaminationVO examVO : list){
+            for (ExaminationVO examVO : list) {
                 examVO.setZsdname(ks.selectByPrimary(examVO.getKnowId()).getZsdname());
-                examVO.setTypeString((String)typeViewMap.get(examVO.getType()));
-                examVO.setDegreeString((String)degreeViewMap.get(examVO.getDegree()));
+                examVO.setTypeString((String) typeViewMap.get(examVO.getType()));
+                examVO.setDegreeString((String) degreeViewMap.get(examVO.getDegree()));
             }
 
             long count = es.countByExample(example);
@@ -189,25 +191,25 @@ public class ExamController {
         modelMap.addAttribute("examTypes", examTypes);
 
         List<Knowledge> fatherSelect = ks.listParent();
-        modelMap.addAttribute("father",fatherSelect);
+        modelMap.addAttribute("father", fatherSelect);
         boolean flag = false;
         for (Knowledge knowledge : fatherSelect) {
-            if (knowledge.getId().equals(exVo.getKnowId())){
-                modelMap.addAttribute("fatherId",knowledge.getId());
-                 flag = true;
+            if (knowledge.getId().equals(exVo.getKnowId())) {
+                modelMap.addAttribute("fatherId", knowledge.getId());
+                flag = true;
                 break;
             }
         }
-        if (!flag){
+        if (!flag) {
             KnowledgeExample knowledgeExample = new KnowledgeExample();
             KnowledgeExample knowledgeExample2 = new KnowledgeExample();
             knowledgeExample2.createCriteria().andIdEqualTo(exVo.getKnowId());
             Knowledge knowledge = (Knowledge) ks.selectByExample(knowledgeExample2).get(0);
-            modelMap.addAttribute("fatherId",knowledge.getParentid());
+            modelMap.addAttribute("fatherId", knowledge.getParentid());
 
             knowledgeExample.createCriteria().andParentidEqualTo(knowledge.getParentid());
             List childSelect = ks.selectByExample(knowledgeExample);
-            modelMap.addAttribute("child",childSelect);
+            modelMap.addAttribute("child", childSelect);
         }
 
 
@@ -215,7 +217,7 @@ public class ExamController {
     }
 
     @RequestMapping("seeExam")
-    public String seeExam(Long eid, ModelMap modelMap){
+    public String seeExam(Long eid, ModelMap modelMap) {
         ExaminationVO vo = BeanUtil.copy(es.getById(eid), ExaminationVO.class);
         //解析JSONString为Map
         String optionJson = vo.getOptionJson();
@@ -236,15 +238,43 @@ public class ExamController {
     //根据多个ID，试题条件获得试题
     @RequestMapping("/getExamForZuJuan")
     @ResponseBody
-    public PageBean getExamForZuJuan(Long[] ids,Examination exam,Integer curPage,Integer limit){
-        if (ids.length == 0){
+    public PageBean getExamForZuJuan(Long[] ids, Examination exam, Integer curPage, Integer limit) {
+        if (ids.length == 0) {
             ids = null;
         }
-        if ("".equals(exam.getQuestion())){
+        if ("".equals(exam.getQuestion())) {
             exam.setQuestion(null);
         }
-        return es.selectByConditionPage(ids,exam,curPage,limit);
+        return es.selectByConditionPage(ids, exam, curPage, limit);
     }
 
+    @RequestMapping("/previewPaper")
+    public String previewPaper(ModelMap modelMap) {
+        ExamBasketExample examBasketExample = new ExamBasketExample();
+        examBasketExample.createCriteria().andUserIdEqualTo(GetCurrentUser.getCurrentUser().getId());
+        List<ExamBasket> ebsList = ebs.selectByExample(examBasketExample);
+        Map typeViewMap = ResultViewMap.getTypeViewMap();
+        Map degreeViewMap = ResultViewMap.getDegreeViewMap();
+        List<ExaminationVO> list = new LinkedList<ExaminationVO>();
+        for (ExamBasket eb : ebsList) {
+            Examination examination = es.getById(eb.getExamId());
+            ExaminationVO examinationVO = BeanUtil.copy(examination, ExaminationVO.class);
+            examinationVO.setTypeString((String) typeViewMap.get(examinationVO.getType()));
+            examinationVO.setDegreeString((String) degreeViewMap.get(examinationVO.getDegree()));
+            //解析JSONString为Map
+            String optionJson = examinationVO.getOptionJson();
+            Map map = (Map) JSONArray.parse(optionJson);
+            if(map != null){
+                examinationVO.setOptionC((String)map.get("C"));
+                examinationVO.setOptionD((String)map.get("D"));
+                examinationVO.setOptionA((String)map.get("A"));
+                examinationVO.setOptionB((String)map.get("B"));
+            }
+            examinationVO.setZsdname(ks.selectByPrimary(examinationVO.getKnowId()).getZsdname());
+            list.add(examinationVO);
+        }
 
+        modelMap.addAttribute("voList",list);
+        return "previewPaper";
+    }
 }

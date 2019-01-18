@@ -8,6 +8,7 @@ import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -70,4 +71,20 @@ public class ExamBasketController {
         return l;
     }
 
+    @ResponseBody
+    @RequestMapping("delById")
+    public Map delById(Long eid){
+        Map map = GetResultBean.getResultMap();
+        try {
+            User user = GetCurrentUser.getCurrentUser();
+            ExamBasketExample examBasketExample = new ExamBasketExample();
+            examBasketExample.createCriteria().andUserIdEqualTo(user.getId())
+                    .andExamIdEqualTo(eid);
+            ebs.delByExample(examBasketExample);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map = GetResultBean.getFailResultMap();
+        }
+        return  map;
+    }
 }

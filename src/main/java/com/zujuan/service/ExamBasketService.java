@@ -19,4 +19,6 @@ public interface ExamBasketService {
     long countByExample(ExamBasketExample example);
 
     ExamBasket getById(Long id);
+
+    void delByExample(ExamBasketExample examBasketExample);
 }
