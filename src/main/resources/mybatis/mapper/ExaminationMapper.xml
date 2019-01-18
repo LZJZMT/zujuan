@@ -32,6 +32,14 @@
       <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
         #{id}
       </foreach>
+      and
+    </if>
+      <if test="notInIds != null">
+      eid NOT IN
+      <foreach collection="notInIds" item="id" index="index" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+
     </if>
     </trim>
     limit #{start},#{limit}
@@ -55,6 +63,13 @@
     <if test="ids != null">
       and know_id IN
       <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+
+    </if>
+    <if test="notInIds != null">
+      and eid NOT IN
+      <foreach collection="notInIds" item="id" index="index" open="(" close=")" separator=",">
         #{id}
       </foreach>
 

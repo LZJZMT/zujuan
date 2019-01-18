@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../layuiadmin/layui/css/shijuan.css" media="all">
 </head>
 <body>
+<div style="position:fixed;right:0;top:0;z-index: 999"><button class="layui-btn" id="seePaper">预览试卷<span class="layui-badge layui-bg-gray" id="count">0</span></button>
+</div>
 <div class="layui-form">
     <div id="xtree1" style="width:300px;padding: 10px 0 25px 5px;float: left"></div>
     <div class="layui-card" style="float: left;width: 70%;margin-bottom: 10px">
@@ -75,7 +77,8 @@
         base: '../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form', 'laypage', 'upload'], function () {
+    }).use(['index', 'form', 'laypage', 'upload'],
+        function () {
         var $ = layui.$
             , form = layui.form
             , laypage = layui.laypage;
@@ -83,11 +86,19 @@
             elem: 'xtree1'   //(必填) 放置xtree的容器id，不要带#号
             , form: form     //(必填) layui 的 from
             , data: '/zsd/zsdTree'
-            , isopen: false
+            , isopen: true
         });
         var count = 500;
         var limit = 10;
         //总页数低于页码总数
+
+        $.ajax({
+            url:'/examBasket/countExamOfBasketByUserId',
+            success:function (res) {
+                $("#count").text(res);
+            }
+        })
+
         laypage.render({
             elem: 'fenye'
             , limit: limit
@@ -160,7 +171,10 @@
                                 '                <span>' + item.degreeString + ' </span>\n' +
                                 '                <em>|</em>正确答案:\n' +
                                 '                <span>' + item.answer + '</span>\n' +
-                                '            </div>\n' +
+                                '            </div>\n' +'<div style="float: right;margin-top: 12px"><button id="but'+item.eid+'" onclick="addBasket('+item.eid+')" class="layui-btn layui-btn-normal layui-btn-sm">\n' +
+                                '    <i class="layui-icon">&#xe654;加入试题篮</i>\n' +
+                                '  </button>' +
+                                '</div>'
                                 '        </div>\n' +
                                 '    </div>';
                             $("#fatherQuestion").append(
@@ -173,6 +187,8 @@
 
             // }
         });
+
+
         //监听搜索
         form.on('submit(LAY-app-contcomm-search)', function (data) {
 
@@ -242,9 +258,12 @@
                             '                <span>' + item.degreeString + ' </span>\n' +
                             '                <em>|</em>正确答案:\n' +
                             '                <span>' + item.answer + '</span>\n' +
-                            '            </div>\n' +
-                            '        </div>\n' +
-                            '    </div>';
+                            '            </div>\n' +'<div style="float: right;margin-top: 12px"><button id="but'+item.eid+'" onclick="addBasket('+item.eid+')" class="layui-btn layui-btn-normal layui-btn-sm">\n' +
+                            '    <i class="layui-icon">&#xe654;加入试题篮</i>\n' +
+                            '  </button>' +
+                            '</div>'
+                        '        </div>\n' +
+                        '    </div>';
                         $("#fatherQuestion").append(
                             result + p3
                         )
@@ -253,7 +272,32 @@
             });
 
         });
-    })
+    }
+
+    )
+</script>
+<script src="../layuiadmin/layui/jquery.min.js"></script>
+<script>
+    function addBasket(eid) {
+        console.log(this)
+        $.ajax({
+            url:'/examBasket/addExamToBasket',
+            data:{examId:eid},
+            method:'post',
+            success:function (res) {
+
+                if (res.code == '0') {
+                    // console.log($("#but"+eid));
+                    $("#but"+eid).text("加入成功！")
+                    $("#but"+eid).addClass("layui-btn-disabled");
+                    var count = parseInt($("#count").text());
+                    count++;
+                    $("#count").text(count);
+                }
+
+            }
+        })
+    }
 </script>
 
 

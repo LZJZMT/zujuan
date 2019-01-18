@@ -36,7 +36,7 @@ public interface ExaminationMapper {
     int updateByPrimaryKey(Examination record);
 
     List list(Integer start, Integer limit);
-    List listByConditionPage(Long[] ids,Examination examination,Integer start, Integer limit);
+    List listByConditionPage(Long[] ids, Long[] notInIds, Examination examination, Integer start, Integer limit);
 
-    Long countByConditionPage(Long[] ids, Examination examination);
+    Long countByConditionPage(Long[] ids, Long[] notInIds, Examination examination);
 }

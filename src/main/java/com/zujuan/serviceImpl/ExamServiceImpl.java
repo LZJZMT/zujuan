@@ -1,13 +1,13 @@
 package com.zujuan.serviceImpl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.zujuan.mapper.ExamBasketMapper;
 import com.zujuan.mapper.ExaminationMapper;
 import com.zujuan.mapper.KnowledgeMapper;
-import com.zujuan.pojo.Examination;
-import com.zujuan.pojo.ExaminationExample;
-import com.zujuan.pojo.PageBean;
+import com.zujuan.pojo.*;
 import com.zujuan.service.ExamService;
 import com.zujuan.utils.BeanUtil;
+import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExaminationVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,9 @@ public class ExamServiceImpl implements ExamService {
     private ExaminationMapper em;
     @Autowired
     private KnowledgeMapper km;
+
+    @Autowired
+    private ExamBasketMapper ebm;
 
     @Override
     public PageBean list(Examination examination, Integer page, Integer limit) {
@@ -82,9 +85,26 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit) {
 
-        List examinationList = em.listByConditionPage(ids, exam, (curPage - 1) * limit, limit);
+        //获取试题篮已经存在的试题id
+        ExamBasketExample basketExample = new ExamBasketExample();
+        basketExample.createCriteria().andUserIdEqualTo(GetCurrentUser.getCurrentUser().getId());
+        List<ExamBasket> examBaskets = ebm.selectByExample(basketExample);
+        Long [] notInIds = new Long[examBaskets.size()];
+        int index = 0;
+        for (ExamBasket examBasket : examBaskets) {
+            notInIds[index++] = examBasket.getExamId();
+        }
+        if (examBaskets.size() == 0){
+            notInIds = null;
+        }
+
+
+        List examinationList = em.listByConditionPage(ids,notInIds, exam, (curPage - 1) * limit, limit);
         List<ExaminationVO> examinationVOS = BeanUtil.copyList(examinationList, ExaminationVO.class);
         for (ExaminationVO vo : examinationVOS) {
+            if (vo.getAnswer()!= null && vo.getAnswer().length() > 18){
+                vo.setAnswer(vo.getAnswer().substring(0,18)+"...");
+            }
             //解析JSONString为Map
             String optionJson = vo.getOptionJson();
             Map map = (Map) JSONArray.parse(optionJson);
@@ -100,7 +120,7 @@ public class ExamServiceImpl implements ExamService {
             vo.setDegreeString((String) ResultViewMap.getDegreeViewMap().get(vo.getDegree()));
             vo.setZsdname(km.selectByPrimaryKey(vo.getKnowId()).getZsdname());
         }
-        Long countLong = em.countByConditionPage(ids, exam);
+        Long countLong = em.countByConditionPage(ids,notInIds, exam);
         PageBean pageBean = new PageBean(String.valueOf(countLong),examinationVOS);
 
 
