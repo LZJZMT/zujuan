@@ -237,6 +237,12 @@ public class ExamController {
     @RequestMapping("/getExamForZuJuan")
     @ResponseBody
     public PageBean getExamForZuJuan(Long[] ids,Examination exam,Integer curPage,Integer limit){
+        if (ids.length == 0){
+            ids = null;
+        }
+        if ("".equals(exam.getQuestion())){
+            exam.setQuestion(null);
+        }
         return es.selectByConditionPage(ids,exam,curPage,limit);
     }
 

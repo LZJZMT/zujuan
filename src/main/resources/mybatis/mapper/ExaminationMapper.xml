@@ -17,7 +17,7 @@
     select
     <include refid="Base_Column_List" />
     from examination
-    <where>
+    <trim prefix="WHERE" prefixOverrides="and" suffixOverrides="and">
     <if test="examination.question != null">
       question  LIKE CONCAT('%',#{examination.question},'%') and
     </if>
@@ -33,7 +33,7 @@
         #{id}
       </foreach>
     </if>
-    </where>
+    </trim>
     limit #{start},#{limit}
   </select>
 
@@ -42,23 +42,24 @@
     select
     COUNT(1)
     from examination
-    <where>
+    <trim prefix="WHERE" prefixOverrides="and" suffixOverrides="and">
     <if test="examination.question != null">
-      question  LIKE CONCAT('%',#{examination.question},'%') and
+      question  LIKE CONCAT('%',#{examination.question},'%')
     </if>
     <if test="examination.type != null">
-      type = #{examination.type} and
+      and type = #{examination.type}
     </if>
     <if test="examination.degree != null">
-      degree = #{examination.degree} and
+      and degree = #{examination.degree}
     </if>
     <if test="ids != null">
-      know_id IN
+      and know_id IN
       <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
         #{id}
       </foreach>
+
     </if>
-    </where>
+    </trim>
   </select>
 
 

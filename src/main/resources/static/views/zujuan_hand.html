@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>手动组卷</title>
@@ -9,19 +9,19 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/shijuan.css" media="all">
 </head>
 <body>
-<div class="layui-form" >
+<div class="layui-form">
     <div id="xtree1" style="width:300px;padding: 10px 0 25px 5px;float: left"></div>
-</div>
-<div style="float:left;">
-    <div class="layui-card">
-        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+    <div class="layui-card" style="float: left;width: 70%;margin-bottom: 10px">
+        <div id="myForm" class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">题目内容</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="question" placeholder="请输入题目内容" autocomplete="off" class="layui-input">
+                        <input id="question" type="text" name="question" placeholder="请输入题目内容" autocomplete="off"
+                               class="layui-input">
                     </div>
                     <label class="layui-form-label">类型</label>
                     <div class="layui-input-inline">
@@ -48,17 +48,20 @@
                         </select>
                     </div>
                 </div>
-                    <button class="layui-btn layuiadmin-btn-comm" data-type="reload" lay-submit
-                            lay-filter="LAY-app-contcomm-search">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                    </button>
+                <button class="layui-btn layuiadmin-btn-comm" data-type="reload" lay-submit
+                        lay-filter="LAY-app-contcomm-search">
+                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                </button>
 
-                </div>
+            </div>
         </div>
 
     </div>
-    <div id="fenye">
-    </div>
+</div>
+<div style="float:left;width: 70%" id="fatherQuestion" >
+
+</div>
+<div id="fenye" style="float: left;margin-left: 302px">
 </div>
 
 
@@ -82,37 +85,170 @@
             , data: '/zsd/zsdTree'
             , isopen: false
         });
-        var count = 50;
+        var count = 500;
         var limit = 10;
         //总页数低于页码总数
         laypage.render({
             elem: 'fenye'
             , limit: limit
             , count: count //数据总数
-            ,jump:function (pageObj,first) {
-                if(!first){
-                    console.log(pageObj)
-                }
+            , layout: ['prev', 'next']
+            , jump: function (pageObj, first) {
 
+                // if(!first){
+                var items = xtree1.GetChecked();
+                var ids = [];
+                items.forEach(function (item) {
+                    ids.push(item.value);
+                })
+                $.ajax({
+                    url: '/exam/getExamForZuJuan',
+                    data: {
+                        type: $("#typeId").val(), question: $("#question").val(), degree: $("#examdegree").val()
+                        , ids: ids.join(","), curPage: pageObj.curr, limit: pageObj.limit
+                    },
+                    method: "post",
+                    success: function (res) {
+                        if(res.data.length<1){
+                            layer.msg("没有更多结果");
+                            return ;
+                        }
+                        $("#fatherQuestion").empty();
+                        var data = res.data;
+                        data.forEach(function (item, index) {
+                            index++;
+                            var p1 = '<div class="layui-card question-block">\n' +
+                                '        <div class="q-mc">\n' +
+                                '            <div class="q-tit">\n' +
+                                '                <span>' + index + '、' + item.question + '</span>_____。\n' +
+                                '                <p style="margin-top: 6px" th:if="${vo.imgUrl}!=\'\'">\n' +
+                                '                    <img  src="' + item.imgUrl + '">\n' +
+                                '                </p>\n' +
+                                '            </div>\n';
+
+                            var p2 = '            <div class="exam-s" style="overflow: hidden"  th:if="${vo.optionJson!=null}">\n' +
+                                '                <div class="option-item">\n' +
+                                '                    <span style="float: left;margin-right: 2px">A:</span>\n' +
+                                '                    <span style="float: left;">' + item.optionA + '</span>\n' +
+                                '                </div>\n' +
+                                '                <div class="option-item">\n' +
+                                '                    <span style="float: left;margin-right: 2px">B:</span>\n' +
+                                '                    <span style="float: left;">' + item.optionA + '</span>\n' +
+                                '                </div>\n' +
+                                '                <div class="option-item">\n' +
+                                '                    <span style="float: left;margin-right: 2px" >C:</span>\n' +
+                                '                    <span style="float: left;">' + item.optionA + '</span>\n' +
+                                '                </div>\n' +
+                                '                <div class="option-item">\n' +
+                                '                    <span style="float: left;margin-right: 2px">D:</span>\n' +
+                                '                    <span style="float: left;" >' + item.optionA + '</span>\n' +
+                                '                </div>\n' +
+                                '            </div>\n';
+                            var result = '';
+                            if (item.optionJson == null || item.optionJson == '') {
+                                result = p1;
+                            } else {
+                                result = p1 + p2;
+                            }
+                            var p3 = '        </div>\n' +
+                                '        <div class="q-msg cfx">\n' +
+                                '            <div class="q-attr fl">\n' +
+                                '                题型: <span>' + item.typeString + '</span>\n' +
+                                '                <em>|</em>所属知识点:\n' +
+                                '                <span>' + item.zsdname + ' </span>\n' +
+                                '                <em>|</em>难度:\n' +
+                                '                <span>' + item.degreeString + ' </span>\n' +
+                                '                <em>|</em>正确答案:\n' +
+                                '                <span>' + item.answer + '</span>\n' +
+                                '            </div>\n' +
+                                '        </div>\n' +
+                                '    </div>';
+                            $("#fatherQuestion").append(
+                                result + p3
+                            )
+                        })
+                    }
+                });
             }
+
+            // }
         });
         //监听搜索
         form.on('submit(LAY-app-contcomm-search)', function (data) {
+
             var items = xtree1.GetChecked();
-            var ids=[];
+            var ids = [];
             items.forEach(function (item) {
                 ids.push(item.value);
             })
-            var postData = {"question":data.field.question,"type":data.field.type,
-                "degree":data.field.degree,"ids":ids.join(","),curPage:'1',limit:limit};
+            var postData = {
+                "question": data.field.question, "type": data.field.type,
+                "degree": data.field.degree, "ids": ids.join(","), curPage: '1', limit: limit
+            };
             $.ajax({
                 url: '/exam/getExamForZuJuan',
                 data: postData,
-                method:"post",
-                success:function (res) {
-                    count = res.count;
-                    laypage.render();
-                    console.log(res)
+                method: "post",
+                success: function (res) {
+                    if(res.count<1){
+                        alert(1)
+                        layer.msg("没有更多结果");
+                        return ;
+                    }
+                    $("#fatherQuestion").empty();
+                    var data = res.data;
+                    data.forEach(function (item, index) {
+                        index++;
+                        var p1 = '<div class="layui-card question-block">\n' +
+                            '        <div class="q-mc">\n' +
+                            '            <div class="q-tit">\n' +
+                            '                <span>' + index + '、' + item.question + '</span>_____。\n' +
+                            '                <p style="margin-top: 6px" th:if="${vo.imgUrl}!=\'\'">\n' +
+                            '                    <img  src="' + item.imgUrl + '">\n' +
+                            '                </p>\n' +
+                            '            </div>\n';
+
+                        var p2 = '            <div class="exam-s" style="overflow: hidden"  th:if="${vo.optionJson!=null}">\n' +
+                            '                <div class="option-item">\n' +
+                            '                    <span style="float: left;margin-right: 2px">A:</span>\n' +
+                            '                    <span style="float: left;">' + item.optionA + '</span>\n' +
+                            '                </div>\n' +
+                            '                <div class="option-item">\n' +
+                            '                    <span style="float: left;margin-right: 2px">B:</span>\n' +
+                            '                    <span style="float: left;">' + item.optionA + '</span>\n' +
+                            '                </div>\n' +
+                            '                <div class="option-item">\n' +
+                            '                    <span style="float: left;margin-right: 2px" >C:</span>\n' +
+                            '                    <span style="float: left;">' + item.optionA + '</span>\n' +
+                            '                </div>\n' +
+                            '                <div class="option-item">\n' +
+                            '                    <span style="float: left;margin-right: 2px">D:</span>\n' +
+                            '                    <span style="float: left;" >' + item.optionA + '</span>\n' +
+                            '                </div>\n' +
+                            '            </div>\n';
+                        var result = '';
+                        if (item.optionJson == null || item.optionJson == '') {
+                            result = p1;
+                        } else {
+                            result = p1 + p2;
+                        }
+                        var p3 = '        </div>\n' +
+                            '        <div class="q-msg cfx">\n' +
+                            '            <div class="q-attr fl">\n' +
+                            '                题型: <span>' + item.typeString + '</span>\n' +
+                            '                <em>|</em>所属知识点:\n' +
+                            '                <span>' + item.zsdname + ' </span>\n' +
+                            '                <em>|</em>难度:\n' +
+                            '                <span>' + item.degreeString + ' </span>\n' +
+                            '                <em>|</em>正确答案:\n' +
+                            '                <span>' + item.answer + '</span>\n' +
+                            '            </div>\n' +
+                            '        </div>\n' +
+                            '    </div>';
+                        $("#fatherQuestion").append(
+                            result + p3
+                        )
+                    })
                 }
             });
 
