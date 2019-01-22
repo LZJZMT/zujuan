@@ -2,6 +2,7 @@ package com.zujuan.service;
 
 import com.zujuan.pojo.ExamBasket;
 import com.zujuan.pojo.ExamBasketExample;
+import com.zujuan.pojo.Examination;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface ExamBasketService {
     ExamBasket getById(Long id);
 
     void delByExample(ExamBasketExample examBasketExample);
+
+    List<Examination> getMyExam();
 }

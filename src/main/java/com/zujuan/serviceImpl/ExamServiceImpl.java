@@ -126,4 +126,22 @@ public class ExamServiceImpl implements ExamService {
 
         return pageBean;
     }
+
+    @Override
+    public List<ExaminationVO> convert2VOlist(List<Examination> examinations) {
+
+        List<ExaminationVO> examinationVOS = BeanUtil.copyList(examinations, ExaminationVO.class);
+        for (ExaminationVO vo : examinationVOS) {
+            //解析JSONString为Map
+            String optionJson = vo.getOptionJson();
+            Map map = (Map) JSONArray.parse(optionJson);
+            if(map != null){
+                vo.setOptionD((String)map.get("D"));
+                vo.setOptionA((String)map.get("A"));
+                vo.setOptionB((String)map.get("B"));
+                vo.setOptionC((String)map.get("C"));
+            }
+        }
+        return examinationVOS;
+    }
 }

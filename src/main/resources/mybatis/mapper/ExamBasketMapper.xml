@@ -67,6 +67,14 @@
   <sql id="Base_Column_List">
     id, user_id, exam_id
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from exam_basket
+  </select>
   <select id="selectByExample" parameterType="com.zujuan.pojo.ExamBasketExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

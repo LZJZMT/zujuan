@@ -27,4 +27,6 @@ public interface ExamBasketMapper {
     int updateByPrimaryKeySelective(ExamBasket record);
 
     int updateByPrimaryKey(ExamBasket record);
+
+    List<ExamBasket> selectAll();
 }

@@ -3,6 +3,7 @@ package com.zujuan.service;
 import com.zujuan.pojo.Examination;
 import com.zujuan.pojo.ExaminationExample;
 import com.zujuan.pojo.PageBean;
+import com.zujuan.vo.ExaminationVO;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface ExamService {
     Examination getById(Long id);
 
     PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit);
+
+    List<ExaminationVO> convert2VOlist(List<Examination> examinations);
 }

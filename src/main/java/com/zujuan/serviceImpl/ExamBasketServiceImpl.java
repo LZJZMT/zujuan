@@ -1,12 +1,15 @@
 package com.zujuan.serviceImpl;
 
 import com.zujuan.mapper.ExamBasketMapper;
+import com.zujuan.mapper.ExaminationMapper;
 import com.zujuan.pojo.ExamBasket;
 import com.zujuan.pojo.ExamBasketExample;
+import com.zujuan.pojo.Examination;
 import com.zujuan.service.ExamBasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +23,8 @@ public class ExamBasketServiceImpl implements ExamBasketService {
 
     @Autowired
     private ExamBasketMapper ebm;
+    @Autowired
+    private ExaminationMapper em;
 
     @Override
     public void add(ExamBasket examBasket) {
@@ -54,5 +59,15 @@ public class ExamBasketServiceImpl implements ExamBasketService {
     @Override
     public void delByExample(ExamBasketExample examBasketExample) {
         ebm.deleteByExample(examBasketExample);
+    }
+
+    @Override
+    public List<Examination> getMyExam() {
+        List<ExamBasket> examBaskets = ebm.selectAll();
+        List<Examination> examinations = new ArrayList<Examination>();
+        for (ExamBasket examBasket : examBaskets) {
+            examinations.add(em.selectByPrimaryKey(examBasket.getExamId()));
+        }
+        return examinations;
     }
 }
