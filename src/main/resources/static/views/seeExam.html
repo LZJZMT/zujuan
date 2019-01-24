@@ -15,7 +15,7 @@
 <div class="question-block">
     <div class="q-mc">
         <div class="q-tit">
-            <span th:text="${vo.question}"></span>_____
+            <span th:utext="${vo.question}"></span>
             <p style="margin-top: 6px" th:if="${vo.imgUrl}!=''">
                 <img  th:src="${vo.imgUrl}">
             </p>
@@ -23,19 +23,19 @@
         <div class="exam-s" style="overflow: hidden"  th:if="${vo.optionJson!=null}">
             <div class="option-item">
                  <span style="float: left;margin-right: 2px">A:</span>
-                <span style="float: left;" th:text="${option.A}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+                <span style="float: left;" th:utext="${option.A}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
             </div>
             <div class="option-item">
                  <span style="float: left;margin-right: 2px">B:</span>
-                <span style="float: left;" th:text="${option.B}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+                <span style="float: left;" th:utext="${option.B}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
             </div>
             <div class="option-item">
                  <span style="float: left;margin-right: 2px" >C:</span>
-                <span style="float: left;" th:text="${option.C}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+                <span style="float: left;" th:utext="${option.C}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
             </div>
             <div class="option-item">
                  <span style="float: left;margin-right: 2px">D:</span>
-                <span style="float: left;" th:text="${option.D}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
+                <span style="float: left;" th:utext="${option.D}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <em>|</em>难度:
             <span th:text="${vo.degreeString}"> </span>
             <em>|</em>正确答案:
-            <span th:text="${vo.answer}"> </span>
+            <span th:utext="${vo.answer}"> </span>
         </div>
     </div>
 </div>

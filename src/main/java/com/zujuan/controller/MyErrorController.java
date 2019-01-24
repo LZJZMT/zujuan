@@ -8,6 +8,7 @@ package com.zujuan.controller;
 /*@Controller
 public class MyErrorController implements ErrorController {
     @Override
+
     public String getErrorPath() {
         return "redirect:/views/404.html";
     }

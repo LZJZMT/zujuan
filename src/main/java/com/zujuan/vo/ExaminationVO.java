@@ -22,5 +22,6 @@ public class ExaminationVO extends Examination {
     private String optionB;
     private String optionC;
     private String optionD;
+    private Integer index;
 
 }

@@ -64,7 +64,9 @@ public class CommonController {
                     stream = new BufferedOutputStream(new FileOutputStream(new File(path)));
                     stream.write(b);
                     stream.close();
-                    resultMap.put("src",staticMapping.replace("*", "")+fileName);
+                    HashMap<String, String> stringStringHashMap = new HashMap<>();
+                    stringStringHashMap.put("src",staticMapping.replace("*", "")+fileName);
+                    resultMap.put("data",stringStringHashMap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zujuan.mapper.ExamPaperMapper">
+<mapper namespace="com.zujuan.mapperGene.ExamPaperMapper">
   <resultMap id="BaseResultMap" type="com.zujuan.pojo.ExamPaper">
     <id column="pid" jdbcType="BIGINT" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="total_score" jdbcType="DOUBLE" property="totalScore" />
+    <result column="course_code" jdbcType="VARCHAR" property="courseCode" />
+    <result column="njzy" jdbcType="VARCHAR" property="njzy" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="time" jdbcType="INTEGER" property="time" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="exam_time" jdbcType="TIMESTAMP" property="examTime" />
     <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
-    <result column="diff_degree" jdbcType="DOUBLE" property="diffDegree" />
+    <result column="degree" jdbcType="DOUBLE" property="degree" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="xz_score" jdbcType="INTEGER" property="xzScore" />
+    <result column="tk_score" jdbcType="INTEGER" property="tkScore" />
+    <result column="pd_score" jdbcType="INTEGER" property="pdScore" />
+    <result column="wd_score" jdbcType="INTEGER" property="wdScore" />
+    <result column="author_id" jdbcType="BIGINT" property="authorId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    pid, name, total_score, exam_time, revise_time, diff_degree
+    pid, name, course_code, njzy, total_score, time, create_time, exam_time, revise_time, 
+    degree, file_url, xz_score, tk_score, pd_score, wd_score, author_id
   </sql>
   <select id="selectByExample" parameterType="com.zujuan.pojo.ExamPaperExample" resultMap="BaseResultMap">
     select
@@ -101,12 +112,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zujuan.pojo.ExamPaper">
-    insert into exam_paper (pid, name, total_score, 
-      exam_time, revise_time, diff_degree
-      )
-    values (#{pid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{totalScore,jdbcType=DOUBLE}, 
-      #{examTime,jdbcType=TIMESTAMP}, #{reviseTime,jdbcType=TIMESTAMP}, #{diffDegree,jdbcType=DOUBLE}
-      )
+    insert into exam_paper (pid, name, course_code, 
+      njzy, total_score, time, 
+      create_time, exam_time, revise_time, 
+      degree, file_url, xz_score, 
+      tk_score, pd_score, wd_score, 
+      author_id)
+    values (#{pid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{courseCode,jdbcType=VARCHAR}, 
+      #{njzy,jdbcType=VARCHAR}, #{totalScore,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{examTime,jdbcType=TIMESTAMP}, #{reviseTime,jdbcType=TIMESTAMP}, 
+      #{degree,jdbcType=DOUBLE}, #{fileUrl,jdbcType=VARCHAR}, #{xzScore,jdbcType=INTEGER}, 
+      #{tkScore,jdbcType=INTEGER}, #{pdScore,jdbcType=INTEGER}, #{wdScore,jdbcType=INTEGER}, 
+      #{authorId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.zujuan.pojo.ExamPaper">
     insert into exam_paper
@@ -117,8 +134,20 @@
       <if test="name != null">
         name,
       </if>
+      <if test="courseCode != null">
+        course_code,
+      </if>
+      <if test="njzy != null">
+        njzy,
+      </if>
       <if test="totalScore != null">
         total_score,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="createTime != null">
+        create_time,
       </if>
       <if test="examTime != null">
         exam_time,
@@ -126,8 +155,26 @@
       <if test="reviseTime != null">
         revise_time,
       </if>
-      <if test="diffDegree != null">
-        diff_degree,
+      <if test="degree != null">
+        degree,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
+      </if>
+      <if test="xzScore != null">
+        xz_score,
+      </if>
+      <if test="tkScore != null">
+        tk_score,
+      </if>
+      <if test="pdScore != null">
+        pd_score,
+      </if>
+      <if test="wdScore != null">
+        wd_score,
+      </if>
+      <if test="authorId != null">
+        author_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -137,8 +184,20 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="courseCode != null">
+        #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="njzy != null">
+        #{njzy,jdbcType=VARCHAR},
+      </if>
       <if test="totalScore != null">
-        #{totalScore,jdbcType=DOUBLE},
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="examTime != null">
         #{examTime,jdbcType=TIMESTAMP},
@@ -146,8 +205,26 @@
       <if test="reviseTime != null">
         #{reviseTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="diffDegree != null">
-        #{diffDegree,jdbcType=DOUBLE},
+      <if test="degree != null">
+        #{degree,jdbcType=DOUBLE},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xzScore != null">
+        #{xzScore,jdbcType=INTEGER},
+      </if>
+      <if test="tkScore != null">
+        #{tkScore,jdbcType=INTEGER},
+      </if>
+      <if test="pdScore != null">
+        #{pdScore,jdbcType=INTEGER},
+      </if>
+      <if test="wdScore != null">
+        #{wdScore,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -166,8 +243,20 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.courseCode != null">
+        course_code = #{record.courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.njzy != null">
+        njzy = #{record.njzy,jdbcType=VARCHAR},
+      </if>
       <if test="record.totalScore != null">
-        total_score = #{record.totalScore,jdbcType=DOUBLE},
+        total_score = #{record.totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.examTime != null">
         exam_time = #{record.examTime,jdbcType=TIMESTAMP},
@@ -175,8 +264,26 @@
       <if test="record.reviseTime != null">
         revise_time = #{record.reviseTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.diffDegree != null">
-        diff_degree = #{record.diffDegree,jdbcType=DOUBLE},
+      <if test="record.degree != null">
+        degree = #{record.degree,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fileUrl != null">
+        file_url = #{record.fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xzScore != null">
+        xz_score = #{record.xzScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.tkScore != null">
+        tk_score = #{record.tkScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.pdScore != null">
+        pd_score = #{record.pdScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.wdScore != null">
+        wd_score = #{record.wdScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorId != null">
+        author_id = #{record.authorId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -187,10 +294,20 @@
     update exam_paper
     set pid = #{record.pid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      total_score = #{record.totalScore,jdbcType=DOUBLE},
+      course_code = #{record.courseCode,jdbcType=VARCHAR},
+      njzy = #{record.njzy,jdbcType=VARCHAR},
+      total_score = #{record.totalScore,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       exam_time = #{record.examTime,jdbcType=TIMESTAMP},
       revise_time = #{record.reviseTime,jdbcType=TIMESTAMP},
-      diff_degree = #{record.diffDegree,jdbcType=DOUBLE}
+      degree = #{record.degree,jdbcType=DOUBLE},
+      file_url = #{record.fileUrl,jdbcType=VARCHAR},
+      xz_score = #{record.xzScore,jdbcType=INTEGER},
+      tk_score = #{record.tkScore,jdbcType=INTEGER},
+      pd_score = #{record.pdScore,jdbcType=INTEGER},
+      wd_score = #{record.wdScore,jdbcType=INTEGER},
+      author_id = #{record.authorId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -201,8 +318,20 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="courseCode != null">
+        course_code = #{courseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="njzy != null">
+        njzy = #{njzy,jdbcType=VARCHAR},
+      </if>
       <if test="totalScore != null">
-        total_score = #{totalScore,jdbcType=DOUBLE},
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="examTime != null">
         exam_time = #{examTime,jdbcType=TIMESTAMP},
@@ -210,8 +339,26 @@
       <if test="reviseTime != null">
         revise_time = #{reviseTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="diffDegree != null">
-        diff_degree = #{diffDegree,jdbcType=DOUBLE},
+      <if test="degree != null">
+        degree = #{degree,jdbcType=DOUBLE},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xzScore != null">
+        xz_score = #{xzScore,jdbcType=INTEGER},
+      </if>
+      <if test="tkScore != null">
+        tk_score = #{tkScore,jdbcType=INTEGER},
+      </if>
+      <if test="pdScore != null">
+        pd_score = #{pdScore,jdbcType=INTEGER},
+      </if>
+      <if test="wdScore != null">
+        wd_score = #{wdScore,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=BIGINT},
       </if>
     </set>
     where pid = #{pid,jdbcType=BIGINT}
@@ -219,10 +366,20 @@
   <update id="updateByPrimaryKey" parameterType="com.zujuan.pojo.ExamPaper">
     update exam_paper
     set name = #{name,jdbcType=VARCHAR},
-      total_score = #{totalScore,jdbcType=DOUBLE},
+      course_code = #{courseCode,jdbcType=VARCHAR},
+      njzy = #{njzy,jdbcType=VARCHAR},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       exam_time = #{examTime,jdbcType=TIMESTAMP},
       revise_time = #{reviseTime,jdbcType=TIMESTAMP},
-      diff_degree = #{diffDegree,jdbcType=DOUBLE}
+      degree = #{degree,jdbcType=DOUBLE},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      xz_score = #{xzScore,jdbcType=INTEGER},
+      tk_score = #{tkScore,jdbcType=INTEGER},
+      pd_score = #{pdScore,jdbcType=INTEGER},
+      wd_score = #{wdScore,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=BIGINT}
     where pid = #{pid,jdbcType=BIGINT}
   </update>
 </mapper>

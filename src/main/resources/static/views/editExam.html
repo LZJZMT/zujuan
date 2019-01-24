@@ -28,36 +28,40 @@
         <label class="layui-form-label">问题</label>
         <div class="layui-input-block">
             <input type="hidden" th:value="${exVo.eid}" name="eid">
-            <textarea name="question" lay-verify="required" autocomplete="off" class="layui-textarea"
-                      placeholder="请输入问题" th:text="${exVo.question}"></textarea>
+            <textarea id="question" lay-verify="required" autocomplete="off" class="layui-textarea"
+                      placeholder="请输入问题" th:utext="${exVo.question}"></textarea>
         </div>
     </div>
     <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':' layui-form-item option'">
         <label class="layui-form-label">A选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionA" placeholder="请输入A选项" autocomplete="off"
-                   class="layui-input" th:value="${option==null?'':option.A}">
+            <textarea id="optionA" type="text"  placeholder="请输入A选项" autocomplete="off"
+                   class="layui-input" th:utext="${option==null?'':option.A}">
+            </textarea>
         </div>
     </div>
     <div class="" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':'layui-form-item option'">
         <label class="layui-form-label">B选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionB" placeholder="请输入B选项" autocomplete="off"
-                   class="layui-input" th:value="${option==null?'':option.B}">
+            <textarea id="optionB"  type="text"  placeholder="请输入B选项" autocomplete="off"
+                   class="layui-input" th:utext="${option==null?'':option.B}">
+            </textarea>
         </div>
     </div>
     <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':'layui-form-item option'">
         <label class="layui-form-label">C选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionC" placeholder="请输入C选项" autocomplete="off"
-                   class="layui-input" th:value="${option==null?'':option.C}">
+            <textarea id="optionC" type="text"  placeholder="请输入C选项" autocomplete="off"
+                   class="layui-input" th:utext="${option==null?'':option.C}">
+            </textarea>
         </div>
     </div>
     <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':'layui-form-item option'">
         <label class="layui-form-label">D选项</label>
         <div class="layui-input-block">
-            <input type="text" name="optionD" placeholder="请输入D选项" autocomplete="off"
-                   class="layui-input" th:value="${option==null?'':option.D}">
+            <textarea id="optionD" type="text"  placeholder="请输入D选项" autocomplete="off"
+                   class="layui-input" th:utext="${option==null?'':option.D}">
+            </textarea>
         </div>
     </div>
 
@@ -129,20 +133,33 @@
         base: '../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form', 'upload'], function () {
+    }).use(['index', 'form', 'upload','layedit'], function () {
         var $ = layui.$
             , form = layui.form, admin = layui.admin
             , upload = layui.upload;
-        /*var eid;
-        var reg = new RegExp("(^|&)" + "eid" + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null)  eid = unescape(r[2]);
-        admin.req({
-            url:'/exam/getById?eid='+eid,
-            success:function (res) {
-                console.log(res)
+        var layedit = layui.layedit;
+
+        layedit.set({
+            uploadImage: {
+                url: '/upload/file' //接口url
             }
-        })*/
+        });
+
+        var indexQuestion = layedit.build('question',{
+            height: 120
+        });
+        var indexA = layedit.build('optionA',{
+            height: 80
+        });
+        var indexB = layedit.build('optionB',{
+            height: 80
+        });
+        var indexC = layedit.build('optionC',{
+            height: 80
+        });
+        var indexD = layedit.build('optionD',{
+            height: 80
+        });
 
         //普通图片上传
         var uploadInst = upload.render({
@@ -172,6 +189,11 @@
 
         //提交
         form.on('submit(LAY-app-forum-submit)', function (obj) {
+            obj.field.question = layedit.getContent(indexQuestion);
+            obj.field.optionA = layedit.getContent(indexA);
+            obj.field.optionB = layedit.getContent(indexB);
+            obj.field.optionC = layedit.getContent(indexC);
+            obj.field.optionD = layedit.getContent(indexD);
             //请求登入接口
             admin.req({
                 url: "/exam/add" //实际使用请改成服务端真实接口
