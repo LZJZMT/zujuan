@@ -32,7 +32,7 @@
                       placeholder="请输入问题" th:utext="${exVo.question}"></textarea>
         </div>
     </div>
-    <div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':' layui-form-item option'">
+    <!--<div class="layui-form-item option" th:class="${exVo.type}!=1?'layui-hide layui-form-item option':' layui-form-item option'">
         <label class="layui-form-label">A选项</label>
         <div class="layui-input-block">
             <textarea id="optionA" type="text"  placeholder="请输入A选项" autocomplete="off"
@@ -63,7 +63,7 @@
                    class="layui-input" th:utext="${option==null?'':option.D}">
             </textarea>
         </div>
-    </div>
+    </div>-->
 
     <div class="layui-form-item">
         <div class="layui-row">
@@ -146,9 +146,9 @@
         });
 
         var indexQuestion = layedit.build('question',{
-            height: 120
+            height: 180
         });
-        var indexA = layedit.build('optionA',{
+        /*var indexA = layedit.build('optionA',{
             height: 80
         });
         var indexB = layedit.build('optionB',{
@@ -159,7 +159,7 @@
         });
         var indexD = layedit.build('optionD',{
             height: 80
-        });
+        });*/
 
         //普通图片上传
         var uploadInst = upload.render({
@@ -190,10 +190,10 @@
         //提交
         form.on('submit(LAY-app-forum-submit)', function (obj) {
             obj.field.question = layedit.getContent(indexQuestion);
-            obj.field.optionA = layedit.getContent(indexA);
+            /*obj.field.optionA = layedit.getContent(indexA);
             obj.field.optionB = layedit.getContent(indexB);
             obj.field.optionC = layedit.getContent(indexC);
-            obj.field.optionD = layedit.getContent(indexD);
+            obj.field.optionD = layedit.getContent(indexD);*/
             //请求登入接口
             admin.req({
                 url: "/exam/add" //实际使用请改成服务端真实接口

@@ -141,7 +141,8 @@
                             var p1 = '<div class="layui-card question-block">\n' +
                                 '        <div class="q-mc">\n' +
                                 '            <div class="q-tit">\n' +
-                                '                <span>' + index + '、' + item.question + '</span>_____。\n' +
+                                /*+ index + '、'*/
+                            '                <span>' + item.question + '</span>\n' +
                                 '                <p style="margin-top: 6px" th:if="${vo.imgUrl}!=\'\'">\n' +
                                 '                    <img  src="' + item.imgUrl + '">\n' +
                                 '                </p>\n' +
@@ -166,11 +167,12 @@
                                 '                </div>\n' +
                                 '            </div>\n';
                             var result = '';
-                            if (item.optionJson == null || item.optionJson == '') {
+                            /*if (item.optionJson == null || item.optionJson == '') {
                                 result = p1;
                             } else {
                                 result = p1 + p2;
-                            }
+                            }*/
+                            result = p1;
                             var p3 = '        </div>\n' +
                                 '        <div class="q-msg cfx">\n' +
                                 '            <div class="q-attr fl">\n' +
@@ -231,7 +233,7 @@
                         var p1 = '<div class="layui-card question-block">\n' +
                             '        <div class="q-mc">\n' +
                             '            <div class="q-tit">\n' +
-                            '                <span>' + index + '、' + item.question + '</span>_____。\n' +
+                            '                <span>' + item.question + '</span>\n' +
                             '                <p style="margin-top: 6px" th:if="${vo.imgUrl}!=\'\'">\n' +
                             '                    <img  src="' + item.imgUrl + '">\n' +
                             '                </p>\n' +
@@ -261,6 +263,7 @@
                         } else {
                             result = p1 + p2;
                         }
+                        result = p1;
                         var p3 = '        </div>\n' +
                             '        <div class="q-msg cfx">\n' +
                             '            <div class="q-attr fl">\n' +

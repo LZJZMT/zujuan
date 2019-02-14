@@ -1,10 +1,10 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_01D4C472.EB54B520"
+Content-Type: multipart/related; boundary="----=_NextPart_01D4C48A.B50DABD0"
 
 此文档为“单个文件网页”，也称为“Web 档案”文件。如果您看到此消息，但是您的浏览器或编辑器不支持“Web 档案”文件。请下载支持“Web 档案”的浏览器。
 
-------=_NextPart_01D4C472.EB54B520
-Content-Location: file:///C:/8589A2B1/t1.htm
+------=_NextPart_01D4C48A.B50DABD0
+Content-Location: file:///C:/213792E5/examTemplate.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
 
@@ -19,30 +19,30 @@ xmlns=3D"http://www.w3.org/TR/REC-html40">
 <meta name=3DProgId content=3DWord.Document>
 <meta name=3DGenerator content=3D"Microsoft Word 15">
 <meta name=3DOriginator content=3D"Microsoft Word 15">
-<link rel=3DFile-List href=3D"t1.files/filelist.xml">
+<link rel=3DFile-List href=3D"examTemplate.files/filelist.xml">
 <!--[if gte mso 9]><xml>
  <o:DocumentProperties>
   <o:Author>LZJ</o:Author>
   <o:LastAuthor>LZJ</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>38</o:TotalTime>
-  <o:Created>2019-02-14T06:38:00Z</o:Created>
-  <o:LastSaved>2019-02-14T06:38:00Z</o:LastSaved>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2019-02-14T09:28:00Z</o:Created>
+  <o:LastSaved>2019-02-14T09:28:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>52</o:Words>
-  <o:Characters>303</o:Characters>
-  <o:Lines>2</o:Lines>
+  <o:Words>1</o:Words>
+  <o:Characters>7</o:Characters>
+  <o:Lines>1</o:Lines>
   <o:Paragraphs>1</o:Paragraphs>
-  <o:CharactersWithSpaces>354</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>7</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
-  <o:RelyOnVML/>
   <o:AllowPNG/>
  </o:OfficeDocumentSettings>
 </xml><![endif]-->
-<link rel=3DthemeData href=3D"t1.files/themedata.thmx">
-<link rel=3DcolorSchemeMapping href=3D"t1.files/colorschememapping.xml">
+<link rel=3DthemeData href=3D"examTemplate.files/themedata.thmx">
+<link rel=3DcolorSchemeMapping href=3D"examTemplate.files/colorschememappin=
+g.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:SpellingState>Clean</w:SpellingState>
@@ -971,20 +971,12 @@ ue"
 	mso-font-pitch:variable;
 	mso-font-signature:3 680460288 22 0 262145 0;}
 @font-face
-	{font-family:黑体;
-	panose-1:2 1 6 9 6 1 1 1 1 1;
-	mso-font-alt:SimHei;
-	mso-font-charset:134;
-	mso-generic-font-family:modern;
-	mso-font-pitch:fixed;
-	mso-font-signature:-2147482945 953122042 22 0 262145 0;}
-@font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;
 	mso-font-charset:0;
 	mso-generic-font-family:roman;
 	mso-font-pitch:variable;
-	mso-font-signature:3 0 0 0 1 0;}
+	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
 @font-face
 	{font-family:等线;
 	panose-1:2 1 6 0 3 1 1 1 1 1;
@@ -1000,13 +992,6 @@ ue"
 	mso-generic-font-family:auto;
 	mso-font-pitch:variable;
 	mso-font-signature:-1610612033 953122042 22 0 262159 0;}
-@font-face
-	{font-family:"\@黑体";
-	panose-1:2 1 6 0 3 1 1 1 1 1;
-	mso-font-charset:134;
-	mso-generic-font-family:modern;
-	mso-font-pitch:fixed;
-	mso-font-signature:-2147482945 953122042 22 0 262145 0;}
 @font-face
 	{font-family:"\@宋体";
 	panose-1:2 1 6 0 3 1 1 1 1 1;
@@ -1027,37 +1012,90 @@ ue"
 	font-size:10.5pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:等线;
+	mso-ascii-font-family:等线;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:等线;
+	mso-fareast-theme-font:minor-fareast;
+	mso-hansi-font-family:等线;
+	mso-hansi-theme-font:minor-latin;
 	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
 	mso-font-kerning:1.0pt;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-priority:99;
+	mso-style-link:"页眉 字符";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:center;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	border:none;
+	mso-border-bottom-alt:solid windowtext .75pt;
+	padding:0cm;
+	mso-padding-alt:0cm 0cm 1.0pt 0cm;
+	font-size:9.0pt;
+	font-family:等线;
+	mso-ascii-font-family:等线;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:等线;
+	mso-fareast-theme-font:minor-fareast;
+	mso-hansi-font-family:等线;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	mso-font-kerning:1.0pt;}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-priority:99;
+	mso-style-link:"页脚 字符";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:none;
+	tab-stops:center 207.65pt right 415.3pt;
+	layout-grid-mode:char;
+	font-size:9.0pt;
+	font-family:等线;
+	mso-ascii-font-family:等线;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:等线;
+	mso-fareast-theme-font:minor-fareast;
+	mso-hansi-font-family:等线;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	mso-font-kerning:1.0pt;}
+span.a
+	{mso-style-name:"页眉 字符";
+	mso-style-priority:99;
 	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:宋体;
-	mso-bidi-font-family:宋体;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
+	mso-style-locked:yes;
+	mso-style-link:页眉;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;}
+span.a0
+	{mso-style-name:"页脚 字符";
+	mso-style-priority:99;
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:页脚;
+	mso-ansi-font-size:9.0pt;
+	mso-bidi-font-size:9.0pt;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
-	font-size:10.0pt;
-	mso-ansi-font-size:10.0pt;
-	mso-bidi-font-size:10.0pt;
 	font-family:等线;
-	mso-ascii-font-family:等线;
-	mso-fareast-font-family:等线;
-	mso-hansi-font-family:等线;
-	mso-font-kerning:0pt;}
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;}
  /* Page Definitions */
  @page
 	{mso-page-border-surround-header:no;
-	mso-page-border-surround-footer:no;}
+	mso-page-border-surround-footer:no;
+	mso-footnote-separator:url("examTemplate.files/header.htm") fs;
+	mso-footnote-continuation-separator:url("examTemplate.files/header.htm") f=
+cs;
+	mso-endnote-separator:url("examTemplate.files/header.htm") es;
+	mso-endnote-continuation-separator:url("examTemplate.files/header.htm") ec=
+s;}
 @page WordSection1
 	{size:595.3pt 841.9pt;
 	margin:72.0pt 90.0pt 72.0pt 90.0pt;
@@ -1083,11 +1121,19 @@ div.WordSection1
 	mso-para-margin:0cm;
 	mso-para-margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:等线;}
+	font-size:10.5pt;
+	mso-bidi-font-size:11.0pt;
+	font-family:等线;
+	mso-ascii-font-family:等线;
+	mso-ascii-theme-font:minor-latin;
+	mso-fareast-font-family:等线;
+	mso-fareast-theme-font:minor-fareast;
+	mso-hansi-font-family:等线;
+	mso-hansi-theme-font:minor-latin;
+	mso-font-kerning:1.0pt;}
 </style>
 <![endif]--><!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026"/>
+ <o:shapedefaults v:ext=3D"edit" spidmax=3D"2049"/>
 </xml><![endif]--><!--[if gte mso 9]><xml>
  <o:shapelayout v:ext=3D"edit">
   <o:idmap v:ext=3D"edit" data=3D"1"/>
@@ -1099,542 +1145,23 @@ on'>
 
 <div class=3DWordSection1 style=3D'layout-grid:15.6pt'>
 
-<p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>桂</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>林</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>电</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>子</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>科</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>技</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>大</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>学</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>试</span></b><b><span style=3D'font-size:2=
-2.0pt;
-mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'> </span></b><b><span
-style=3D'font-size:22.0pt;mso-bidi-font-size:11.0pt;font-family:黑体;mso-as=
-cii-font-family:
-等线;mso-hansi-font-family:等线'>卷</span></b><b><span lang=3DEN-US style=
-=3D'font-size:
-22.0pt;mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'><o:p></o:p><=
-/span></b></p>
+<p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span
+style=3D'font-size:24.0pt;font-family:宋体'>离散数学题目<span lang=3DEN-US>=
+<o:p></o:p></span></span></p>
 
-<p class=3DMsoNormal style=3D'text-indent:31.5pt;mso-char-indent-count:3.0'=
-><u><span
-lang=3DEN-US><o:p><span style=3D'text-decoration:none'>&nbsp;</span></o:p><=
-/span></u></p>
-
-<p class=3DMsoNormal style=3D'text-indent:31.5pt;mso-char-indent-count:3.0'=
-><u><span
-lang=3DEN-US><span style=3D'mso-spacerun:yes'>&nbsp;&nbsp; </span>2018</spa=
-n>—<span
-lang=3DEN-US>2019<span style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span=
-></span></u><span
-class=3DGramE>学年第</span><u><span lang=3DEN-US><span style=3D'mso-spaceru=
-n:yes'>&nbsp;
-</span>1<span style=3D'mso-spacerun:yes'>&nbsp; </span></span></u>学期<span
-lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span class=3DGramE>课</span>号 <u><span lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;</span>${courseCode}<span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp; </span></span></u></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal>课程名称<u><span lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp; </span></span>离散数学<span lang=3DEN-US>=
-<span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp; </span></span></u>（<span lang=3DEN=
--US>A</span><span
-style=3D'letter-spacing:-1.0pt'>卷<span lang=3DEN-US>; </span></span>闭卷）=
- 适用班级（或年级、专业）<u><span
-lang=3DEN-US><span style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;
-</span>${njzy}<span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></u></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal>考试时间<u><span lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp; </span>${time}<span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span></span></u>分钟<span
-lang=3DEN-US><span style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp; </sp=
-an></span>班级<u><span
-lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;
-</span></span></u><span lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;</span></span>学号<u><sp=
-an
-lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;
-</span></span></u><span lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></spa=
-n>姓名<u><span
-lang=3DEN-US><span
-style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;
-</span><o:p></o:p></span></u></p>
-
-<table class=3DMsoNormalTable border=3D1 cellspacing=3D0 cellpadding=3D0
- style=3D'border-collapse:collapse;border:none;mso-border-alt:solid windowt=
-ext .5pt;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insid=
-eh:
- .5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=3D67 valign=3Dtop style=3D'width:50.4pt;border:solid windowtext=
- 1.0pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>题<span l=
-ang=3DEN-US><span
-  style=3D'mso-spacerun:yes'>&nbsp; </span></span>号</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span cla=
-ss=3DGramE>一</span></p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>二</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>三</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>四</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>五</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>六</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>七</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>八</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>九</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.15pt;border:solid windowtex=
-t 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>十</p>
-  </td>
-  <td width=3D46 valign=3Dtop style=3D'width:34.2pt;border:solid windowtext=
- 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>成绩</p>
-  </td>
- </tr>
- <tr style=3D'mso-yfti-irow:1'>
-  <td width=3D67 valign=3Dtop style=3D'width:50.4pt;border:solid windowtext=
- 1.0pt;
-  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:s=
-olid windowtext .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>满<span l=
-ang=3DEN-US><span
-  style=3D'mso-spacerun:yes'>&nbsp; </span></span>分</p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>12</span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>12</span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>18</span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>35</span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>18</span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>5</span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.2pt;border-top:none;border-left:none;bor=
-der-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top=
--alt:
-  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-borde=
-r-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US>100</span></p>
-  </td>
- </tr>
- <tr style=3D'mso-yfti-irow:2'>
-  <td width=3D67 valign=3Dtop style=3D'width:50.4pt;border:solid windowtext=
- 1.0pt;
-  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:s=
-olid windowtext .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>得<span l=
-ang=3DEN-US><span
-  style=3D'mso-spacerun:yes'>&nbsp; </span></span>分</p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.2pt;border-top:none;border-left:none;bor=
-der-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top=
--alt:
-  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-borde=
-r-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
- </tr>
- <tr style=3D'mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=3D67 valign=3Dtop style=3D'width:50.4pt;border:solid windowtext=
- 1.0pt;
-  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:s=
-olid windowtext .5pt;
-  padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>评卷人</p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.15pt;border-top:none;border-left:none;
-  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid window=
-text .5pt;
-  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
-  <td width=3D46 style=3D'width:34.2pt;border-top:none;border-left:none;bor=
-der-bottom:
-  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top=
--alt:
-  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-borde=
-r-alt:
-  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US><o:p>&nbsp;</o:p></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-<p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
-
-${xuanzeti}
-<#list xztExamList as exam>
+<p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:24.0pt;font-fami=
+ly:宋体'><o:p>&nbsp;</o:p></span></p>
+<#list examList as exam>
 ${exam.question}
 </#list>
-<br>
-
-${tiankongti}
-<#list tktExamList as exam>
-${exam.question}
-</#list>
-<br>
-
-${panduanti}
-<#list pdtExamList as exam>
-${exam.question}
-</#list>
-<br>
-
-${wendati}
-<#list wdtExamList as exam>
-${exam.question}
-</#list>
-
 </div>
 
 </body>
 
 </html>
 
-<#list base64List as base64>
-${base64}
-</#list>
-
-------=_NextPart_01D4C472.EB54B520
-Content-Location: file:///C:/8589A2B1/t1.files/themedata.thmx
+------=_NextPart_01D4C48A.B50DABD0
+Content-Location: file:///C:/213792E5/examTemplate.files/themedata.thmx
 Content-Transfer-Encoding: base64
 Content-Type: application/vnd.ms-officetheme
 
@@ -1650,57 +1177,53 @@ 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
-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
-ALcLAAAAAA==
+kIWttd0g1rUr1SHvLN1euSRqPYtHV+jT9yniResrJgoCOP0BAAD//wMAUEsDBBQABgAIAAAAIQDs
+8t9S2gYAAJQaAAAWAAAAdGhlbWUvdGhlbWUvdGhlbWUxLnhtbOxZXYvbRhR9L/Q/CL07/pL8scQJ
+tmxn22STEDspeZy1x9ZkRxqjGe/GhEBInkqhUEhLHhoofelDKQ000NA+9L80ZUPa/ojeGcnyjD3u
+bpYUQsnuskijc++cuffq3JF0/uLdiDqHOOGExS23fK7kOjgesTGJpy335rBfaLgOFygeI8pi3HIX
+mLsXL3z4wXm0I0IcYQfsY76DWm4oxGynWOQjGEb8HJvhGK5NWBIhAafJtDhO0BH4jWixUirVihEi
+sevEKAK31yYTMsLOHy9+ff3tk98ffAZ/7oXlHD0KE8WCy4ERTQZyBmwYKuz4oCwRfMEDmjiHiLZc
+mG7Mjob4rnAdiriACy23pH7c4oXzRbSTGVGxxVazC+q9bhBkdpnB+KCi5kym+/mknud7tXbuXwGo
+2MT16r1ar5b7UwA0GsFKUy6mz3ol8DKsBkoPLb679W61bOA1/9UNzm1f/hp4BUr9exv4fj+AKBp4
+BUrx/gbe7zQ7XdO/AqX42ga+Xmp3vbrhX4FCSuKDDXTJr1WD5WpzyITRXSu86Xv9eiVzvkJBNeTV
+JaeYsFhsq7UI3WFJHwASSJEgsSMWMzxBIyjmVz98+uqX35wrZBpC3c1QzDiMliqlfqkK/+Wvp45U
+QtEORpqxpAVE+MaQpOPwUUJmouV+DF5dDXL84sXLh89fPvz55aNHLx/+mM2tXBl2uyie6nZ/fffF
+308fOH/+9M1fj79Mp17Hcx1vLM3qHla8isTxV89ePX92/OTz198/tnhvJ2hfhw9JhLlzFR85N1gE
+C7RMgPeTN7MYhojoFu14ylGM5CwW/z0RGuirC0SRBdfBZhxvJaA0NuCl+R2D8CBM5oJYPF4OIwO4
+xxjtsMQahctyLi3Mw3k8tU+ezHXcDYQObXMHKDay3JvPQGKJzWUQYoPmdYpigaY4xsKR19gBxpbV
+3SbEiOseGSWMs4lwbhOng4g1JEOyb1TTymiXRJCXhY0g5NuIzd4tp8OobdVdfGgi4d5A1EJ+iKkR
+xktoLlBkczlEEdUDfgWJ0EZysEhGOq7HBWR6iilzemPMuc3mWgLr1ZJ+GYG4WdO+RxeRiUwEObD5
+vIIY05FddhCEKJrZsAMShzr2I34AJYqc60zY4HvMvEPkOeQBxVvTfYtgI90nq8FNUFid0qpA5JV5
+YsnlJcyM+h0s6ARhJTWg/4asRyQ+SePX1N3/79QdNPT466eWBb0dRbc7NtLxhlreToj1ZtpdU/Bt
+uHXdDlgyJu++bHfRPL6O4U7Z7F3vVfu9arv/e9Xedj+/fa1eyTMot9y1ppt1tXWPtu7cJ4TSgVhQ
+fIWrzTuHpjTuw6C0Uw+vOH+Sm4VwKO9kmMDATROkbJyEiU+ICAchmsEWv+xKJ1OeuZ5yZ8Y47PzV
+sNW3xNN5tMfG6QNruSwfTlPx4Eisxkt+Pg4PGyJF1+qrh7DcvWI7VQ/LSwLS9k1IaJOZJKoWEvXl
+oAySejSHoFlIqJW9FRZNC4uGdL9M1QYLoJZnBXZNDuy1Wq7vgQkYwUMVongs85Smepldlcy3melt
+wTQqAPYQywpYZbopuW5dnlxdWmqnyLRBQis3k4SKjOphPERjnFWnHD0NjTfNdXOVUoOeDIWaD0pr
+RaPe+DcWZ8012K1rA411paCxc9Rya1UfSmaEZi13Ag/+cBjNoHa43O0iOoWXaCORpDf8WZRllnDR
+RTxMA65EJ1WDiAicOJRELVcuP08DjZWGKG7lCgjCO0uuCbLyrpGDpJtJxpMJHgk97dqIjHR6Cgqf
+aoX1qjI/O1hasjmkexCOj5x9Ok9uICgxv16WARwTDi+Aymk0xwReaOZCtqq/tcaUya7+RlHVUDqO
+6CxEWUfRxTyFKynP6aizPAbaWbZmCKgWkqwR7k9lg9WDanTTvGukHLZ23ZONZOQ00Vz1TENVZNe0
+q5gxw7INrMXybE1eY7UMMWia3uFT6V6X3OZS69b2CXmXgIDn8bN03VM0BI3aajKDmmS8KcNSs7NR
+s3csF3gCtdM0CU31a0u3a3HLe4R1Ohg8U+cHu/WqhaHJcl+pIq0+gOgfJ9j+HRCPLrwGnlPBVSrh
+00OCYEM0UHuSVDbgFrkrslsDjpx5QlruvZLf9oKKHxRKDb9X8KpeqdDw29VC2/er5Z5fLnU7lfvQ
+WEQYlf3040sf3kLRRfYJRo1vfIaJli/azo1YVGTqM0tREVefYcoV22eYofzA4joEROderdJvVpud
+WqFZbfcLXrfTKDSDWqfQrQX1br8b+I1m/77rHCqw164GXq3XKNTKQVDwaiVJv9Es1L1Kpe3V242e
+176fbWNg5al8ZLGA8CpeF/4BAAD//wMAUEsDBBQABgAIAAAAIQAN0ZCftgAAABsBAAAnAAAAdGhl
+bWUvdGhlbWUvX3JlbHMvdGhlbWVNYW5hZ2VyLnhtbC5yZWxzhI9NCsIwFIT3gncIb2/TuhCRJt2I
+0K3UA4TkNQ02PyRR7O0NriwILodhvplpu5edyRNjMt4xaKoaCDrplXGawW247I5AUhZOidk7ZLBg
+go5vN+0VZ5FLKE0mJFIoLjGYcg4nSpOc0IpU+YCuOKOPVuQio6ZByLvQSPd1faDxmwF8xSS9YhB7
+1QAZllCa/7P9OBqJZy8fFl3+UUFz2YUFKKLGzOAjm6pMBMpburrE3wAAAP//AwBQSwECLQAUAAYA
+CAAAACEA6d4Pv/8AAAAcAgAAEwAAAAAAAAAAAAAAAAAAAAAAW0NvbnRlbnRfVHlwZXNdLnhtbFBL
+AQItABQABgAIAAAAIQCl1qfnwAAAADYBAAALAAAAAAAAAAAAAAAAADABAABfcmVscy8ucmVsc1BL
+AQItABQABgAIAAAAIQBreZYWgwAAAIoAAAAcAAAAAAAAAAAAAAAAABkCAAB0aGVtZS90aGVtZS90
+aGVtZU1hbmFnZXIueG1sUEsBAi0AFAAGAAgAAAAhAOzy31LaBgAAlBoAABYAAAAAAAAAAAAAAAAA
+1gIAAHRoZW1lL3RoZW1lL3RoZW1lMS54bWxQSwECLQAUAAYACAAAACEADdGQn7YAAAAbAQAAJwAA
+AAAAAAAAAAAAAADkCQAAdGhlbWUvdGhlbWUvX3JlbHMvdGhlbWVNYW5hZ2VyLnhtbC5yZWxzUEsF
+BgAAAAAFAAUAXQEAAN8KAAAAAA==
 
-------=_NextPart_01D4C472.EB54B520
-Content-Location: file:///C:/8589A2B1/t1.files/colorschememapping.xml
+------=_NextPart_01D4C48A.B50DABD0
+Content-Location: file:///C:/213792E5/examTemplate.files/colorschememapping.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
@@ -1709,18 +1232,103 @@ Content-Type: text/xml
  bg1=3D"lt1" tx1=3D"dk1" bg2=3D"lt2" tx2=3D"dk2" accent1=3D"accent1" accent=
 2=3D"accent2" accent3=3D"accent3" accent4=3D"accent4" accent5=3D"accent5" a=
 ccent6=3D"accent6" hlink=3D"hlink" folHlink=3D"folHlink"/>
-------=_NextPart_01D4C472.EB54B520
-Content-Location: file:///C:/8589A2B1/t1.files/filelist.xml
+------=_NextPart_01D4C48A.B50DABD0
+Content-Location: file:///C:/213792E5/examTemplate.files/header.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="gb2312"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:w=3D"urn:schemas-microsoft-com:office:word"
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml"
+xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dgb2312">
+<meta name=3DProgId content=3DWord.Document>
+<meta name=3DGenerator content=3D"Microsoft Word 15">
+<meta name=3DOriginator content=3D"Microsoft Word 15">
+<link id=3DMain-File rel=3DMain-File href=3D"../examTemplate.htm">
+<![if IE]>
+<base href=3D"file:///C:/213792E5/examTemplate.files/header.htm"
+id=3D"webarch_temp_base_tag">
+<![endif]><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext=3D"edit" spidmax=3D"2049"/>
+</xml><![endif]-->
+</head>
+
+<body lang=3DZH-CN>
+
+<div style=3D'mso-element:footnote-separator' id=3Dfs>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1 width=3D"33%">
+
+<![endif]></span></span></p>
+
+</div>
+
+<div style=3D'mso-element:footnote-continuation-separator' id=3Dfcs>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-continuation-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1>
+
+<![endif]></span></span></p>
+
+</div>
+
+<div style=3D'mso-element:endnote-separator' id=3Des>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1 width=3D"33%">
+
+<![endif]></span></span></p>
+
+</div>
+
+<div style=3D'mso-element:endnote-continuation-separator' id=3Decs>
+
+<p class=3DMsoNormal><span lang=3DEN-US><span style=3D'mso-special-characte=
+r:footnote-continuation-separator'><![if !supportFootnotes]>
+
+<hr align=3Dleft size=3D1>
+
+<![endif]></span></span></p>
+
+
+<#list examList as exam>
+${exam.question}
+</#list>
+
+</div>
+
+</body>
+
+</html>
+
+<#list base64List as base64>
+${base64}
+</#list>
+
+------=_NextPart_01D4C48A.B50DABD0
+Content-Location: file:///C:/213792E5/examTemplate.files/filelist.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml; charset="utf-8"
 
 <xml xmlns:o=3D"urn:schemas-microsoft-com:office:office">
- <o:MainFile HRef=3D"../t1.htm"/>
+ <o:MainFile HRef=3D"../examTemplate.htm"/>
  <o:File HRef=3D"themedata.thmx"/>
  <o:File HRef=3D"colorschememapping.xml"/>
+ <o:File HRef=3D"header.htm"/>
  <o:File HRef=3D"filelist.xml"/>
-  <#list oFileList as oFile>
+ <#list oFileList as oFile>
 	${oFile}
   </#list>
 </xml>
-------=_NextPart_01D4C472.EB54B520--
+------=_NextPart_01D4C48A.B50DABD0--

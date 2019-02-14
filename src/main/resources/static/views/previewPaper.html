@@ -13,18 +13,18 @@
 </head>
 <body>
 <div style="position:fixed;right:10%;top:0;z-index: 999"><button class="layui-btn" id="exportPaper" onclick="
-        alert('导出');
+        exportDoc();
 ">导出试卷</button>
 </div>
 <div class="question-block" th:each="vo,userStat : ${voList}" th:attr="id=${'div'+vo.eid}" style="margin-bottom: 20px;width: 80%;margin-left: auto;margin-right: auto">
     <div class="q-mc">
         <div class="q-tit">
-            <span th:utext="${userStat.index+1+'、'+vo.question}"></span>_____
+            <span th:utext="${vo.question}"></span><!--userStat.index+1+'、'+-->
             <p style="margin-top: 6px" th:if="${vo.imgUrl}!=''">
                 <img th:src="${vo.imgUrl}">
             </p>
         </div>
-        <div class="exam-s" style="overflow: hidden" th:if="${vo.optionJson!=null}">
+        <!--<div class="exam-s" style="overflow: hidden" th:if="${vo.optionJson!=null}">
             <div class="option-item">
                 <span style="float: left;margin-right: 2px">A:</span>
                 <span style="float: left;" th:utext="${vo.optionA}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
@@ -41,7 +41,7 @@
                 <span style="float: left;margin-right: 2px">D:</span>
                 <span style="float: left;" th:utext="${vo.optionD}">今年苹果产量是去年苹果产量是去年苹果产量是去年的102%</span>
             </div>
-        </div>
+        </div>-->
     </div>
     <div class="q-msg cfx">
         <div class="q-attr fl">
@@ -76,6 +76,20 @@
             }
         })
     }
+
+    function exportDoc() {
+        $.ajax({
+            url:'/paper/convertPaper',
+            success:function (res) {
+                if(res.code == '0'){
+                    alert("生成成功")
+                }else {
+                    alert("生成失败")
+                }
+            }
+        })
+    }
+
 
 </script>
 </html>

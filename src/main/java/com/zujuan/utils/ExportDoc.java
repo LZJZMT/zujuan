@@ -77,16 +77,13 @@ public class ExportDoc {
 
 
             BufferedImage bi = ImageIO.read(imageFile);// 通过ImageIO读取输入流来获取一个BufferedImage对象
-            double height = bi.getHeight()/1.34;//获取高度
-            double width = bi.getWidth()/1.34;//获取宽度
-            System.out.println(srcRealPath);
-            System.out.println(height);
-            System.out.println(width);
+            double height = bi.getHeight()/1.6;//获取高度
+            double width = bi.getWidth()/1.6;//获取宽度
 
             // 得到文件的word mht的body块
             String handledDocBodyBlock = toDocBodyBlock(height, width,docFileName);
 
-            item.parent().append(handledDocBodyBlock);
+            item.after(handledDocBodyBlock);
             item.remove();
             // 去替换原生的html中的imag
 
@@ -100,6 +97,7 @@ public class ExportDoc {
             oFileList.add(oFile);
 
         }
+        doc.getElementsByTag("body").append("<br>");
         String body = doc.getElementsByTag("body").html();
         System.out.println(body);
         return body;

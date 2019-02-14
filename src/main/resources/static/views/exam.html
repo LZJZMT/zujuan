@@ -68,7 +68,7 @@
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
                 <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
-                <!--<button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>-->
+                <button class="layui-btn layuiadmin-btn-comm" data-type="print">打印试题</button>
                 <button class="layui-btn layuiadmin-btn-comm" data-type="reload">刷新</button>
             </div>
             <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
@@ -109,6 +109,7 @@
                 ]]
                 , page: true
                 , even: true //斑马线效果
+                , limit : 40
             })
             //监听工具条
             table.on('tool(LAY-app-content-comm)', function (obj) {
@@ -247,6 +248,33 @@
                 ,
                 reload: function () {
                     table.reload('LAY-app-content-comm');
+                },
+                print:function () {
+                    var checkStatus = table.checkStatus('LAY-app-content-comm')
+                        , checkData = checkStatus.data; //得到选中的数据
+
+                    if (checkData.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+
+                    $.ajax({
+                        url: '/paper/downloadWordByIds',
+                        data: JSON.stringify(checkData),
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (res) {
+                            if (res.code == 0) {
+                                location.href = res.msg;
+                            } else {
+                                layer.msg(res.msg, {
+                                    anim: 6
+                                });
+                            }
+
+                        }
+                    })
+
                 }
             }
 
