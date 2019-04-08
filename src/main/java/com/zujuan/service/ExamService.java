@@ -23,7 +23,7 @@ public interface ExamService {
 
     Examination getById(Long id);
 
-    PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit);
+    PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit) throws Exception;
 
     List<ExaminationVO> convert2VOlist(List<Examination> examinations);
 }

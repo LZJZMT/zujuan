@@ -56,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler).permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/layuiadmin/**",
-                    "/**","/**/findPwd","/**/register.html", "/user/register","/**/forget.html","/user/forget","/user/sendEmail")
+                    "/**",//开发模式打开，这个是关闭未登录拦截器
+                    "/**/findPwd","/**/register.html", "/user/register","/**/forget.html","/user/forget","/user/sendEmail")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()//关闭frame保护
@@ -64,8 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(1200)//1200秒免登陆
                 .and()
-                .csrf().disable()
-        ;
+                .csrf().disable();
         http.logout()
                 .logoutSuccessUrl("/views/user/login.html")
                 .logoutUrl("/user/logout")

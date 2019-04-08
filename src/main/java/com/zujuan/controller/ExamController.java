@@ -148,13 +148,14 @@ public class ExamController {
     }
 
     @ResponseBody
-    //根据ID删除知识点
     @RequestMapping("/delById")
     public Map delById(Long id) {
         Map resultMap = GetResultBean.getResultMap();
         try {
             es.del(id);
-            System.out.println(id + "已删除");
+            ExamBasketExample example = new ExamBasketExample();
+            example.createCriteria().andExamIdEqualTo(id);
+            ebs.delByExample(example);
         } catch (Exception e) {
             resultMap = GetResultBean.getFailResultMap();
             resultMap.put("msg", "删除失败");
@@ -238,7 +239,7 @@ public class ExamController {
     //根据多个ID，试题条件获得试题
     @RequestMapping("/getExamForZuJuan")
     @ResponseBody
-    public PageBean getExamForZuJuan(Long[] ids, Examination exam, Integer curPage, Integer limit) {
+    public PageBean getExamForZuJuan(Long[] ids, Examination exam, Integer curPage, Integer limit) throws Exception {
         if (ids.length == 0) {
             ids = null;
         }
@@ -251,7 +252,11 @@ public class ExamController {
     @RequestMapping("/previewPaper")
     public String previewPaper(ModelMap modelMap) {
         ExamBasketExample examBasketExample = new ExamBasketExample();
-        examBasketExample.createCriteria().andUserIdEqualTo(GetCurrentUser.getCurrentUser().getId());
+        try {
+            examBasketExample.createCriteria().andUserIdEqualTo(GetCurrentUser.getCurrentUser().getId());
+        } catch (Exception e) {
+            return "previewPaper";
+        }
         List<ExamBasket> ebsList = ebs.selectByExample(examBasketExample);
         Map typeViewMap = ResultViewMap.getTypeViewMap();
         Map degreeViewMap = ResultViewMap.getDegreeViewMap();
@@ -264,17 +269,17 @@ public class ExamController {
             //解析JSONString为Map
             String optionJson = examinationVO.getOptionJson();
             Map map = (Map) JSONArray.parse(optionJson);
-            if(map != null){
-                examinationVO.setOptionC((String)map.get("C"));
-                examinationVO.setOptionD((String)map.get("D"));
-                examinationVO.setOptionA((String)map.get("A"));
-                examinationVO.setOptionB((String)map.get("B"));
+            if (map != null) {
+                examinationVO.setOptionC((String) map.get("C"));
+                examinationVO.setOptionD((String) map.get("D"));
+                examinationVO.setOptionA((String) map.get("A"));
+                examinationVO.setOptionB((String) map.get("B"));
             }
             examinationVO.setZsdname(ks.selectByPrimary(examinationVO.getKnowId()).getZsdname());
             list.add(examinationVO);
         }
 
-        modelMap.addAttribute("voList",list);
+        modelMap.addAttribute("voList", list);
         return "previewPaper";
     }
 }

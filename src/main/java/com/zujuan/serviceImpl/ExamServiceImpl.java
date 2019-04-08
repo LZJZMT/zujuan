@@ -83,7 +83,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit) {
+    public PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit) throws Exception {
 
         //获取试题篮已经存在的试题id
         ExamBasketExample basketExample = new ExamBasketExample();

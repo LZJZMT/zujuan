@@ -109,7 +109,12 @@ public class UserController {
     @RequestMapping("/info")
     public String getInfo(ModelMap map){
 
-        User user = GetCurrentUser.getCurrentUser();
+        User user = null;
+        try {
+            user = GetCurrentUser.getCurrentUser();
+        } catch (Exception e) {
+            return "redirect:/views/user/login.html";
+        }
         map.addAttribute("user",user);
         System.out.println(user);
         return "set/user/info";

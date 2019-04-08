@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper um;
 
     @Override
-    public void changePwd(String password) {
+    public void changePwd(String password) throws Exception {
         User currentUser = GetCurrentUser.getCurrentUser();
         UserExample example = new UserExample();
         example.createCriteria().andIdEqualTo(currentUser.getId());

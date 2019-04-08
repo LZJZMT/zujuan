@@ -27,7 +27,11 @@ public class CommonController {
 
     @RequestMapping("/views/index")
     public String home(ModelMap modelMap){
-        modelMap.addAttribute("username", GetCurrentUser.getCurrentUser().getUsername());
+        try {
+            modelMap.addAttribute("username", GetCurrentUser.getCurrentUser().getUsername());
+        } catch (Exception e) {
+            return "redirect:/views/user/login.html";
+        }
         return "index";
     }
 

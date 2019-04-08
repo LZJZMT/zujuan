@@ -9,7 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @Date： 2019/1/9 14:28
  */
 public class GetCurrentUser {
-    public static User getCurrentUser(){
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public static User getCurrentUser() throws Exception{
+        try{
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return user;
+        }catch (Exception e){
+            throw e;
+        }
+
     }
 }

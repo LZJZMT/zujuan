@@ -6,6 +6,11 @@ import com.zujuan.service.ExamService;
 import com.zujuan.utils.ExportDoc;
 import com.zujuan.utils.GetResultBean;
 import freemarker.template.Template;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -58,9 +63,8 @@ public class PaperController {
             Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "gb2312"));
             for (Examination examination : examList) {
                 String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);
-                StringBuilder sb = new StringBuilder(wordQuestion);//构造一个StringBuilder对象
-                sb.insert(3, index++ + "、");//在指定的位置1，插入指定的字符串
-                examination.setQuestion(sb.toString());
+                Document document = addIndexToQuestion(wordQuestion, index++);
+                examination.setQuestion(document.toString());
             }
 
             resultMap.put("msg",fileName.substring(2));
@@ -79,6 +83,23 @@ public class PaperController {
         }
     }
 
+    public Document addIndexToQuestion(String question,int index){
+        Document doc = Jsoup.parse(question);
+        if (doc.getElementsByTag("p") == null || doc.getElementsByTag("p").size() == 0){
+            Elements body = doc.getElementsByTag("body").first().children();
+            if (body == null || body.size() == 0 || doc.getElementsByTag("body").first().getElementsByTag("p").size()==0){
+                doc.getElementsByTag("body").first().prependText(index + "、");
+            }
+            return doc;
+        }
+        if (doc.getElementsByTag("p").first().child(0) == null){
+            return null;
+        }
+        Element p = doc.getElementsByTag("p").first().child(0);
+        p.prependText(index + "、");
+        return doc;
+    }
+
 
     @ResponseBody
     @RequestMapping("/convertPaper")
@@ -89,7 +110,7 @@ public class PaperController {
         exportDoc.setPreFile("file:///C:/8589A2B1/");
         Template template = exportDoc.getTemplate("t1.mht", "gb2312");
 
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("E:\\generate.doc"), "gb2312"));
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("E:\\image\\paper\\generate.doc"), "gb2312"));
         HashMap<String, Object> map = new HashMap<>();
         map.put("courseCode", "21312312");
         map.put("njzy", "17级软件工程");
@@ -117,27 +138,26 @@ public class PaperController {
         }
         for (Examination examination : xztExamList) {
             String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);
-            StringBuilder sb = new StringBuilder(wordQuestion);//构造一个StringBuilder对象
-            sb.insert(3, index++ + "、");//在指定的位置1，插入指定的字符串
-            examination.setQuestion(sb.toString());
+            Document document = addIndexToQuestion(wordQuestion, index++);
+            examination.setQuestion(document.toString());
         }
         for (Examination examination : tktExamList) {
             String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);
             StringBuilder sb = new StringBuilder(wordQuestion);//构造一个StringBuilder对象
-            sb.insert(3, index++ + "、");//在指定的位置1，插入指定的字符串
-            examination.setQuestion(sb.toString());
+            Document document = addIndexToQuestion(wordQuestion, index++);
+            examination.setQuestion(document.toString());
         }
         for (Examination examination : pdtExamList) {
             String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);
             StringBuilder sb = new StringBuilder(wordQuestion);//构造一个StringBuilder对象
-            sb.insert(3, index++ + "、");//在指定的位置1，插入指定的字符串
-            examination.setQuestion(sb.toString());
+            Document document = addIndexToQuestion(wordQuestion, index++);
+            examination.setQuestion(document.toString());
         }
         for (Examination examination : wdtExamList) {
             String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);
             StringBuilder sb = new StringBuilder(wordQuestion);//构造一个StringBuilder对象
-            sb.insert(3, index++ + "、");//在指定的位置1，插入指定的字符串
-            examination.setQuestion(sb.toString());
+            Document document = addIndexToQuestion(wordQuestion, index++);
+            examination.setQuestion(document.toString());
         }
         HashMap<Object, String> xiaoxie2daxie = new HashMap<>();
         xiaoxie2daxie.put(1, "一、选择题");
