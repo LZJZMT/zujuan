@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zujuan.mapperGene.ExamPaperMapper">
+<mapper namespace="com.zujuan.mapper.ExamPaperMapper">
   <resultMap id="BaseResultMap" type="com.zujuan.pojo.ExamPaper">
     <id column="pid" jdbcType="BIGINT" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -112,7 +112,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zujuan.pojo.ExamPaper">
-    insert into exam_paper (pid, name, course_code, 
+    <selectKey keyProperty="pid" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into exam_paper (pid, name, course_code,
       njzy, total_score, time, 
       create_time, exam_time, revise_time, 
       degree, file_url, xz_score, 
@@ -126,6 +129,9 @@
       #{authorId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.zujuan.pojo.ExamPaper">
+    <selectKey keyProperty="pid" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into exam_paper
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pid != null">

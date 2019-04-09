@@ -99,7 +99,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zujuan.pojo.PagerExamR">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into pager_exam_r (id, eid, pid, score
@@ -108,7 +108,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zujuan.pojo.PagerExamR">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into pager_exam_r

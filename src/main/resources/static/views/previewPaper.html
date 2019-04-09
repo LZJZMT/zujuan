@@ -16,9 +16,10 @@
         exportDoc();
 ">生成试卷</button>
 </div>
-<form action="/examPaper/addExamPaper" method="post">
+<form action="/examPaper/addExamPaperR" method="post" id="paperForm" target="frameName">
+    <iframe src="" frameborder="0" name="frameName"></iframe>
 <div class="question-block" th:each="vo,userStat : ${voList}" th:attr="id=${'div'+vo.eid}" style="margin-bottom: 20px;width: 80%;margin-left: auto;margin-right: auto">
-    <input type="hidden" th:name="'examPaper['+${vo}+'][]'">
+    <input type="hidden" th:name="'examPaper['+${userStat.index}+'].eid'" th:value="${vo.eid}">
     <div class="q-mc">
         <div class="q-tit">
             <span th:utext="${vo.question}"></span><!--userStat.index+1+'、'+-->
@@ -38,7 +39,9 @@
             <span th:text="${vo.answer}"> </span>
         </div>
         <div style="float: right;margin-top: 12px">
-            <button th:onclick="'removeById(\''+${vo.eid}+'\')'" class="layui-btn layui-btn-normal layui-btn-sm">
+            <input type="input" th:name="'examPaper['+${userStat.index}+'].score'" lay-verify="required" placeholder="请输入分值" autocomplete="off"
+                   class="layui-input"  style="float: right">
+            <button th:onclick="'removeById(\''+${vo.eid}+'\')'" class="layui-btn layui-btn-normal layui-btn-sm" style="float: right">
                 <i class="layui-icon">&#xe640;移除该题</i>
             </button>
         </div>
@@ -60,20 +63,27 @@
             }
         })
     }
-
+</script>
+<script src="../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,form = layui.form ;
+    })
     function exportDoc() {
-        $.ajax({
-            url:'/paper/convertPaper',
-            success:function (res) {
-                if(res.code == '0'){
-                    alert("生成成功")
-                }else {
-                    alert("生成失败")
-                }
-            }
-        })
+        var form = document.getElementById('paperForm');
+        form.submit();
+        layer.full(layer.open({
+            title:'保存试卷',
+            type: 2,
+            content: '/views/addPaper.html',
+            area: ['700px', '300px'],
+            maxmin: true
+        }));
     }
-
-
 </script>
 </html>
