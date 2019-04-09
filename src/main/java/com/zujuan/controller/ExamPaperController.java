@@ -14,6 +14,7 @@ import com.zujuan.vo.PagerExamRVO;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,7 +29,6 @@ import java.util.Map;
  * @Date： 2019/4/9 9:01
  */
 
-@ResponseBody
 @RequestMapping("/examPaper")
 @Controller
 public class ExamPaperController {
@@ -42,13 +42,27 @@ public class ExamPaperController {
     @Autowired
     private PagerExamRService pagerExamRService;
 
+    @RequestMapping("/myExamPaper")
+    public String myExamPaper(ModelMap modelMap){
+        List<ExamPaper> myExamPaperList = null;
+        try {
+            myExamPaperList = examPaperService.getMyExamPaper();
+        } catch (Exception e) {
+            return "redirect:/views/user/login.html";
+        }
+        modelMap.addAttribute("examPaperList", myExamPaperList);
+
+        return "examPaperList";
+    }
+
+    @ResponseBody
     @RequestMapping("/addExamPaperR")
     public Map saveExamScore(PagerExamRVO e){
         Map resultMap = GetResultBean.getResultMap();
         ExamPaperData.list = e.getExamPaper();
         return null;
     }
-
+    @ResponseBody
     @RequestMapping("/addExamPaper")
     public Map saveExamPaper(ExamPaper examPaper) throws Exception {
         Map resultMap = GetResultBean.getResultMap();
@@ -64,12 +78,15 @@ public class ExamPaperController {
             Long eid = pagerExamR.getEid();
             Examination examServiceById = examService.getById(eid);
             degree += examServiceById.getDegree();
-            totalScore+=pagerExamR.getScore();
+            if (pagerExamR.getScore() != null){
+                totalScore+=pagerExamR.getScore();
+            }
+
         }
         DecimalFormat df = new DecimalFormat("#.0");
         Double format = Double.valueOf(df.format(degree / list.size()));
         examPaper.setDegree(format);
-        examPaper.setTotalScore(totalScore);
+        examPaper.setTotalScore(totalScore==0?100:totalScore);
         examPaperService.add(examPaper);
 
         for (PagerExamR pagerExamR : list) {

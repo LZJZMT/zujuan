@@ -98,7 +98,12 @@
                 , data: obj.field
                 , method: 'post'
                 , done: function (res) {
-                    alert(res);
+                    if (res.code != 0){
+                        layer.msg("新增失败");
+                    }else{
+                        layer.msg("新增成功")
+                        location.href = '/examPaper/myExamPaper'
+                    }
                 }
             });
 
