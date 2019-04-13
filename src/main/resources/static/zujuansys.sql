@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : linux
-Source Server Version : 100038
-Source Host           : 172.0.5.173:3306
+Source Server         : localhost
+Source Server Version : 50549
+Source Host           : localhost:3306
 Source Database       : zujuansys
 
 Target Server Type    : MYSQL
-Target Server Version : 100038
+Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-04-09 15:29:48
+Date: 2019-04-13 17:45:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for examination
+-- Table structure for `examination`
 -- ----------------------------
 DROP TABLE IF EXISTS `examination`;
 CREATE TABLE `examination` (
@@ -31,17 +31,18 @@ CREATE TABLE `examination` (
   PRIMARY KEY (`eid`),
   KEY `题目知识点` (`know_id`),
   CONSTRAINT `题目知识点` FOREIGN KEY (`know_id`) REFERENCES `knowledge` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of examination
 -- ----------------------------
-INSERT INTO `examination` VALUES ('26', '<p class=\"MsoNormal\"><span>设</span><span>&nbsp;<img src=\"/image/155470461745465892.png\" alt=\"undefined\"></span><span>（</span><span>N</span><span>：自然数集，</span><span>E</span><sub><span></span></sub><sup><span>+</span></sup><span>&nbsp;</span><span>正偶数）</span><span>则</span><span><img src=\"/image/155470462889767345.png\" alt=\"undefined\"></span><u><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></u><span>&nbsp;</span><span>。</span><span><o:p></o:p></span></p>', null, '{1,2,3}', '', '2', '2', '37');
-INSERT INTO `examination` VALUES ('28', 'sadasdasdasd', '{}', 'aa', '', '1', '1', '38');
-INSERT INTO `examination` VALUES ('29', 'wqqweqeqe<img src=\"/image/155470867503733929.png\" alt=\"undefined\">', null, 'q', '', '1', '3', '50');
+INSERT INTO `examination` VALUES ('31', '<p></p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>是集合</span><span lang=\"EN-US\">A</span><span>上的关系，则下列说法正确的是（</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp; </span></span><span>）</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>A</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是自反的，</span><span> </span><span>则<img src=\"/image/155514669004395941.png\" alt=\"undefined\"></span><span>是自反的；</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>B</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是反自反的，</span><span> </span><span>则<img src=\"/image/155514669311168.png\" alt=\"undefined\"></span>是反自反的；</p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>C</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是对称的，</span><span> </span><span>则<img src=\"/image/15551466963469051.png\" alt=\"undefined\"></span>是对称的；</p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>D</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是传递的，</span><span> </span><span>则<img src=\"/image/155514669906748864.png\" alt=\"undefined\"></span>是传递的。</p><br><p></p>', '{}', 'A', '', '2', '1', '41');
+INSERT INTO `examination` VALUES ('32', '<p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">P</span><span>，</span><span lang=\"EN-US\">Q </span><span>的真值为</span><span lang=\"EN-US\">0</span><span>，</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>的真值为</span><span lang=\"EN-US\">1</span><span>，则</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span><img src=\"/image/155513783128857463.png\" alt=\"undefined\">的真值</span><span lang=\"EN-US\">= <u><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></u><span>&nbsp;</span></span><span>。</span><span lang=\"EN-US\"><o:p></o:p></span></p><br></p>', null, '12', '', '1', '2', '44');
+INSERT INTO `examination` VALUES ('33', '<p><span>如下图所示的赋权图表示某七个城市<img src=\"/image/155513786421287723.png\" alt=\"undefined\"></span><span>及预先算出它们之间的一些直接通信线路造价，试给出一个设计方案，使得各城市之间能够通信而且总造价最小。</span></p><p><span><img src=\"/image/15551378803731011.png\" alt=\"undefined\"><br></span></p>', null, '预先算出它们之间的一些', '', '1', '4', '74');
+INSERT INTO `examination` VALUES ('34', '为阿斯顿阿松大位切尔茜3<img src=\"/image/155514713459937526.png\" alt=\"undefined\">', null, '123', '', '1', '2', '44');
 
 -- ----------------------------
--- Table structure for exam_basket
+-- Table structure for `exam_basket`
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_basket`;
 CREATE TABLE `exam_basket` (
@@ -49,17 +50,14 @@ CREATE TABLE `exam_basket` (
   `user_id` bigint(20) NOT NULL,
   `exam_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_basket
 -- ----------------------------
-INSERT INTO `exam_basket` VALUES ('60', '1', '26');
-INSERT INTO `exam_basket` VALUES ('61', '1', '28');
-INSERT INTO `exam_basket` VALUES ('62', '1', '29');
 
 -- ----------------------------
--- Table structure for exam_paper
+-- Table structure for `exam_paper`
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_paper`;
 CREATE TABLE `exam_paper` (
@@ -80,16 +78,16 @@ CREATE TABLE `exam_paper` (
   `author_id` bigint(20) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper
 -- ----------------------------
-INSERT INTO `exam_paper` VALUES ('26', '34', '人', null, '2019-04-09 15:12:05', '2019-04-17 00:00:03', '2019-04-23 00:00:00', '1.3', '13', null, null, null, null, null, '1', null);
-INSERT INTO `exam_paper` VALUES ('27', '123', 'qwe', null, '2019-04-09 15:20:34', '2019-04-18 00:00:00', '2019-04-23 00:00:00', '1.3', '34', null, null, null, null, null, '1', null);
+INSERT INTO `exam_paper` VALUES ('35', 'HGHJ123184329', '桂林电子科技大学离散数学期末考试试卷', '100', '2019-04-13 17:37:07', '2019-04-13 08:00:00', '2019-04-30 08:00:00', '1.2', '15软件工程', '/image/exampaper/桂林电子科技大学离散数学期末考试试卷836.1660561205831.doc', null, null, null, null, '12', '120');
+INSERT INTO `exam_paper` VALUES ('36', 'RZ20192813123', '桂林电子科技大学离散数学期末考试试卷', '100', '2019-04-13 17:40:41', '2019-04-24 00:00:00', '2019-04-29 00:00:00', '1.2', '2015软件工程', '/image/exampaper/桂林电子科技大学离散数学期末考试试卷0.doc', null, null, null, null, '12', '120');
 
 -- ----------------------------
--- Table structure for exam_type
+-- Table structure for `exam_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_type`;
 CREATE TABLE `exam_type` (
@@ -107,7 +105,7 @@ INSERT INTO `exam_type` VALUES ('3', '判断题');
 INSERT INTO `exam_type` VALUES ('4', '问答题');
 
 -- ----------------------------
--- Table structure for knowledge
+-- Table structure for `knowledge`
 -- ----------------------------
 DROP TABLE IF EXISTS `knowledge`;
 CREATE TABLE `knowledge` (
@@ -167,7 +165,7 @@ INSERT INTO `knowledge` VALUES ('79', '无向树', '78');
 INSERT INTO `knowledge` VALUES ('80', '有向树', '78');
 
 -- ----------------------------
--- Table structure for pager_exam_r
+-- Table structure for `pager_exam_r`
 -- ----------------------------
 DROP TABLE IF EXISTS `pager_exam_r`;
 CREATE TABLE `pager_exam_r` (
@@ -180,18 +178,22 @@ CREATE TABLE `pager_exam_r` (
   KEY `题目` (`eid`),
   CONSTRAINT `试卷` FOREIGN KEY (`pid`) REFERENCES `exam_paper` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `题目` FOREIGN KEY (`eid`) REFERENCES `examination` (`eid`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pager_exam_r
 -- ----------------------------
-INSERT INTO `pager_exam_r` VALUES ('26', '26', '26', null);
-INSERT INTO `pager_exam_r` VALUES ('27', '26', '27', '12');
-INSERT INTO `pager_exam_r` VALUES ('28', '28', '27', '12');
-INSERT INTO `pager_exam_r` VALUES ('29', '29', '27', '34');
+INSERT INTO `pager_exam_r` VALUES ('52', '31', '35', '20');
+INSERT INTO `pager_exam_r` VALUES ('53', '32', '35', '20');
+INSERT INTO `pager_exam_r` VALUES ('54', '33', '35', '40');
+INSERT INTO `pager_exam_r` VALUES ('55', '34', '35', '20');
+INSERT INTO `pager_exam_r` VALUES ('56', '31', '36', null);
+INSERT INTO `pager_exam_r` VALUES ('57', '32', '36', null);
+INSERT INTO `pager_exam_r` VALUES ('58', '33', '36', null);
+INSERT INTO `pager_exam_r` VALUES ('59', '34', '36', null);
 
 -- ----------------------------
--- Table structure for persistent_logins
+-- Table structure for `persistent_logins`
 -- ----------------------------
 DROP TABLE IF EXISTS `persistent_logins`;
 CREATE TABLE `persistent_logins` (
@@ -205,12 +207,15 @@ CREATE TABLE `persistent_logins` (
 -- ----------------------------
 -- Records of persistent_logins
 -- ----------------------------
-INSERT INTO `persistent_logins` VALUES ('admin', 'FuNImWxcKZbWG4qDelUAMw==', 'EiMH6jaXwG5OisWLfmLEVg==', '2019-04-09 14:05:26');
+INSERT INTO `persistent_logins` VALUES ('admin', 'BW37cCwkGgjELVz1PqBUsw==', '4McVCWHkVur0kAZC8yHU9Q==', '2019-04-13 15:33:32');
+INSERT INTO `persistent_logins` VALUES ('admin', 'dk2dvpJ8rqSrJ5HPFO+H+w==', 'xZAxUi4aTX0Sg/bt0zQ9Mg==', '2019-04-13 15:31:20');
+INSERT INTO `persistent_logins` VALUES ('user', 'ds0tzsbGO1fdRRmA1GvG2A==', '1OGfscwP3yeCGoFem9bYzw==', '2019-04-13 17:40:02');
+INSERT INTO `persistent_logins` VALUES ('admin', 'hGkfAOIlZzYXMMFDES0IHw==', 'S1Oo82luEefGtRRTaFMPgg==', '2019-04-13 14:38:41');
 INSERT INTO `persistent_logins` VALUES ('admin2', 'k7IK8zuvFBqoMt3eTx1IlQ==', 'f0frO9nVhAFYDCrkYWryUA==', '2019-01-10 14:23:21');
 INSERT INTO `persistent_logins` VALUES ('李子健1', 'OCg0LQEaeCKUUdG7l6nORA==', '23OFrz97qMmoXgXx9F0+pw==', '2019-01-10 13:36:18');
 
 -- ----------------------------
--- Table structure for role
+-- Table structure for `role`
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
@@ -225,7 +230,7 @@ CREATE TABLE `role` (
 INSERT INTO `role` VALUES ('1', '管理员');
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -237,7 +242,7 @@ CREATE TABLE `user` (
   `registerTime` date DEFAULT NULL,
   `type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -253,3 +258,4 @@ INSERT INTO `user` VALUES ('8', 'admin5', 'qqqqqq', null, '852533466@qq.com', '2
 INSERT INTO `user` VALUES ('9', '李子健', 'qqqqqq', null, '852533466@qq.com', '2019-01-10', '2');
 INSERT INTO `user` VALUES ('10', '李子健1', 'qqqq1234', null, '852533466@qq.com', '2019-01-10', '2');
 INSERT INTO `user` VALUES ('11', 'adminadmin', 'qqqq1234', null, '852533466@qq.com', '2019-01-11', '2');
+INSERT INTO `user` VALUES ('12', 'user', '123', null, null, null, '1');
