@@ -1,16 +1,12 @@
 package com.zujuan.controller;
 
-import com.zujuan.pojo.ExamBasketExample;
-import com.zujuan.pojo.ExamPaper;
-import com.zujuan.pojo.Examination;
-import com.zujuan.pojo.PagerExamR;
-import com.zujuan.service.ExamBasketService;
-import com.zujuan.service.ExamPaperService;
-import com.zujuan.service.ExamService;
-import com.zujuan.service.PagerExamRService;
+import com.zujuan.pojo.*;
+import com.zujuan.service.*;
 import com.zujuan.serviceImpl.ExamPaperData;
+import com.zujuan.utils.BeanUtil;
 import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
+import com.zujuan.vo.ExamPaperVO;
 import com.zujuan.vo.PagerExamRVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,19 +41,46 @@ public class ExamPaperController {
     @Autowired
     private ExamBasketService examBasketService;
 
+    @Autowired
+    private UserService userService;
+    @RequestMapping("/examPaperList")
+    public String examPaperList(ModelMap modelMap){
+        try {
+            List<ExamPaper> notMyExamPaper = examPaperService.getNotMyExamPaper();
+            List<ExamPaper> myExamPaper = examPaperService.getMyExamPaper();
+            notMyExamPaper.addAll(myExamPaper);
+            List<ExamPaperVO> examPaperVOS = BeanUtil.copyList(notMyExamPaper, ExamPaperVO.class);
+            for (ExamPaperVO examPaper : examPaperVOS) {
+                Long authorId = examPaper.getAuthorId();
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andIdEqualTo(authorId);
+                List<User> list = userService.queryByExample(userExample);
+                if (list != null && list.size()>0){
+                    examPaper.setAuthorName(list.get(0).getUsername());
+                }
+
+            }
+            modelMap.addAttribute("examPaperList", examPaperVOS);
+        } catch (Exception e) {
+            return "redirect:/views/user/login.html";
+        }
+        return "examPaperList";
+    }
+
     @RequestMapping("/myExamPaper")
     public String myExamPaper(ModelMap modelMap) {
         List<ExamPaper> myExamPaperList = null;
         try {
             myExamPaperList = examPaperService.getMyExamPaper();
-            for (ExamPaper examPaper : myExamPaperList) {
-                Date time = examPaper.getCreateTime();
+            List<ExamPaperVO> examPaperVOS = BeanUtil.copyList(myExamPaperList, ExamPaperVO.class);
+            for (ExamPaperVO examPaperVO : examPaperVOS) {
+                examPaperVO.setAuthorName(GetCurrentUser.getCurrentUser().getUsername());
             }
-            modelMap.addAttribute("user", GetCurrentUser.getCurrentUser());
+            modelMap.addAttribute("examPaperList", examPaperVOS);
         } catch (Exception e) {
             return "redirect:/views/user/login.html";
         }
-        modelMap.addAttribute("examPaperList", myExamPaperList);
+
         return "examPaperList";
     }
 

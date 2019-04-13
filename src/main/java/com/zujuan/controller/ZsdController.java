@@ -1,19 +1,17 @@
 package com.zujuan.controller;
 
-import com.zujuan.pojo.Knowledge;
-import com.zujuan.pojo.KnowledgeExample;
-import com.zujuan.pojo.PageBean;
+import com.zujuan.pojo.*;
+import com.zujuan.service.ExamService;
 import com.zujuan.service.KnowledgeService;
 import com.zujuan.utils.GetResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -26,6 +24,74 @@ public class ZsdController {
 
     @Autowired
     private KnowledgeService ks;
+
+    @Autowired
+    private ExamService es;
+
+    @ResponseBody
+    @RequestMapping("/getExamByZsdIds")
+    public int[] getExamByZsdIds(String ids){
+        int[] nums = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        if (ids == null || "".equals(ids)){
+            return nums;
+        }
+        System.out.println(ids);
+        String[] zsdIdsStr = ids.split(",");
+        Long[] zsdIds = new Long[zsdIdsStr.length];
+        for (int i = 0; i < zsdIdsStr.length; i++) {
+            zsdIds[i] = Long.decode(zsdIdsStr[i]);
+        }
+        List<Long> zsdIdList = new ArrayList();
+
+        for (Long zsdId : zsdIds) {
+            zsdIdList.add(zsdId);
+        }
+        KnowledgeExample knowledgeExample = new KnowledgeExample();
+        knowledgeExample.createCriteria().andParentidIn(zsdIdList);
+        List<Knowledge> knowledgeList = ks.selectByExample(knowledgeExample);
+        for (Knowledge knowledge : knowledgeList) {
+            zsdIdList.add(knowledge.getId());
+        }
+        HashSet h = new HashSet(zsdIdList);
+        zsdIdList.clear();
+        zsdIdList.addAll(h);
+        ExaminationExample examinationExample = new ExaminationExample();
+        examinationExample.createCriteria().andKnowIdIn(zsdIdList);
+        List<Examination> list = es.selectByExample(examinationExample);
+
+        ArrayList<Integer> num = new ArrayList<>();
+
+        for (Examination examination : list) {
+            switch (examination.getType()){
+                case 1:switch (examination.getDegree().intValue()){
+                    case 1:nums[0]++;break;
+                    case 2:nums[1]++;break;
+                    case 3:nums[2]++;break;
+                    case 4:nums[3]++;break;
+                }break;
+                case 2:switch (examination.getDegree().intValue()){
+                    case 1:nums[4]++;break;
+                    case 2:nums[5]++;break;
+                    case 3:nums[6]++;break;
+                    case 4:nums[7]++;break;
+                }break;
+                case 3:switch (examination.getDegree().intValue()){
+                    case 1:nums[8]++;break;
+                    case 2:nums[9]++;break;
+                    case 3:nums[10]++;break;
+                    case 4:nums[11]++;break;
+                }break;
+                case 4:switch (examination.getDegree().intValue()){
+                    case 1:nums[12]++;break;
+                    case 2:nums[13]++;break;
+                    case 3:nums[14]++;break;
+                    case 4:nums[15]++;break;
+                }break;
+            }
+        }
+        return nums;
+
+    }
 
     //搜索和获取所有知识点
     @RequestMapping("/list")
