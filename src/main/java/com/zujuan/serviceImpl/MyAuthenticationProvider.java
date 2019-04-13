@@ -23,7 +23,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UserDetails userDetails = userDetailsService.loadUserByUsername(authentication.getName());
-        System.out.println(userDetails);
         if(userDetails == null || !userDetails.getPassword().
                 equals(authentication.getCredentials())){
             throw new BadCredentialsException("用户名或密码不正确");

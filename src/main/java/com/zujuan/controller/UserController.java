@@ -116,7 +116,6 @@ public class UserController {
             return "redirect:/views/user/login.html";
         }
         map.addAttribute("user",user);
-        System.out.println(user);
         return "set/user/info";
     }
 

@@ -158,7 +158,7 @@ public class ExamController {
             ebs.delByExample(example);
         } catch (Exception e) {
             resultMap = GetResultBean.getFailResultMap();
-            resultMap.put("msg", "删除失败");
+            resultMap.put("msg", "删除失败,该试题已存在于试卷中，请先删除试卷！");
         }
         return resultMap;
     }

@@ -49,7 +49,6 @@ public class ExamPaper implements Serializable {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String format = sf.format(new Date());
         Date parse = sf.parse(s);
-        System.out.println(parse);
     }
 
 }

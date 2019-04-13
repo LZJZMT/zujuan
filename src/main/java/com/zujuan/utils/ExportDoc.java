@@ -99,7 +99,6 @@ public class ExportDoc {
         }
         doc.getElementsByTag("body").append("<br>");
         String body = doc.getElementsByTag("body").html();
-        System.out.println(body);
         return body;
     }
 

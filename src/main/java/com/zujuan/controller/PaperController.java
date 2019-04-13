@@ -8,9 +8,6 @@ import com.zujuan.utils.GetResultBean;
 import freemarker.template.Template;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -85,23 +82,30 @@ public class PaperController {
 
     public Document addIndexToQuestion(String question,int index){
         Document doc = Jsoup.parse(question);
-        if (doc.getElementsByTag("p") == null || doc.getElementsByTag("p").size() == 0){
+        /*if (doc.getElementsByTag("p") == null || doc.getElementsByTag("p").size() == 0){
             Elements body = doc.getElementsByTag("body").first().children();
             if (body == null || body.size() == 0 || doc.getElementsByTag("body").first().getElementsByTag("p").size()==0){
                 doc.getElementsByTag("body").first().prependText(index + "、");
             }
             return doc;
+        }*/
+        if (doc.getElementsByTag("span").size()>0){
+            doc.getElementsByTag("span").first().prependText(index+"、");
+        }else {
+            doc.getAllElements().first().prependText(index+"、");
         }
-        if (doc.getElementsByTag("p").first().child(0) == null){
+
+
+        /*if (doc.getElementsByTag("p").first().child(0) == null){
             return null;
         }
         Element p = doc.getElementsByTag("p").first().child(0);
-        p.prependText(index + "、");
+        p.prependText(index + "、");*/
         return doc;
     }
 
 
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping("/convertPaper")
     public Map converPaper() throws Exception {
 
@@ -182,7 +186,7 @@ public class PaperController {
 
         return GetResultBean.getResultMap();
 
-    }
+    }*/
 
 
 }

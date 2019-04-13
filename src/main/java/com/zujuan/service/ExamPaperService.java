@@ -27,4 +27,6 @@ public interface ExamPaperService {
     List<ExamPaper> getMyExamPaper() throws Exception;
 
     List<ExamPaper> getNotMyExamPaper() throws Exception;
+
+    String generateDocFromBasket(String paperName) throws Exception;
 }
