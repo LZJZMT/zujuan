@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-04-13 17:45:43
+Date: 2019-04-14 21:31:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,15 +31,35 @@ CREATE TABLE `examination` (
   PRIMARY KEY (`eid`),
   KEY `题目知识点` (`know_id`),
   CONSTRAINT `题目知识点` FOREIGN KEY (`know_id`) REFERENCES `knowledge` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of examination
 -- ----------------------------
 INSERT INTO `examination` VALUES ('31', '<p></p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>是集合</span><span lang=\"EN-US\">A</span><span>上的关系，则下列说法正确的是（</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp; </span></span><span>）</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>A</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是自反的，</span><span> </span><span>则<img src=\"/image/155514669004395941.png\" alt=\"undefined\"></span><span>是自反的；</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>B</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是反自反的，</span><span> </span><span>则<img src=\"/image/155514669311168.png\" alt=\"undefined\"></span>是反自反的；</p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>C</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是对称的，</span><span> </span><span>则<img src=\"/image/15551466963469051.png\" alt=\"undefined\"></span>是对称的；</p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>D</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是传递的，</span><span> </span><span>则<img src=\"/image/155514669906748864.png\" alt=\"undefined\"></span>是传递的。</p><br><p></p>', '{}', 'A', '', '2', '1', '41');
-INSERT INTO `examination` VALUES ('32', '<p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">P</span><span>，</span><span lang=\"EN-US\">Q </span><span>的真值为</span><span lang=\"EN-US\">0</span><span>，</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>的真值为</span><span lang=\"EN-US\">1</span><span>，则</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span><img src=\"/image/155513783128857463.png\" alt=\"undefined\">的真值</span><span lang=\"EN-US\">= <u><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></u><span>&nbsp;</span></span><span>。</span><span lang=\"EN-US\"><o:p></o:p></span></p><br></p>', null, '12', '', '1', '2', '44');
+INSERT INTO `examination` VALUES ('32', '<p></p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">P</span><span>，</span><span lang=\"EN-US\">Q </span><span>的真值为</span><span lang=\"EN-US\">0</span><span>，</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>的真值为</span><span lang=\"EN-US\">1</span><span>，则</span><img src=\"/image/155513783128857463.png\" alt=\"undefined\">的真值为&nbsp;<span lang=\"EN-US\"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</u></span></p><br><p></p>', null, '12', '', '1', '2', '44');
 INSERT INTO `examination` VALUES ('33', '<p><span>如下图所示的赋权图表示某七个城市<img src=\"/image/155513786421287723.png\" alt=\"undefined\"></span><span>及预先算出它们之间的一些直接通信线路造价，试给出一个设计方案，使得各城市之间能够通信而且总造价最小。</span></p><p><span><img src=\"/image/15551378803731011.png\" alt=\"undefined\"><br></span></p>', null, '预先算出它们之间的一些', '', '1', '4', '74');
-INSERT INTO `examination` VALUES ('34', '为阿斯顿阿松大位切尔茜3<img src=\"/image/155514713459937526.png\" alt=\"undefined\">', null, '123', '', '1', '2', '44');
+INSERT INTO `examination` VALUES ('34', '<p><span lang=\"EN-US\">P</span><span>：你努力，</span><span lang=\"EN-US\">Q</span><span>：你失败。“除非你努力，否则你将失败”的翻译为</span><u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp;</span></u><span>；“虽然你努力了，但还是失败了”的翻译为</span><u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp;</span></u><span>。</span></p>', null, 'P>Q', '', '2', '2', '53');
+INSERT INTO `examination` VALUES ('35', '<p></p><p class=\"MsoNormal\"><span>论域</span><span lang=\"EN-US\">D={1</span><span>，</span><span lang=\"EN-US\">2}</span><span>，指定谓词</span><span lang=\"EN-US\">P&nbsp;</span>则公式<img src=\"/image/155522218162255655.png\" alt=\"undefined\">真值为\n<u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></u>。</p><br><p></p>', '{}', '12', '', '3', '2', '39');
+INSERT INTO `examination` VALUES ('37', '<p class=\"MsoNormal\"><span>设<img src=\"/image/155522226605962384.png\" alt=\"undefined\"></span><span>，则</span>\n<img src=\"/image/155522227189886754.png\" alt=\"undefined\"><span>有（</span><span lang=\"EN-US\">&nbsp;&nbsp;&nbsp;&nbsp; </span><span>）个元素。</span><span lang=\"EN-US\"><o:p></o:p></span></p><p>\n\n<span lang=\"EN-US\">A</span><span>．</span><span lang=\"EN-US\">3</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp;&nbsp;&nbsp; B</span><span>．</span><span lang=\"EN-US\">6</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp; C</span><span>．</span><span lang=\"EN-US\">7</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp;&nbsp; D</span><span>．</span><span lang=\"EN-US\">8 </span><span>。</span></p>', '{}', 'A', '', '1', '1', '45');
+INSERT INTO `examination` VALUES ('38', '<p></p><p class=\"MsoNormal\"><span>设<img src=\"/image/155522229581540872.png\" alt=\"undefined\"></span><span>，</span><span lang=\"EN-US\">S</span><span>上关系</span><span lang=\"EN-US\">R</span><span>的关系图如下，</span>则<span lang=\"EN-US\">R</span>具有（<span lang=\"EN-US\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>）性质。</p><p class=\"MsoNormal\"><span><img src=\"/image/155522231278022250.png\" alt=\"undefined\"><br></span></p>\n\n<p class=\"MsoNormal\"><br></p><p class=\"MsoNormal\" style=\"text-align: left;\"><span lang=\"EN-US\">A</span><span>．自反性、对称性、传递性；&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span lang=\"EN-US\">B</span><span>．反自反性、反对称性；</span><span lang=\"EN-US\"><o:p></o:p></span></p><p></p><p class=\"MsoNormal\">\n\n<span lang=\"EN-US\">C</span><span>．反自反性、反对称性、传递性；&nbsp; &nbsp; &nbsp;&nbsp;</span><span lang=\"EN-US\">D</span><span>．自反性</span></p><p><br></p>', '{}', 'D', '', '3', '1', '55');
+INSERT INTO `examination` VALUES ('40', '<p><p class=\"MsoNormal\"><span>下面偏序集（</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span>）能构成格。</span></p><p class=\"MsoNormal\"><img src=\"/image/15552226732587423.png\" alt=\"undefined\"><br></p></p>', '{}', 'A', '', '2', '1', '58');
+INSERT INTO `examination` VALUES ('41', '<p><p class=\"MsoNormal\"><span>在如下的有向图中，从</span><span lang=\"EN-US\">V<sub>1</sub></span><span>到</span><span lang=\"EN-US\">V<sub>4</sub></span><span>长度为</span><span lang=\"EN-US\">3 </span><span>的道路有（</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span>）条。</span></p><p class=\"MsoNormal\"><span><img src=\"/image/155522271736773755.png\" alt=\"undefined\"><br></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\">A</span><span>．</span><span lang=\"EN-US\">1</span><span>；</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>B</span><span>．</span><span lang=\"EN-US\">2</span><span>；</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>C</span><span>．</span><span lang=\"EN-US\">3</span><span>；</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>D</span><span>．</span><span lang=\"EN-US\">4 </span><span>。</span><span lang=\"EN-US\"><o:p></o:p></span></p><br></p>', '{}', 'A', '', '1', '1', '68');
+INSERT INTO `examination` VALUES ('42', '<p></p><p class=\"MsoNormal\"><!--[if !supportLists]--><span lang=\"EN-US\"><span>1、<span>&nbsp; </span></span></span><!--[endif]--><span>设</span><span lang=\"EN-US\"> f</span><span>，</span><span lang=\"EN-US\">g</span><span>是自然数集</span><span lang=\"EN-US\">N</span><span>上的函数，</span>则<img src=\"/image/155522274773176773.png\" alt=\"undefined\"><u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></u>。</p><br><p></p>', null, '23', '', '4', '2', '51');
+INSERT INTO `examination` VALUES ('44', '<p class=\"MsoNormal\"><span>谓词<img src=\"/image/155522283243878415.png\" alt=\"undefined\"></span><span>的前束范式为</span><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</u></p>', null, '12', '', '1', '2', '58');
+INSERT INTO `examination` VALUES ('45', '<p></p><p class=\"MsoNormal\"><span>集合<img src=\"/image/155522315556833424.png\" alt=\"undefined\"></span></p>\n\n<p class=\"MsoNormal\"><span>1.证明</span><span lang=\"EN-US\">R</span><span>是</span><span lang=\"EN-US\">X</span><span>上的等价关系。</span> <span>（</span><span lang=\"EN-US\">10</span><span>分）</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span>2.求出</span><span lang=\"EN-US\">X</span><span>关于</span><span lang=\"EN-US\">R</span><span>的商集。（</span><span lang=\"EN-US\">4</span><span>分）</span><span lang=\"EN-US\"><o:p></o:p></span></p><br><p></p>', null, '证明R是X上的等价关系。', '', '3', '4', '63');
+INSERT INTO `examination` VALUES ('46', '<p style=\"text-align: left;\">集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集问题</p><p style=\"text-align: left;\">A.集合对的&nbsp; &nbsp; &nbsp; B.集合是什么</p><p style=\"text-align: left;\">C集合是集合&nbsp; &nbsp; &nbsp; D.集合是错的</p>', '{}', 'A', '', '3', '1', '40');
+INSERT INTO `examination` VALUES ('47', '<p>集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合_____</p>', null, '12', '', '2', '2', '39');
+INSERT INTO `examination` VALUES ('48', '<p>什么是集合( )</p><p>A.集合对的&nbsp; &nbsp; &nbsp; B.集合是什么</p><p>C集合是集合&nbsp; &nbsp; &nbsp; D.集合是错的</p>', '{}', 'A', '', '1', '1', '41');
+INSERT INTO `examination` VALUES ('49', '<p>下面偏序集（<span lang=\"EN-US\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>）能构成格。</p><p>A.<img src=\"/image/155522522571211858.png\" alt=\"undefined\">&nbsp; &nbsp; &nbsp; B.<img src=\"/image/155522524072490974.png\" alt=\"undefined\"><br></p><p>C.<img src=\"/image/1555225245922977.png\" alt=\"undefined\">&nbsp; &nbsp; &nbsp; D.<img src=\"/image/155522525495847654.png\" alt=\"undefined\"></p>', '{}', 'D', '', '2', '1', '40');
+INSERT INTO `examination` VALUES ('50', '集合是对的还是错的___', null, 'X', '', '2', '3', '40');
+INSERT INTO `examination` VALUES ('51', '集合可以加减，这句话对吗', null, 'X', '', '1', '3', '41');
+INSERT INTO `examination` VALUES ('52', '<p class=\"MsoNormal\"><span><img src=\"/image/155522614391765080.png\" alt=\"undefined\">的主析取范式中含极小项的个数为（</span><span lang=\"EN-US\">&nbsp;&nbsp;&nbsp; </span><span>）。</span><span lang=\"EN-US\"><o:p></o:p></span></p><p>\n\n<span lang=\"EN-US\">A </span><span>、</span><span lang=\"EN-US\">2</span><span>；</span><span lang=\"EN-US\">&nbsp; B</span><span>、</span><span lang=\"EN-US\"> 3</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp; C</span><span>、</span><span lang=\"EN-US\">5</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp; D</span><span>、</span><span lang=\"EN-US\">0&nbsp;</span></p>', '{}', 'A', '', '2', '1', '39');
+INSERT INTO `examination` VALUES ('53', '<p><span>权数</span><span lang=\"EN-US\">1</span><span>，</span><span lang=\"EN-US\">4</span><span>，</span><span lang=\"EN-US\">9</span><span>，</span><span lang=\"EN-US\">16</span><span>，</span><span lang=\"EN-US\">25</span><span>，</span><span lang=\"EN-US\">36</span><span>，</span><span lang=\"EN-US\">49</span><span>，</span><span lang=\"EN-US\">64</span><span>，</span><span lang=\"EN-US\">81</span><span>，</span><span lang=\"EN-US\">100</span><span>构造一棵最优二叉树。</span></p>', null, '顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶', '', '2', '4', '80');
+INSERT INTO `examination` VALUES ('54', '<p><span>所表达的子集是</span><span>所表达的子集是</span><span>所表达的子集是____</span></p>', null, '333', '', '2', '2', '80');
+INSERT INTO `examination` VALUES ('55', '<p><span>啊啊啊的子集是</span><span>所表达的子集是</span><span>所表达的子集是？</span></p>', null, '√', '', '1', '3', '53');
+INSERT INTO `examination` VALUES ('56', '<p><span>啊啊啊的子集是</span><span>所表达的子集是</span><span>所表达的子集是？</span></p>', null, '√', '', '1', '3', '53');
+INSERT INTO `examination` VALUES ('57', '哈哈哈哈哈哈哈哈哈哈哈哈____', null, 'x', '', '1', '2', '79');
 
 -- ----------------------------
 -- Table structure for `exam_basket`
@@ -50,7 +70,7 @@ CREATE TABLE `exam_basket` (
   `user_id` bigint(20) NOT NULL,
   `exam_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_basket
@@ -78,13 +98,16 @@ CREATE TABLE `exam_paper` (
   `author_id` bigint(20) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper
 -- ----------------------------
 INSERT INTO `exam_paper` VALUES ('35', 'HGHJ123184329', '桂林电子科技大学离散数学期末考试试卷', '100', '2019-04-13 17:37:07', '2019-04-13 08:00:00', '2019-04-30 08:00:00', '1.2', '15软件工程', '/image/exampaper/桂林电子科技大学离散数学期末考试试卷836.1660561205831.doc', null, null, null, null, '12', '120');
 INSERT INTO `exam_paper` VALUES ('36', 'RZ20192813123', '桂林电子科技大学离散数学期末考试试卷', '100', '2019-04-13 17:40:41', '2019-04-24 00:00:00', '2019-04-29 00:00:00', '1.2', '2015软件工程', '/image/exampaper/桂林电子科技大学离散数学期末考试试卷0.doc', null, null, null, null, '12', '120');
+INSERT INTO `exam_paper` VALUES ('37', 'BS321293912', '离散数学试卷离散数学试卷', '100', '2019-04-13 20:28:17', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '1.5', '2015计算机科学与技术', '/image/exampaper/离散数学试卷离散数学试卷530.doc', null, null, null, null, '12', '120');
+INSERT INTO `exam_paper` VALUES ('38', 'BS12012301284', '桂林电子科技大学离散数学题目最多的一次考试', '91', '2019-04-14 14:29:01', '2019-04-25 08:00:00', '2019-04-26 08:00:00', '2.2', '15软件工程', '/image/exampaper/桂林电子科技大学离散数学题目最多的一次考试141.doc', null, null, null, null, '12', '120');
+INSERT INTO `exam_paper` VALUES ('39', '123', '123', '100', '2019-04-14 14:42:41', '2019-04-01 00:00:00', '2019-04-14 00:00:00', '2', '1231', '/image/exampaper/123742.doc', null, null, null, null, '12', '123');
 
 -- ----------------------------
 -- Table structure for `exam_type`
@@ -176,9 +199,9 @@ CREATE TABLE `pager_exam_r` (
   PRIMARY KEY (`id`),
   KEY `试卷` (`pid`),
   KEY `题目` (`eid`),
-  CONSTRAINT `试卷` FOREIGN KEY (`pid`) REFERENCES `exam_paper` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `题目` FOREIGN KEY (`eid`) REFERENCES `examination` (`eid`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+  CONSTRAINT `题目` FOREIGN KEY (`eid`) REFERENCES `examination` (`eid`) ON UPDATE CASCADE,
+  CONSTRAINT `试卷` FOREIGN KEY (`pid`) REFERENCES `exam_paper` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pager_exam_r
@@ -191,6 +214,19 @@ INSERT INTO `pager_exam_r` VALUES ('56', '31', '36', null);
 INSERT INTO `pager_exam_r` VALUES ('57', '32', '36', null);
 INSERT INTO `pager_exam_r` VALUES ('58', '33', '36', null);
 INSERT INTO `pager_exam_r` VALUES ('59', '34', '36', null);
+INSERT INTO `pager_exam_r` VALUES ('60', '31', '37', null);
+INSERT INTO `pager_exam_r` VALUES ('61', '34', '37', null);
+INSERT INTO `pager_exam_r` VALUES ('62', '31', '38', '12');
+INSERT INTO `pager_exam_r` VALUES ('63', '32', '38', '12');
+INSERT INTO `pager_exam_r` VALUES ('64', '35', '38', '3');
+INSERT INTO `pager_exam_r` VALUES ('65', '37', '38', '5');
+INSERT INTO `pager_exam_r` VALUES ('66', '34', '38', '4');
+INSERT INTO `pager_exam_r` VALUES ('67', '38', '38', '5');
+INSERT INTO `pager_exam_r` VALUES ('68', '40', '38', '12');
+INSERT INTO `pager_exam_r` VALUES ('69', '42', '38', '12');
+INSERT INTO `pager_exam_r` VALUES ('70', '44', '38', '12');
+INSERT INTO `pager_exam_r` VALUES ('71', '45', '38', '14');
+INSERT INTO `pager_exam_r` VALUES ('72', '31', '39', null);
 
 -- ----------------------------
 -- Table structure for `persistent_logins`
@@ -207,9 +243,9 @@ CREATE TABLE `persistent_logins` (
 -- ----------------------------
 -- Records of persistent_logins
 -- ----------------------------
+INSERT INTO `persistent_logins` VALUES ('user', 'BJGaXRo1xUHWxzzfDSCAHA==', 'BYKbIljFHn914HEVtSYsRA==', '2019-04-14 20:45:35');
 INSERT INTO `persistent_logins` VALUES ('admin', 'BW37cCwkGgjELVz1PqBUsw==', '4McVCWHkVur0kAZC8yHU9Q==', '2019-04-13 15:33:32');
 INSERT INTO `persistent_logins` VALUES ('admin', 'dk2dvpJ8rqSrJ5HPFO+H+w==', 'xZAxUi4aTX0Sg/bt0zQ9Mg==', '2019-04-13 15:31:20');
-INSERT INTO `persistent_logins` VALUES ('user', 'ds0tzsbGO1fdRRmA1GvG2A==', '1OGfscwP3yeCGoFem9bYzw==', '2019-04-13 17:40:02');
 INSERT INTO `persistent_logins` VALUES ('admin', 'hGkfAOIlZzYXMMFDES0IHw==', 'S1Oo82luEefGtRRTaFMPgg==', '2019-04-13 14:38:41');
 INSERT INTO `persistent_logins` VALUES ('admin2', 'k7IK8zuvFBqoMt3eTx1IlQ==', 'f0frO9nVhAFYDCrkYWryUA==', '2019-01-10 14:23:21');
 INSERT INTO `persistent_logins` VALUES ('李子健1', 'OCg0LQEaeCKUUdG7l6nORA==', '23OFrz97qMmoXgXx9F0+pw==', '2019-01-10 13:36:18');
