@@ -150,6 +150,12 @@
   <sql id="Base_Column_List">
     eid, question, option_json, answer, img_url, degree, type, know_id
   </sql>
+  <select id="selectByExampleLimit" parameterType="map" resultMap="BaseResultMap">
+
+    select * from examination where type = ${type} and degree = ${degree}
+      order by  RAND() limit ${size}
+  </select>
+
   <select id="selectByExample" parameterType="com.zujuan.pojo.ExaminationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -164,6 +170,7 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

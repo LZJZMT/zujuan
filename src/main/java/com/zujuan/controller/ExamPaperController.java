@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +44,10 @@ public class ExamPaperController {
 
     @Autowired
     private UserService userService;
-    @RequestMapping("/examPaperList")
-    public String examPaperList(ModelMap modelMap){
+
+    //TODO 自动组卷
+    @RequestMapping("/autoExamPaper")
+    public String autoExamPaper(ModelMap modelMap){
         try {
             List<ExamPaper> notMyExamPaper = examPaperService.getNotMyExamPaper();
             List<ExamPaper> myExamPaper = examPaperService.getMyExamPaper();
@@ -55,7 +58,61 @@ public class ExamPaperController {
                 UserExample userExample = new UserExample();
                 userExample.createCriteria().andIdEqualTo(authorId);
                 List<User> list = userService.queryByExample(userExample);
-                if (list != null && list.size()>0){
+                if (list != null && list.size() > 0) {
+                    examPaper.setAuthorName(list.get(0).getUsername());
+                }
+            }
+            modelMap.addAttribute("examPaperList", examPaperVOS);
+        } catch (Exception e) {
+            return "redirect:/views/user/login.html";
+        }
+        return "examPaperList";
+    }
+
+    @ResponseBody
+    @RequestMapping("/autoZujuan")
+    public Map autoZujuan(String numOfAuto){
+
+        ArrayList<Examination> examinations;
+        try {
+            String[] split = numOfAuto.split(",");
+            ArrayList<Integer> list = new ArrayList<>();
+            for (String s : split) {
+                list.add(Integer.valueOf(s));
+            }
+
+            examinations = new ArrayList<>();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) == 0) break;
+                examinations.addAll(examService.selectByExampleLimit(i/4+1,(double)i%4+1,list.get(i)));
+            }
+            Thread.sleep(1000);
+            if (examinations.size() == 0){
+                throw new RuntimeException("未找到合适的题目，请变更条件重试");
+            }
+        }catch (Exception e){
+            Map failResultMap = GetResultBean.getFailResultMap();
+            failResultMap.put("msg",e.getMessage());
+            return failResultMap;
+        }
+        return GetResultBean.getResultMap();
+
+    }
+
+    @RequestMapping("/examPaperList")
+    public String examPaperList(ModelMap modelMap) {
+        try {
+            List<ExamPaper> notMyExamPaper = examPaperService.getNotMyExamPaper();
+            List<ExamPaper> myExamPaper = examPaperService.getMyExamPaper();
+            notMyExamPaper.addAll(myExamPaper);
+            List<ExamPaperVO> examPaperVOS = BeanUtil.copyList(notMyExamPaper, ExamPaperVO.class);
+            for (ExamPaperVO examPaper : examPaperVOS) {
+                Long authorId = examPaper.getAuthorId();
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andIdEqualTo(authorId);
+                List<User> list = userService.queryByExample(userExample);
+                if (list != null && list.size() > 0) {
                     examPaper.setAuthorName(list.get(0).getUsername());
                 }
 

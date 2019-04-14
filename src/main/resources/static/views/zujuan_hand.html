@@ -12,16 +12,8 @@
     <link rel="stylesheet" href="../layuiadmin/layui/css/shijuan.css" media="all">
 </head>
 <body>
-<div style="position:fixed;right:0;top:0;z-index: 999"><button class="layui-btn" id="seePaper" onclick="
-        layer.full(layer.open({
-            title:'预览试卷',
-            type: 2,
-            content: '/exam/previewPaper',
-            area: ['700px', '300px'],
-            maxmin: true
-        }));
-
-">预览试卷<span class="layui-badge layui-bg-gray" id="count">0</span></button>
+<div style="position:fixed;right:0;top:0;z-index: 999"><button class="layui-btn" id="seePaper">
+    <a lay-href="/exam/previewPaper" style="color: white;">预览试卷</a><span class="layui-badge layui-bg-gray" id="count">0</span></button>
 </div>
 <div class="layui-form">
     <div id="xtree1" style="width:300px;padding: 10px 0 25px 5px;float: left"></div>

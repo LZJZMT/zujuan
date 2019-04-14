@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
 </head>
 <style>
-    
-    .numOfExam{
+
+    .numOfExam {
         font-weight: bold;
     }
-    
+
     h1 {
         height: 40px;
         line-height: 40px;
@@ -157,8 +157,7 @@
     </form>
 </div>
 <div class="smarter-section" id="J_ResultRegion" style="float: left">
-    <h3 class="result-head">已选知识点：（<b>10</b>个）<a href="javascript:;" style="margin-left: 30px"><i
-            class="icona-del1"></i> 清空</a></h3>
+    <h3 class="result-head">已选知识点：（<b id="countOfZsd">0</b>个）</h3>
     <div class="section-itemsbox" id="selectZsd">
     </div>
 
@@ -281,7 +280,9 @@
                 </div>
                 <hr>
                 <div style="float: left;margin-left: 500px;margin-bottom: 10px">
-                    <button class="layui-btn layui-btn-normal">生成试卷</button>
+                    <button class="layui-btn layui-btn-normal">
+                        <a lay-href="404.html">生成试卷</a></button>
+                    <a href="javascript:void(0)" class="layui-btn" onclick="autoZujuan('/examPaper/autoZujuan','预览试卷')">生成试卷</a>
                 </div>
                 <!--<div class="setting-fun f-fr">
                     <span>难度系数：<strong class="cof">0</strong></span>
@@ -307,77 +308,136 @@
             </div>-->
         </div>
     </div>
+</div>
+<script src="../layuiadmin/layui/layui.js"></script>
+<script src="../layuiadmin/layui/layui-xtree.js"></script>
+<script src="../layuiadmin/layui/jquery.min.js">
+</script>
+<script>
+    var zsdIds = [];
+    layui.config({
+        base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table','element'], function () {
+            var $ = layui.$
+                , form = layui.form
+                , table = layui.table,element = layui.element;
 
-    <script src="../layuiadmin/layui/layui.js"></script>
-    <script src="../layuiadmin/layui/layui-xtree.js"></script>
-    <script src="../layuiadmin/layui/jquery.min.js">
-    </script>
-    <script>
-        var zsdIds = [];
-        layui.config({
-            base: '../layuiadmin/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use(['index', 'table'], function () {
-                var $ = layui.$
-                    , form = layui.form
-                    , table = layui.table;
-                var xtree1 = new layuiXtree({
-                    elem: 'xtree1'   //(必填) 放置xtree的容器id，不要带#号
-                    , form: form     //(必填) layui 的 from
-                    , data: '/zsd/zsdTree'
-                    , isopen: true
-                    , click: function (data) {
-                        if (data.elem.checked) {
-                            zsdIds.push(data.value);
-                            $("#selectZsd").append("<div id='zsd" + data.value + "' class=\"section-items\">\n" +
-                                "            <p class=\"section-itemstxt\">" + data.othis[0].innerText + "</p>\n" +
-                                "            <p class=\"section-itemsclose J_DelBtn\"><span onclick='del("+data.value+")'>X</span></p>\n" +
-                                "        </div>");
-                        } else {
-                            var index = zsdIds.indexOf(data.value);
-                            if (index > -1) {
-                                zsdIds.splice(index, 1);
-                            }
-                            $("#zsd" + data.value).remove();
+        //触发事件
+        var active = {
+            tabAdd: function(){
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项'+ (Math.random()*1000|0) //用于演示
+                    ,content: '内容'+ (Math.random()*1000|0)
+                    ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            /*,tabDelete: function(othis){
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            ,tabChange: function(){
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }*/
+        };
+            var xtree1 = new layuiXtree({
+                elem: 'xtree1'   //(必填) 放置xtree的容器id，不要带#号
+                , form: form     //(必填) layui 的 from
+                , data: '/zsd/zsdTree'
+                , isopen: true
+                , click: function (data) {
+                    if (data.elem.checked) {
+                        zsdIds.push(data.value);
+                        $("#selectZsd").append("<div id='zsd" + data.value + "' class=\"section-items\">\n" +
+                            "            <p class=\"section-itemstxt\">" + data.othis[0].innerText + "</p>\n" +
+                            "            <p class=\"section-itemsclose J_DelBtn\"><span onclick='del(" + data.value + ")'>X</span></p>\n" +
+                            "        </div>");
+                    } else {
+                        var index = zsdIds.indexOf(data.value);
+                        if (index > -1) {
+                            zsdIds.splice(index, 1);
                         }
-                        getNumOfExam();
+                        $("#zsd" + data.value).remove();
                     }
-                });
-
-            }
-        )
-        ;
-        function del(id) {
-            $("#zsd" + id).remove();
-            var index = zsdIds.indexOf(id+"");
-            if (index > -1) {
-                zsdIds.splice(index, 1);
-            }
-            var $inpu = $("input[value='"+id+"']");
-            var next = $inpu.next();
-            $inpu[0].checked = false;
-            next.removeClass("layui-form-checked");
-            getNumOfExam();
-        }
-        function getNumOfExam() {
-            $.ajax({
-                url: '/zsd/getExamByZsdIds',
-                data: {ids:zsdIds.join(",")},
-                type: 'post',
-                // dataType: 'json',
-                // contentType: 'application/json',
-                success: function (res) {
-                    console.log(res);
-                    $("input[type=number]").each(function(index){
-                        $(this).attr("max",res[index]);
-                    })
-                    $(".numOfExam").each(function(index){
-                        $(this).text(res[index]);
-                    })
+                    getNumOfExam();
                 }
-            })
+            });
+
         }
-    </script>
+    )
+    ;
+
+    function del(id) {
+        $("#zsd" + id).remove();
+        var index = zsdIds.indexOf(id + "");
+        if (index > -1) {
+            zsdIds.splice(index, 1);
+        }
+        var $inpu = $("input[value='" + id + "']");
+        var next = $inpu.next();
+        $inpu[0].checked = false;
+        next.removeClass("layui-form-checked");
+        getNumOfExam();
+    }
+
+    function getNumOfExam() {
+        $.ajax({
+            url: '/zsd/getExamByZsdIds',
+            data: {ids: zsdIds.join(",")},
+            type: 'post',
+            // dataType: 'json',
+            // contentType: 'application/json',
+            success: function (res) {
+                console.log(res);
+                $("input[type=number]").each(function (index) {
+                    $(this).attr("max", res[index]);
+                })
+                $(".numOfExam").each(function (index) {
+                    $(this).text(res[index]);
+                })
+            }
+        })
+        $("#countOfZsd").text(zsdIds.length);
+    }
+    function newTab(url,tit){
+        if(top.layui.index){
+            top.layui.index.openTabsPage(url,tit)
+        }else{
+            window.open(url)
+        }
+    }
+
+    function autoZujuan(url,tabName) {
+        var numOfAuto = [];
+        $("input[type=number]").each(function (index) {
+            numOfAuto.push($(this).val()==''?0:$(this).val());
+        })
+        var jsonObj={"numOfAuto":numOfAuto.join(",")};
+
+        $.ajax({
+            url: url
+            ,async:true
+            , type: 'post'
+            , dataType: 'json'
+            , data: jsonObj
+            , success: function (res) {
+                if (res.code == 1) {
+                    layui.msg("组卷失败"+res.msg);
+                }else{
+                    location.href="/examPaper/autoExamPaper";
+                }
+            }
+        })
+        layer.load(1, {shade: false}); //0代表加载的风格，支持0-2
+
+    }
+
+</script>
 </body>
 </html>

@@ -26,4 +26,6 @@ public interface ExamService {
     PageBean selectByConditionPage(Long[] ids, Examination exam, Integer curPage, Integer limit) throws Exception;
 
     List<ExaminationVO> convert2VOlist(List<Examination> examinations);
+
+    List selectByExampleLimit(int i, double v, Integer integer);
 }

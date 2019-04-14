@@ -12,6 +12,9 @@
     <style>
         body{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
     </style>
+    <style>
+        .layui-fluid{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
+    </style>
 </head>
 
 <body>
@@ -100,11 +103,11 @@
                 , cols: [[
                     {type: 'checkbox'}
                     , {title: '序号',  type: 'numbers'}
-                    , {align: 'center', field: 'question', title: '题目内容',sort: true}
-                    ,{field:'answer', width:120,title:'答案'}
-                    ,{field:'degreeString', width:80,title:'难度',sort: false}
+                    , {align: 'center', field: 'question',width:500, title: '题目内容',sort: true}
+                    ,{field:'answer',title:'答案'}
+                    ,{field:'degreeString',title:'难度',sort: true}
                     ,{field:'zsdname', title:'关联知识点'}
-                    ,{field:'typeString', width:100,title:'类型', sort: false}
+                    ,{field:'typeString',title:'类型', sort: true}
                     , {title: '操作', align: 'center',  toolbar: '#table-content-com'}
                 ]]
                 , page: true

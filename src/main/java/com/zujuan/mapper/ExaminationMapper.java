@@ -39,4 +39,6 @@ public interface ExaminationMapper {
     List listByConditionPage(Long[] ids, Long[] notInIds, Examination examination, Integer start, Integer limit);
 
     Long countByConditionPage(Long[] ids, Long[] notInIds, Examination examination);
+
+    List selectByExampleLimit(int type, double degree, Integer size);
 }

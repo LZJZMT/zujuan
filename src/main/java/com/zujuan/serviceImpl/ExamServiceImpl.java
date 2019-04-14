@@ -144,4 +144,10 @@ public class ExamServiceImpl implements ExamService {
         }
         return examinationVOS;
     }
+
+    @Override
+    public List selectByExampleLimit(int type, double degree, Integer size) {
+        return em.selectByExampleLimit(type,degree,size);
+    }
+
 }
