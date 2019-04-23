@@ -2,6 +2,7 @@ package com.zujuan.controller;
 
 import com.zujuan.pojo.Examination;
 import com.zujuan.service.ExamBasketService;
+import com.zujuan.service.ExamPaperService;
 import com.zujuan.service.ExamService;
 import com.zujuan.utils.ExportDoc;
 import com.zujuan.utils.GetResultBean;
@@ -39,6 +40,9 @@ public class PaperController {
     @Autowired
     private ExamService es;
 
+    @Autowired
+    private ExamPaperService examPaperService;
+
     @ResponseBody
     @RequestMapping("downloadWordByIds")
     public Map downloadWord(@RequestBody Examination[] examinations){
@@ -60,7 +64,7 @@ public class PaperController {
             Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "gb2312"));
             for (Examination examination : examList) {
                 String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);
-                Document document = addIndexToQuestion(wordQuestion, index++);
+                Document document = examPaperService.addIndexToQuestion(wordQuestion, index++);
                 examination.setQuestion(document.toString());
             }
 

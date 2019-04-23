@@ -1,12 +1,15 @@
 package com.zujuan.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.zujuan.pojo.*;
 import com.zujuan.service.*;
 import com.zujuan.serviceImpl.ExamPaperData;
 import com.zujuan.utils.BeanUtil;
 import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
+import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExamPaperVO;
+import com.zujuan.vo.ExaminationVO;
 import com.zujuan.vo.PagerExamRVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -45,28 +45,40 @@ public class ExamPaperController {
     @Autowired
     private UserService userService;
 
-    //TODO 自动组卷
+    @Autowired
+    private KnowledgeService ks;
+
+    public static List<Examination> examinations = null;
+
+
+
     @RequestMapping("/autoExamPaper")
-    public String autoExamPaper(ModelMap modelMap){
-        try {
-            List<ExamPaper> notMyExamPaper = examPaperService.getNotMyExamPaper();
-            List<ExamPaper> myExamPaper = examPaperService.getMyExamPaper();
-            notMyExamPaper.addAll(myExamPaper);
-            List<ExamPaperVO> examPaperVOS = BeanUtil.copyList(notMyExamPaper, ExamPaperVO.class);
-            for (ExamPaperVO examPaper : examPaperVOS) {
-                Long authorId = examPaper.getAuthorId();
-                UserExample userExample = new UserExample();
-                userExample.createCriteria().andIdEqualTo(authorId);
-                List<User> list = userService.queryByExample(userExample);
-                if (list != null && list.size() > 0) {
-                    examPaper.setAuthorName(list.get(0).getUsername());
-                }
+    public String previewPaper(ModelMap modelMap) {
+        Map typeViewMap = ResultViewMap.getTypeViewMap();
+        Map degreeViewMap = ResultViewMap.getDegreeViewMap();
+
+
+        List<Examination> examinations = this.examinations;
+        ArrayList<ExaminationVO> list = new ArrayList<ExaminationVO>();
+        for (Examination examination : examinations) {
+            ExaminationVO examinationVO = BeanUtil.copy(examination, ExaminationVO.class);
+            examinationVO.setTypeString((String) typeViewMap.get(examinationVO.getType()));
+            examinationVO.setDegreeString((String) degreeViewMap.get(examinationVO.getDegree()));
+            //解析JSONString为Map
+            String optionJson = examinationVO.getOptionJson();
+            Map map = (Map) JSONArray.parse(optionJson);
+            if (map != null) {
+                examinationVO.setOptionC((String) map.get("C"));
+                examinationVO.setOptionD((String) map.get("D"));
+                examinationVO.setOptionA((String) map.get("A"));
+                examinationVO.setOptionB((String) map.get("B"));
             }
-            modelMap.addAttribute("examPaperList", examPaperVOS);
-        } catch (Exception e) {
-            return "redirect:/views/user/login.html";
+            examinationVO.setZsdname(ks.selectByPrimary(examinationVO.getKnowId()).getZsdname());
+            list.add(examinationVO);
         }
-        return "examPaperList";
+
+        modelMap.addAttribute("voList", list);
+        return "previewPaper";
     }
 
     @ResponseBody
@@ -84,13 +96,14 @@ public class ExamPaperController {
             examinations = new ArrayList<>();
 
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == 0) break;
+                if (list.get(i) == 0) continue;
                 examinations.addAll(examService.selectByExampleLimit(i/4+1,(double)i%4+1,list.get(i)));
             }
             Thread.sleep(1000);
             if (examinations.size() == 0){
                 throw new RuntimeException("未找到合适的题目，请变更条件重试");
             }
+            ExamPaperController.examinations = examinations;
         }catch (Exception e){
             Map failResultMap = GetResultBean.getFailResultMap();
             failResultMap.put("msg",e.getMessage());

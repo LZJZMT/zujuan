@@ -1,6 +1,7 @@
 package com.zujuan.service;
 
 import com.zujuan.pojo.*;
+import org.jsoup.nodes.Document;
 
 import java.util.List;
 
@@ -29,4 +30,6 @@ public interface ExamPaperService {
     List<ExamPaper> getNotMyExamPaper() throws Exception;
 
     String generateDocFromBasket(String paperName) throws Exception;
+
+    Document addIndexToQuestion(String question, int index);
 }

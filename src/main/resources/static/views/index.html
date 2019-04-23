@@ -89,11 +89,11 @@
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
           <div class="layui-logo" lay-href="home/console.html">
-            <span>layuiAdmin</span>
+            <span>离散数学组卷系统</span>
           </div>
           
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-            <li data-name="home" class="layui-nav-item layui-nav-itemed">
+           <!-- <li data-name="home" class="layui-nav-item layui-nav-itemed">
               <a href="javascript:;" lay-tips="主页" lay-direction="2">
                 <i class="layui-icon layui-icon-home"></i>
                 <cite>主页</cite>
@@ -289,18 +289,18 @@
                   <a lay-href="component/code/index.html">代码修饰</a> 
                 </dd>
               </dl>
-            </li>
+            </li>-->
             <li data-name="template" class="layui-nav-item">
-              <a href="javascript:;" lay-tips="页面" lay-direction="2">
+              <a href="javascript:;" lay-tips="知识点与题库管理" lay-direction="2">
                 <i class="layui-icon layui-icon-template"></i>
-                <cite>页面</cite>
+                <cite>知识点与题库管理</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd><a lay-href="template/personalpage.html">个人主页</a></dd>
+                <!--<dd><a lay-href="template/personalpage.html">个人主页</a></dd>-->
                 <dd><a lay-href="zsd.html">知识点管理</a></dd>
                 <dd><a lay-href="exam.html">题库管理</a></dd>
                 <dd><a lay-href="addExam.html">新增题目</a></dd>
-                <dd><a lay-href="template/search.html">搜索结果</a></dd>
+                <!--<dd><a lay-href="template/search.html">搜索结果</a></dd>
                 <dd><a href="user/register.html" target="_blank">注册</a></dd>
                 <dd><a href="user/login.html" target="_blank">登入</a></dd>
                 <dd><a href="user/forget.html" target="_blank">忘记密码</a></dd>
@@ -308,10 +308,26 @@
                 <dd><a lay-href="template/tips/error.html">错误提示</a></dd>
                 <dd><a lay-href="http://www.baidu.com/">百度一下</a></dd>
                 <dd><a lay-href="http://www.layui.com/">layui官网</a></dd>
-                <dd><a lay-href="http://www.layui.com/admin/">layuiAdmin官网</a></dd>
+                <dd><a lay-href="http://www.layui.com/admin/">layuiAdmin官网</a></dd>-->
               </dl>
             </li>
-            <li data-name="app" class="layui-nav-item">
+
+            <li data-name="template2" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="考试管理" lay-direction="2">
+                <i class="layui-icon layui-icon-template"></i>
+                <cite>考试管理</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <!--<dd><a lay-href="template/personalpage.html">个人主页</a></dd>-->
+                <dd>
+                  <a lay-href="/examPaper/examPaperList">已有试卷</a>
+                </dd>
+                <dd><a lay-href="zsd.html">试卷分析</a></dd>
+                <!--<dd><a lay-href="exam.html">题库管理</a></dd>
+                <dd><a lay-href="addExam.html">新增题目</a></dd>-->
+              </dl>
+            </li>
+            <!--<li data-name="app" class="layui-nav-item">
               <a href="javascript:;" lay-tips="应用" lay-direction="2">
                 <i class="layui-icon layui-icon-app"></i>
                 <cite>应用</cite>
@@ -340,7 +356,7 @@
                   <a lay-href="app/workorder/list.html">工单系统</a>
                 </dd>
               </dl>
-            </li>
+            </li>-->
             <li data-name="senior" class="layui-nav-item">
               <a href="javascript:;" lay-tips="试卷生成" lay-direction="2">
                 <i class="layui-icon layui-icon-senior"></i>
@@ -354,12 +370,9 @@
                   <a lay-href="zujuan_auto.html">自动组卷</a>
 
                 </dd>
-                <dd>
-                  <a lay-href="/examPaper/examPaperList">已有试卷</a>
-                </dd>
-                <dd>
+                <!--<dd>
                   <a layadmin-event="im">LayIM 通讯系统</a>
-                </dd>
+                </dd>-->
                 <dd data-name="echarts">
                   <a href="javascript:;">Echarts集成</a>
                   <dl class="layui-nav-child">
@@ -376,6 +389,12 @@
                 <cite>用户</cite>
               </a>
               <dl class="layui-nav-child">
+                <dd><a lay-href="set/user/info.html">组卷记录</a></dd>
+                <dd><a lay-href="set/user/info.html">考试和改卷安排</a></dd>
+              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+              </dl>
+              <!--<dl class="layui-nav-child">
                 <dd>
                   <a lay-href="user/user/list.html">网站用户</a>
                 </dd>
@@ -385,9 +404,9 @@
                 <dd>
                   <a lay-href="user/administrators/role.html">角色管理</a>
                 </dd>
-              </dl>
+              </dl>-->
             </li>
-            <li data-name="set" class="layui-nav-item">
+            <!--<li data-name="set" class="layui-nav-item">
               <a href="javascript:;" lay-tips="设置" lay-direction="2">
                 <i class="layui-icon layui-icon-set"></i>
                 <cite>设置</cite>
@@ -414,7 +433,7 @@
                 <i class="layui-icon layui-icon-auz"></i>
                 <cite>授权</cite>
               </a>
-            </li>
+            </li>-->
           </ul>
         </div>
       </div>
@@ -446,7 +465,7 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
-          <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>
+          <iframe src="exam.html" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
       

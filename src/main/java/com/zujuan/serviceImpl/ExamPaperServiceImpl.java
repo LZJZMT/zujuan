@@ -1,5 +1,6 @@
 package com.zujuan.serviceImpl;
 
+import com.zujuan.controller.ExamPaperController;
 import com.zujuan.mapper.ExamPaperMapper;
 import com.zujuan.pojo.ExamPaper;
 import com.zujuan.pojo.ExamPaperExample;
@@ -11,6 +12,7 @@ import com.zujuan.utils.GetCurrentUser;
 import freemarker.template.Template;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,7 @@ import java.util.List;
  */
 
 @Service
-public class ExamPaperServiceImpl implements ExamPaperService{
+public class ExamPaperServiceImpl implements ExamPaperService {
 
     @Autowired
     private ExamPaperMapper mapper;
@@ -47,14 +49,14 @@ public class ExamPaperServiceImpl implements ExamPaperService{
 
 
     @Override
-    public String generateDocFromBasket(String paperName) throws Exception{
+    public String generateDocFromBasket(String paperName) throws Exception {
         ExportDoc exportDoc = new ExportDoc("gb2312");
         exportDoc.set_NextPart("------=_NextPart_01D4C472.EB54B520");
         exportDoc.setPreFile("file:///C:/8589A2B1/");
         Template template = exportDoc.getTemplate("t1.mht", "gb2312");
 
-        String fileUrl = "exampaper/"+paperName+(int)(1000*Math.random())+".doc";
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localDirectory+fileUrl), "gb2312"));
+        String fileUrl = "exampaper/" + paperName + (int) (100000 * Math.random()) + ".doc";
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localDirectory + fileUrl), "gb2312"));
         HashMap<String, Object> map = new HashMap<>();
         map.put("courseCode", "21312312");
         map.put("njzy", "17级软件工程");
@@ -64,6 +66,9 @@ public class ExamPaperServiceImpl implements ExamPaperService{
         int index = 1;
 
         List<Examination> examinations = ebs.getMyExam();
+        if (examinations == null || examinations.size() == 0) {
+            examinations = ExamPaperController.examinations;
+        }
         ArrayList<Examination> xztExamList = new ArrayList<>();
         ArrayList<Examination> tktExamList = new ArrayList<>();
         ArrayList<Examination> pdtExamList = new ArrayList<>();
@@ -125,7 +130,7 @@ public class ExamPaperServiceImpl implements ExamPaperService{
 
         writer.close();
 
-        return staticMapping.replace("*", "")+fileUrl;
+        return staticMapping.replace("*", "") + fileUrl;
     }
 
     @Override
@@ -140,7 +145,7 @@ public class ExamPaperServiceImpl implements ExamPaperService{
 
     @Override
     public void updateByExample(ExamPaper examPaper, ExamPaperExample example) {
-        mapper.updateByExampleSelective(examPaper,example);
+        mapper.updateByExampleSelective(examPaper, example);
     }
 
     @Override
@@ -178,12 +183,21 @@ public class ExamPaperServiceImpl implements ExamPaperService{
     }
 
 
-    public Document addIndexToQuestion(String question,int index){
+    @Override
+    public Document addIndexToQuestion(String question, int index) {
         Document doc = Jsoup.parse(question);
-        if (doc.getElementsByTag("span").size()>0){
-            doc.getElementsByTag("span").first().prependText(index+"、");
-        }else {
-            doc.getAllElements().first().prependText(index+"、");
+        if (doc.getElementsByTag("span").size() > 0) {
+            doc.getElementsByTag("span").first().prependText(index + "、");
+        } else if (doc.getElementsByTag("p").size() > 0) {
+            Elements pChildren = doc.getElementsByTag("p").first().children();
+            if (pChildren.size() > 0){
+                pChildren.first().prependText(index + "、");
+            }else {
+                doc.getElementsByTag("p").first().text(index + "、"+doc.getElementsByTag("p").first().text());
+            }
+        } else {
+            question = index + "、" + question;
+            doc = Jsoup.parse(question);
         }
         return doc;
     }
