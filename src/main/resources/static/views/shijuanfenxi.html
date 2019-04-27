@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>预览题目</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+    <script src="../echarts/echart.js"></script>
+</head>
+<body>
+<div id="chartmain" style="width:700px; height: 600px; float: left"></div>
+<div id="chartmain1" style="width:700px; height: 600px;float: right"></div>
+
+
+</body>
+<script src="../layuiadmin/layui/jquery.min.js"></script>
+<script>
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chartmain'));
+    var myChart1 = echarts.init(document.getElementById('chartmain1'));
+    option = {
+        title : {
+            text: '试题题量分析',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['选择题','填空题','判断题','问答题']
+        },
+        series : [
+            {
+                name: '题型',
+                type: 'pie',
+                 radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:0, name:'选择题'},
+                    {value:0, name:'填空题'},
+                    {value:0, name:'判断题'},
+                    {value:0, name:'问答题'}
+                ]
+            }
+        ]
+    };
+    option1 = {
+        title : {
+            text: '试题难度分析',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['容易','一般','较难','困难']
+        },
+        series : [
+            {
+                name: '难度',
+                type: 'pie',
+                 radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:0, name:'容易'},
+                    {value:0, name:'一般'},
+                    {value:0, name:'较难'},
+                    {value:0, name:'困难'}
+                ]
+            }
+        ]
+    };
+    var str=location.href;
+    var pid = str.split("?")[1].split("=")[1];
+    $.ajax({
+        url:'/examPaper/fenxi',
+        data:{pid:pid},
+        success:function (obj) {
+            option.title.subtext = obj[0].name;
+            option.series[0].data[0].value=obj[0].xz;
+            option.series[0].data[1].value=obj[0].tk;
+            option.series[0].data[2].value=obj[0].pd;
+            option.series[0].data[3].value=obj[0].xz;
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option);
+            option.title.subtext = obj[0].name;
+            option.series[0].data[0].value=obj[0].xz;
+            option.series[0].data[1].value=obj[0].tk;
+            option.series[0].data[2].value=obj[0].pd;
+            option.series[0].data[3].value=obj[0].xz;
+            //使用制定的配置项和数据显示图表
+            myChart1.setOption(option);
+        }
+    })
+
+
+</script>
+</html>
