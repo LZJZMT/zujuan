@@ -14,13 +14,16 @@
 <body>
 <div class="question-block" th:each="examPaper,userStat : ${examPaperList}" th:attr="id=${'div'+examPaper.pid}"
      style="margin-bottom: 20px;width: 80%;margin-left: auto;margin-right: auto">
-   <!-- <input type="hidden" th:name="'examPaper['+${userStat.index}+'].eid'" th:value="${vo.eid}">-->
+    <!-- <input type="hidden" th:name="'examPaper['+${userStat.index}+'].eid'" th:value="${vo.eid}">-->
     <div class="q-mc">
         <div class="q-tit">
             <img src="../layuiadmin/22222.png" style="padding-right: 20px">
-            <span th:utext="${examPaper.name}" style="font-size: 20px;font-weight: bold"></span><!--userStat.index+1+'、'+-->
+            <span th:utext="${examPaper.name}" style="font-size: 20px;font-weight: bold"></span>
+            <!--userStat.index+1+'、'+-->
             <span style="width: 320px; float: right; margin: 37px 360px 37px 0">
-                <a href="javascript:;"  th:onclick="fenxi(${examPaper.pid})"><img src="../layuiadmin/33333.png"><i style="margin: -2px 5px 0 0;"></i>试卷分析</a>
+                <a href="javascript:;" th:onclick="'fenxi('+${examPaper.pid}+')'">
+                    <img src="../layuiadmin/33333.png"><i style="margin: -2px 5px 0 0;"></i>试卷分析
+                </a>
                 <a th:href="${examPaper.fileUrl}" style="margin-left: 20px">下载试卷</a>
             </span>
         </div>
@@ -68,6 +71,16 @@
                 }
             }
         })
+    }
+
+    function fenxi(pid) {
+        var tit = "试卷分析";
+        var url = "/views/shijuanfenxi.html?pid=" + pid;
+        if (top.layui.index) {
+            top.layui.index.openTabsPage(url, tit)
+        } else {
+            window.open(url)
+        }
     }
 </script>
 <script src="../layuiadmin/layui/layui.js"></script>

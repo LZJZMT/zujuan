@@ -38,6 +38,11 @@ public class KnowLedgeServiceImpl implements KnowledgeService {
         km.insert(knowledge);
     }
 
+    @Override
+    public void getById(Long kid) {
+        km.selectByPrimaryKey(kid);
+    }
+
     //查询是否存在相同得知识点名字
     @Override
     public boolean isCunzai(String zsdname) {

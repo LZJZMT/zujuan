@@ -50,6 +50,70 @@ public class ExamPaperController {
 
     public static List<Examination> examinations = null;
 
+    @ResponseBody
+    @RequestMapping("fenxi")
+    public List<Map> fenxi(Long pid){
+
+        ExamPaper examPaper = examPaperService.getById(pid);
+        PagerExamRExample examRExample = new PagerExamRExample();
+        examRExample.createCriteria().andPidEqualTo(pid);
+
+        List<PagerExamR> list = pagerExamRService.selectByExample(examRExample);
+        int xz = 0;
+        int tk = 0;
+        int pd = 0;
+        int wd = 0;
+
+        int jd = 0;
+        int yb = 0;
+        int jn = 0;
+        int kn = 0;
+        HashMap<Object, Integer> zsd = new HashMap<>();
+
+        for (PagerExamR pagerExamR : list) {
+            Long eid = pagerExamR.getEid();
+            Examination examination = examService.getById(eid);
+            Long knowId = examination.getKnowId();
+            Knowledge knowledge = ks.selectByPrimary(knowId);
+            String zsdname = knowledge.getZsdname();
+            int i = zsd.get(zsdname) == null ? 0 : zsd.get(zsdname);
+            zsd.put(zsdname,++i);
+            switch (examination.getDegree().intValue()){
+                case 1:jd++;break;
+                case 2:yb++;break;
+                case 3:jn++;break;
+                case 4:kn++;break;
+            }
+
+            switch (examination.getType()){
+                case 1:xz++;break;
+                case 2:tk++;break;
+                case 3:pd++;break;
+                case 4:wd++;break;
+            }
+        }
+
+        HashMap<Object, Object> tixing = new HashMap<>();
+        tixing.put("xz",xz);
+        tixing.put("tk",tk);
+        tixing.put("pd",pd);
+        tixing.put("wd",wd);
+        tixing.put("name",examPaper.getName());
+
+        HashMap<Object, Object> nandu = new HashMap<>();
+        nandu.put("jd",jd);
+        nandu.put("yb",yb);
+        nandu.put("jn",jn);
+        nandu.put("kn",kn);
+        nandu.put("name",examPaper.getName());
+
+        ArrayList<Map> maps = new ArrayList<>();
+        maps.add(tixing);
+        maps.add(nandu);
+        maps.add(zsd);
+
+        return maps;
+    }
 
 
     @RequestMapping("/autoExamPaper")
@@ -130,6 +194,7 @@ public class ExamPaperController {
                 }
 
             }
+            Collections.reverse(examPaperVOS);
             modelMap.addAttribute("examPaperList", examPaperVOS);
         } catch (Exception e) {
             return "redirect:/views/user/login.html";

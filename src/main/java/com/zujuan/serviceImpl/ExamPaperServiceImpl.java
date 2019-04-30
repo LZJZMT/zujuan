@@ -21,10 +21,8 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * @Description:
@@ -200,5 +198,16 @@ public class ExamPaperServiceImpl implements ExamPaperService {
             doc = Jsoup.parse(question);
         }
         return doc;
+    }
+    public static void main(String[] args) {
+
+        ScheduledExecutorService newScheduledThreadPool = Executors.newScheduledThreadPool(10);
+        newScheduledThreadPool.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName()+ " "+new Date().toLocaleString());
+            }
+        },0,1,TimeUnit.SECONDS);
+
     }
 }
