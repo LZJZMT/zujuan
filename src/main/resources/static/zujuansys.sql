@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-04-14 21:31:53
+Date: 2019-05-01 15:12:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,13 +31,13 @@ CREATE TABLE `examination` (
   PRIMARY KEY (`eid`),
   KEY `题目知识点` (`know_id`),
   CONSTRAINT `题目知识点` FOREIGN KEY (`know_id`) REFERENCES `knowledge` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of examination
 -- ----------------------------
 INSERT INTO `examination` VALUES ('31', '<p></p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>是集合</span><span lang=\"EN-US\">A</span><span>上的关系，则下列说法正确的是（</span><span lang=\"EN-US\"><span>&nbsp;&nbsp;&nbsp; </span></span><span>）</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>A</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是自反的，</span><span> </span><span>则<img src=\"/image/155514669004395941.png\" alt=\"undefined\"></span><span>是自反的；</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>B</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是反自反的，</span><span> </span><span>则<img src=\"/image/155514669311168.png\" alt=\"undefined\"></span>是反自反的；</p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>C</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是对称的，</span><span> </span><span>则<img src=\"/image/15551466963469051.png\" alt=\"undefined\"></span>是对称的；</p>\n\n<p class=\"MsoNormal\"><span lang=\"EN-US\"><span>&nbsp; </span>D</span><span>．若</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S </span><span>是传递的，</span><span> </span><span>则<img src=\"/image/155514669906748864.png\" alt=\"undefined\"></span>是传递的。</p><br><p></p>', '{}', 'A', '', '2', '1', '41');
-INSERT INTO `examination` VALUES ('32', '<p></p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">P</span><span>，</span><span lang=\"EN-US\">Q </span><span>的真值为</span><span lang=\"EN-US\">0</span><span>，</span><span lang=\"EN-US\">R</span><span>，</span><span lang=\"EN-US\">S</span><span>的真值为</span><span lang=\"EN-US\">1</span><span>，则</span><img src=\"/image/155513783128857463.png\" alt=\"undefined\">的真值为&nbsp;<span lang=\"EN-US\"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</u></span></p><br><p></p>', null, '12', '', '1', '2', '44');
+INSERT INTO `examination` VALUES ('32', '<p></p><p class=\"MsoNormal\"><span>设</span><span lang=\"EN-US\">P</span><span>，</span><span lang=\"EN-US\">Q</span>Q&nbsp;的真值为<span lang=\"EN-US\">0</span>，<span lang=\"EN-US\">R</span>，<span lang=\"EN-US\">S</span>的真值为<span lang=\"EN-US\">1</span>，<span lang=\"EN-US\">R</span>，<span lang=\"EN-US\">S</span>的真值为<span lang=\"EN-US\">R</span>，<span lang=\"EN-US\">S</span>的真值为<span lang=\"EN-US\">R</span>，<span lang=\"EN-US\">S</span>的真值为<span lang=\"EN-US\">R</span>，<span lang=\"EN-US\">S</span>的真值为则<img src=\"/image/155513783128857463.png\" alt=\"undefined\">的真值为&nbsp;<span lang=\"EN-US\"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</u></span></p><p class=\"MsoNormal\"><span lang=\"EN-US\"></span></p><br><p></p>', null, '122', '', '3', '2', '49');
 INSERT INTO `examination` VALUES ('33', '<p><span>如下图所示的赋权图表示某七个城市<img src=\"/image/155513786421287723.png\" alt=\"undefined\"></span><span>及预先算出它们之间的一些直接通信线路造价，试给出一个设计方案，使得各城市之间能够通信而且总造价最小。</span></p><p><span><img src=\"/image/15551378803731011.png\" alt=\"undefined\"><br></span></p>', null, '预先算出它们之间的一些', '', '1', '4', '74');
 INSERT INTO `examination` VALUES ('34', '<p><span lang=\"EN-US\">P</span><span>：你努力，</span><span lang=\"EN-US\">Q</span><span>：你失败。“除非你努力，否则你将失败”的翻译为</span><u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp;</span></u><span>；“虽然你努力了，但还是失败了”的翻译为</span><u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp;</span></u><span>。</span></p>', null, 'P>Q', '', '2', '2', '53');
 INSERT INTO `examination` VALUES ('35', '<p></p><p class=\"MsoNormal\"><span>论域</span><span lang=\"EN-US\">D={1</span><span>，</span><span lang=\"EN-US\">2}</span><span>，指定谓词</span><span lang=\"EN-US\">P&nbsp;</span>则公式<img src=\"/image/155522218162255655.png\" alt=\"undefined\">真值为\n<u><span lang=\"EN-US\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></u>。</p><br><p></p>', '{}', '12', '', '3', '2', '39');
@@ -51,7 +51,7 @@ INSERT INTO `examination` VALUES ('45', '<p></p><p class=\"MsoNormal\"><span>集
 INSERT INTO `examination` VALUES ('46', '<p style=\"text-align: left;\">集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集问题</p><p style=\"text-align: left;\">A.集合对的&nbsp; &nbsp; &nbsp; B.集合是什么</p><p style=\"text-align: left;\">C集合是集合&nbsp; &nbsp; &nbsp; D.集合是错的</p>', '{}', 'A', '', '3', '1', '40');
 INSERT INTO `examination` VALUES ('47', '<p>集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合集合_____</p>', null, '12', '', '2', '2', '39');
 INSERT INTO `examination` VALUES ('48', '<p>什么是集合( )</p><p>A.集合对的&nbsp; &nbsp; &nbsp; B.集合是什么</p><p>C集合是集合&nbsp; &nbsp; &nbsp; D.集合是错的</p>', '{}', 'A', '', '1', '1', '41');
-INSERT INTO `examination` VALUES ('49', '<p>下面偏序集（<span lang=\"EN-US\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>）能构成格。</p><p>A.<img src=\"/image/155522522571211858.png\" alt=\"undefined\">&nbsp; &nbsp; &nbsp; B.<img src=\"/image/155522524072490974.png\" alt=\"undefined\"><br></p><p>C.<img src=\"/image/1555225245922977.png\" alt=\"undefined\">&nbsp; &nbsp; &nbsp; D.<img src=\"/image/155522525495847654.png\" alt=\"undefined\"></p>', '{}', 'D', '', '2', '1', '40');
+INSERT INTO `examination` VALUES ('49', '<p>下面偏序集（ ）能构成格。</p><p>A.<img src=\"/image/155522522571211858.png\" alt=\"undefined\">&nbsp; &nbsp; &nbsp; B.<img src=\"/image/155522524072490974.png\" alt=\"undefined\"><br></p><p>C.<img src=\"/image/1555225245922977.png\" alt=\"undefined\">&nbsp; &nbsp; &nbsp; D.<img src=\"/image/155522525495847654.png\" alt=\"undefined\"></p>', '{}', 'D', '', '2', '1', '40');
 INSERT INTO `examination` VALUES ('50', '集合是对的还是错的___', null, 'X', '', '2', '3', '40');
 INSERT INTO `examination` VALUES ('51', '集合可以加减，这句话对吗', null, 'X', '', '1', '3', '41');
 INSERT INTO `examination` VALUES ('52', '<p class=\"MsoNormal\"><span><img src=\"/image/155522614391765080.png\" alt=\"undefined\">的主析取范式中含极小项的个数为（</span><span lang=\"EN-US\">&nbsp;&nbsp;&nbsp; </span><span>）。</span><span lang=\"EN-US\"><o:p></o:p></span></p><p>\n\n<span lang=\"EN-US\">A </span><span>、</span><span lang=\"EN-US\">2</span><span>；</span><span lang=\"EN-US\">&nbsp; B</span><span>、</span><span lang=\"EN-US\"> 3</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp; C</span><span>、</span><span lang=\"EN-US\">5</span><span>；</span><span lang=\"EN-US\">&nbsp;&nbsp; D</span><span>、</span><span lang=\"EN-US\">0&nbsp;</span></p>', '{}', 'A', '', '2', '1', '39');
@@ -60,6 +60,7 @@ INSERT INTO `examination` VALUES ('54', '<p><span>所表达的子集是</span><s
 INSERT INTO `examination` VALUES ('55', '<p><span>啊啊啊的子集是</span><span>所表达的子集是</span><span>所表达的子集是？</span></p>', null, '√', '', '1', '3', '53');
 INSERT INTO `examination` VALUES ('56', '<p><span>啊啊啊的子集是</span><span>所表达的子集是</span><span>所表达的子集是？</span></p>', null, '√', '', '1', '3', '53');
 INSERT INTO `examination` VALUES ('57', '哈哈哈哈哈哈哈哈哈哈哈哈____', null, 'x', '', '1', '2', '79');
+INSERT INTO `examination` VALUES ('58', '<p>下面。。。。。。。。。。。。<img src=\"/image/155602430258991133.png\" alt=\"undefined\"></p><p>A.xxx B.xxx</p>', '{}', 'A', '', '3', '1', '65');
 
 -- ----------------------------
 -- Table structure for `exam_basket`
@@ -70,7 +71,7 @@ CREATE TABLE `exam_basket` (
   `user_id` bigint(20) NOT NULL,
   `exam_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_basket
@@ -98,7 +99,7 @@ CREATE TABLE `exam_paper` (
   `author_id` bigint(20) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper
@@ -108,6 +109,15 @@ INSERT INTO `exam_paper` VALUES ('36', 'RZ20192813123', '桂林电子科技大�
 INSERT INTO `exam_paper` VALUES ('37', 'BS321293912', '离散数学试卷离散数学试卷', '100', '2019-04-13 20:28:17', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '1.5', '2015计算机科学与技术', '/image/exampaper/离散数学试卷离散数学试卷530.doc', null, null, null, null, '12', '120');
 INSERT INTO `exam_paper` VALUES ('38', 'BS12012301284', '桂林电子科技大学离散数学题目最多的一次考试', '91', '2019-04-14 14:29:01', '2019-04-25 08:00:00', '2019-04-26 08:00:00', '2.2', '15软件工程', '/image/exampaper/桂林电子科技大学离散数学题目最多的一次考试141.doc', null, null, null, null, '12', '120');
 INSERT INTO `exam_paper` VALUES ('39', '123', '123', '100', '2019-04-14 14:42:41', '2019-04-01 00:00:00', '2019-04-14 00:00:00', '2', '1231', '/image/exampaper/123742.doc', null, null, null, null, '12', '123');
+INSERT INTO `exam_paper` VALUES ('40', 'BS2139123', '自动生成的试卷', '48', '2019-04-23 20:20:37', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '2', '软件工程', '/image/exampaper/自动生成的试卷124.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('41', '12', '自动生成', '60', '2019-04-23 20:22:08', '2019-04-23 00:00:00', '2019-04-23 00:00:00', '2.4', '123', '/image/exampaper/自动生成446.doc', null, null, null, null, '1', '123');
+INSERT INTO `exam_paper` VALUES ('42', 'eee', 'eee', '60', '2019-04-23 20:26:33', '2019-04-02 00:00:00', '2019-04-23 00:00:00', '1.8', 'ee', '/image/exampaper/eee959.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('43', 'qwe', 'qe', '36', '2019-04-23 20:29:36', '2019-04-05 00:00:00', '2019-04-23 20:29:36', '1.7', '12', '/image/exampaper/qe119.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('44', '123123', 'qw', '100', '2019-04-23 20:31:47', '2019-04-23 00:00:00', '2019-04-27 00:00:00', '2', '123', '/image/exampaper/qw44590.doc', null, null, null, null, '1', '12');
+INSERT INTO `exam_paper` VALUES ('45', 'qwe', 'qwe', '100', '2019-04-23 20:32:16', '2019-04-01 00:00:00', '2019-04-23 20:32:16', '2', 'qwe', '/image/exampaper/qwe21958.doc', null, null, null, null, '1', '123');
+INSERT INTO `exam_paper` VALUES ('46', 'qwe', 'qweqwe', '100', '2019-04-23 20:35:59', '2019-04-23 00:00:00', '2019-04-23 20:35:58', '1.8', '12', '/image/exampaper/qweqwe82107.doc', null, null, null, null, '1', '12');
+INSERT INTO `exam_paper` VALUES ('47', 'BS21391392', '桂电离散数学试卷11111111', '100', '2019-04-23 20:59:38', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '2.2', '软件工程', '/image/exampaper/桂电离散数学试卷1111111155153.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('48', 'BS23131923', '自动生成的试卷', '88', '2019-04-23 21:00:55', '2019-04-23 21:00:51', '2019-04-25 00:00:00', '1.8', '软件', '/image/exampaper/自动生成的试卷26596.doc', null, null, null, null, '1', '120');
 
 -- ----------------------------
 -- Table structure for `exam_type`
@@ -136,7 +146,7 @@ CREATE TABLE `knowledge` (
   `zsdName` varchar(255) NOT NULL,
   `parentId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of knowledge
@@ -201,7 +211,7 @@ CREATE TABLE `pager_exam_r` (
   KEY `题目` (`eid`),
   CONSTRAINT `题目` FOREIGN KEY (`eid`) REFERENCES `examination` (`eid`) ON UPDATE CASCADE,
   CONSTRAINT `试卷` FOREIGN KEY (`pid`) REFERENCES `exam_paper` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pager_exam_r
@@ -227,6 +237,49 @@ INSERT INTO `pager_exam_r` VALUES ('69', '42', '38', '12');
 INSERT INTO `pager_exam_r` VALUES ('70', '44', '38', '12');
 INSERT INTO `pager_exam_r` VALUES ('71', '45', '38', '14');
 INSERT INTO `pager_exam_r` VALUES ('72', '31', '39', null);
+INSERT INTO `pager_exam_r` VALUES ('73', '31', '40', '12');
+INSERT INTO `pager_exam_r` VALUES ('74', '52', '40', '12');
+INSERT INTO `pager_exam_r` VALUES ('75', '38', '40', '12');
+INSERT INTO `pager_exam_r` VALUES ('76', '32', '40', '12');
+INSERT INTO `pager_exam_r` VALUES ('77', '49', '41', '12');
+INSERT INTO `pager_exam_r` VALUES ('78', '40', '41', '12');
+INSERT INTO `pager_exam_r` VALUES ('79', '31', '41', '12');
+INSERT INTO `pager_exam_r` VALUES ('80', '46', '41', '12');
+INSERT INTO `pager_exam_r` VALUES ('81', '38', '41', '12');
+INSERT INTO `pager_exam_r` VALUES ('82', '41', '42', '12');
+INSERT INTO `pager_exam_r` VALUES ('83', '37', '42', '12');
+INSERT INTO `pager_exam_r` VALUES ('84', '31', '42', '12');
+INSERT INTO `pager_exam_r` VALUES ('85', '49', '42', '12');
+INSERT INTO `pager_exam_r` VALUES ('86', '38', '42', '12');
+INSERT INTO `pager_exam_r` VALUES ('87', '49', '43', '12');
+INSERT INTO `pager_exam_r` VALUES ('88', '52', '43', '12');
+INSERT INTO `pager_exam_r` VALUES ('89', '32', '43', '12');
+INSERT INTO `pager_exam_r` VALUES ('90', '40', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('91', '31', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('92', '49', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('93', '32', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('94', '34', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('95', '54', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('96', '35', '44', null);
+INSERT INTO `pager_exam_r` VALUES ('97', '31', '45', null);
+INSERT INTO `pager_exam_r` VALUES ('98', '41', '46', null);
+INSERT INTO `pager_exam_r` VALUES ('99', '49', '46', null);
+INSERT INTO `pager_exam_r` VALUES ('100', '52', '46', null);
+INSERT INTO `pager_exam_r` VALUES ('101', '46', '46', null);
+INSERT INTO `pager_exam_r` VALUES ('102', '57', '46', null);
+INSERT INTO `pager_exam_r` VALUES ('103', '32', '47', '20');
+INSERT INTO `pager_exam_r` VALUES ('104', '34', '47', '20');
+INSERT INTO `pager_exam_r` VALUES ('105', '35', '47', '20');
+INSERT INTO `pager_exam_r` VALUES ('106', '44', '47', '20');
+INSERT INTO `pager_exam_r` VALUES ('107', '47', '47', '20');
+INSERT INTO `pager_exam_r` VALUES ('108', '37', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('109', '49', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('110', '40', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('111', '31', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('112', '38', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('113', '54', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('114', '51', '48', '11');
+INSERT INTO `pager_exam_r` VALUES ('115', '55', '48', '11');
 
 -- ----------------------------
 -- Table structure for `persistent_logins`
@@ -243,10 +296,9 @@ CREATE TABLE `persistent_logins` (
 -- ----------------------------
 -- Records of persistent_logins
 -- ----------------------------
+INSERT INTO `persistent_logins` VALUES ('admin', '1QojRq+VqPgbUgRY2uyuVg==', 'p1qQsXMHaflswuIRdny2NA==', '2019-04-23 21:02:50');
+INSERT INTO `persistent_logins` VALUES ('1500330217', '8+nOvt+bGCuyf+Ql4uEnvA==', '1AjV7aUrWOIY8BR0/J0UvQ==', '2019-04-27 18:03:54');
 INSERT INTO `persistent_logins` VALUES ('user', 'BJGaXRo1xUHWxzzfDSCAHA==', 'BYKbIljFHn914HEVtSYsRA==', '2019-04-14 20:45:35');
-INSERT INTO `persistent_logins` VALUES ('admin', 'BW37cCwkGgjELVz1PqBUsw==', '4McVCWHkVur0kAZC8yHU9Q==', '2019-04-13 15:33:32');
-INSERT INTO `persistent_logins` VALUES ('admin', 'dk2dvpJ8rqSrJ5HPFO+H+w==', 'xZAxUi4aTX0Sg/bt0zQ9Mg==', '2019-04-13 15:31:20');
-INSERT INTO `persistent_logins` VALUES ('admin', 'hGkfAOIlZzYXMMFDES0IHw==', 'S1Oo82luEefGtRRTaFMPgg==', '2019-04-13 14:38:41');
 INSERT INTO `persistent_logins` VALUES ('admin2', 'k7IK8zuvFBqoMt3eTx1IlQ==', 'f0frO9nVhAFYDCrkYWryUA==', '2019-01-10 14:23:21');
 INSERT INTO `persistent_logins` VALUES ('李子健1', 'OCg0LQEaeCKUUdG7l6nORA==', '23OFrz97qMmoXgXx9F0+pw==', '2019-01-10 13:36:18');
 
@@ -283,7 +335,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'qqqqqq', '15676383609', '852533466@qq.com', '2019-01-09', '1');
+INSERT INTO `user` VALUES ('1', '1500330217', '123', '15676383609', '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('2', 'admin2', '179013', null, '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('3', 'admin2', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('4', 'admin2', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
