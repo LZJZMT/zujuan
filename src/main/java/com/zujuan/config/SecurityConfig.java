@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler).permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/layuiadmin/**",
-                    "/**",//开发模式打开，这个是关闭未登录拦截器
+                    //"/**",//开发模式打开，这个是关闭未登录拦截器
                     "/**/findPwd","/**/register.html", "/user/register","/**/forget.html","/user/forget","/user/sendEmail")
                 .permitAll()
                 .anyRequest().authenticated()
