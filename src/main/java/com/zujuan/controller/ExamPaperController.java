@@ -1,6 +1,8 @@
 package com.zujuan.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.zujuan.mapper.ExamPaperFormatMapper;
+import com.zujuan.mapper.ExamPaperMapper;
 import com.zujuan.pojo.*;
 import com.zujuan.service.*;
 import com.zujuan.serviceImpl.ExamPaperData;
@@ -48,7 +50,122 @@ public class ExamPaperController {
     @Autowired
     private KnowledgeService ks;
 
+    @Autowired
+    private ExamPaperFormatMapper examPaperFormatMapper;
+
+    @Autowired
+    private ExamPaperMapper examPaperMapper;
+
     public static List<Examination> examinations = null;
+
+    @RequestMapping("/MyExamPaperList")
+    public String MyExamPaperList(ModelMap modelMap) {
+        try {
+            User user = GetCurrentUser.getCurrentUser();
+            ExamPaperFormatExample example = new ExamPaperFormatExample();
+            example.createCriteria().andAuthorIdEqualTo(user.getId());
+            List<ExamPaperFormat> formatList = examPaperFormatMapper.selectByExample(example);
+            List<ExamPaper> myExamPaper = new ArrayList<>();
+            for (ExamPaperFormat examPaperFormat : formatList) {
+                ExamPaper examPaper = examPaperMapper.selectByPrimaryKey(examPaperFormat.getPaperId());
+                myExamPaper.add(examPaper);
+            }
+            List<ExamPaperVO> examPaperVOS = BeanUtil.copyList(myExamPaper, ExamPaperVO.class);
+            for (ExamPaperVO examPaper : examPaperVOS) {
+                Long authorId = examPaper.getAuthorId();
+                UserExample userExample = new UserExample();
+                userExample.createCriteria().andIdEqualTo(authorId);
+                List<User> list = userService.queryByExample(userExample);
+                if (list != null && list.size() > 0) {
+                    examPaper.setAuthorName(list.get(0).getUsername());
+                }
+
+            }
+            Collections.reverse(examPaperVOS);
+            modelMap.addAttribute("examPaperList", examPaperVOS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/views/user/login.html";
+        }
+        return "MyExamPaper";
+    }
+
+    @ResponseBody
+    @RequestMapping("/delExam")
+    public Map delExamPaper(Long pid){
+        Map resultMap = GetResultBean.getResultMap();
+        try {
+            examPaperMapper.deleteByPrimaryKey(pid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap = GetResultBean.getFailResultMap();
+        }finally {
+            return resultMap;
+        }
+
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/delMyFormExam")
+    public Map delMyFormExam(Long pid){
+        Map resultMap = GetResultBean.getResultMap();
+        ExamPaperFormatExample example = new ExamPaperFormatExample();
+        User user ;
+        try {
+            user = GetCurrentUser.getCurrentUser();
+            example.createCriteria().andAuthorIdEqualTo(user.getId())
+                    .andPaperIdEqualTo(pid);
+        } catch (Exception e) {
+            resultMap.put("code",1);
+            resultMap.put("msg","请先登录");return resultMap;
+        }
+        try {
+            examPaperFormatMapper.deleteByExample(example);
+            resultMap.put("msg","删除成功");
+
+        } catch (Exception e){
+            resultMap.put("code",1);
+            resultMap.put("msg","删除失败");
+            e.printStackTrace();
+        }finally {
+            return resultMap;
+        }
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/addMyFormExam")
+    public Map addMyFormExam(Long pid){
+        Map resultMap = GetResultBean.getResultMap();
+        ExamPaperFormatExample example = new ExamPaperFormatExample();
+        User user ;
+        try {
+            user = GetCurrentUser.getCurrentUser();
+            example.createCriteria().andAuthorIdEqualTo(user.getId())
+            .andPaperIdEqualTo(pid);
+        } catch (Exception e) {
+            resultMap.put("msg","请先登录");return resultMap;
+        }
+        List<ExamPaperFormat> list = examPaperFormatMapper.selectByExample(example);
+        if (list!= null && list.size()>0){
+            resultMap.put("msg","已添加成功，请勿重复添加");
+            return resultMap;
+        }
+        ExamPaperFormat examPaperFormat = new ExamPaperFormat();
+        examPaperFormat.setAuthorId(user.getId());
+        examPaperFormat.setPaperId(pid);
+        try {
+            examPaperFormatMapper.insert(examPaperFormat);
+            resultMap.put("msg","添加成功");
+        } catch (Exception e){
+            resultMap.put("msg","添加失败");
+            e.printStackTrace();
+        }finally {
+            return resultMap;
+        }
+
+    }
 
     @ResponseBody
     @RequestMapping("fenxi")

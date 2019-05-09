@@ -20,11 +20,17 @@
             <img src="../layuiadmin/22222.png" style="padding-right: 20px">
             <span th:utext="${examPaper.name}" style="font-size: 20px;font-weight: bold"></span>
             <!--userStat.index+1+'、'+-->
-            <span style="width: 320px; float: right; margin: 37px 360px 37px 0">
+            <span style="float: right; margin: 37px 260px 37px 0">
                 <a href="javascript:;" th:onclick="'fenxi('+${examPaper.pid}+')'">
                     <img src="../layuiadmin/33333.png"><i style="margin: -2px 5px 0 0;"></i>试卷分析
                 </a>
                 <a th:href="${examPaper.fileUrl}" style="margin-left: 20px">下载试卷</a>
+                <a href="javascript:;" style="margin-left: 20px" th:onclick="'addFormExam('+${examPaper.pid}+')'">
+                    设置成我的考试试卷
+                </a>
+                <a href="javascript:;" style="margin-left: 20px" th:onclick="'delExam('+${examPaper.pid}+')'">
+                    删除试卷
+                </a>
             </span>
         </div>
     </div>
@@ -104,6 +110,28 @@
             area: ['700px', '300px'],
             maxmin: true
         }));
+    }
+
+    function addFormExam(pid) {
+        $.ajax({
+            url:'/examPaper/addMyFormExam?pid='+pid,
+            success:function (res) {
+                layer.alert(res.msg)
+            }
+        })
+    }
+    function delExam(pid) {
+        layer.confirm('确认删除吗?', {icon: 3, title:'提示'}, function(){
+            $.ajax({
+                url:'/examPaper/delExam?pid='+pid,
+                success:function (res) {
+                    layer.alert(res.msg)
+                    if (res.code == '0' || res.code == 0){
+                        $("#div" + pid).remove();
+                    }
+                }
+            })
+        });
     }
 </script>
 </html>
