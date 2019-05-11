@@ -5,13 +5,23 @@ import com.zujuan.pojo.*;
 import com.zujuan.service.ExamPaperService;
 import com.zujuan.utils.BeanUtil;
 import com.zujuan.utils.GetResultBean;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -83,6 +93,61 @@ public class ScoreController {
         } catch (Exception e) {
             resultMap = GetResultBean.getFailResultMap();
             resultMap.put("msg","删除失败");
+        }
+        return resultMap;
+    }
+
+    //导入xlsx文件
+    @RequestMapping("/uploadScoreByFile")
+    @Transactional
+    public Map uploadScoreByFile(Long pid,@RequestParam(value = "file") MultipartFile file){
+        Map resultMap = GetResultBean.getResultMap();
+        Map failResultMap = GetResultBean.getFailResultMap();
+        if (!(file.getOriginalFilename().toLowerCase().endsWith("xlsx"))){
+            failResultMap.put("msg","文件格式不正确,请导入xlsx文件");
+            return failResultMap;
+        }
+        InputStream is = null;
+        Workbook wb = null;
+        Sheet sheet = null;
+        try {
+            is = file.getInputStream();
+            wb = new XSSFWorkbook(is);
+            sheet = wb.getSheetAt(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int r = 1; r < sheet.getLastRowNum(); r++) {
+            Row row = sheet.getRow(r);//通过sheet表单对象得到 行对象
+            if (row == null){
+                continue;
+            }
+            if (row.getCell(0).getCellTypeEnum().getCode()!= CellType.NUMERIC.getCode()){
+                failResultMap.put("msg","第"+r+"行数据格式错误");
+                return failResultMap;
+            }
+            if (row.getCell(2).getCellTypeEnum().getCode()!= CellType.NUMERIC.getCode()){
+                failResultMap.put("msg","第"+r+"行数据格式错误");
+                return failResultMap;
+            }
+            Score score = new Score();
+            Long xuehao = (long)row.getCell(0).getNumericCellValue();
+            score.setXuehao(xuehao);
+            score.setName(row.getCell(1).getStringCellValue());
+            score.setScore(row.getCell(2).getNumericCellValue());
+            score.setPid(pid);
+            ScoreExample scoreExample = new ScoreExample();
+            scoreExample.createCriteria().andPidEqualTo(pid).andXuehaoEqualTo(score.getXuehao());
+            List<Score> scores = sm.selectByExample(scoreExample);
+            System.out.println("即将插入"+score);
+            if (scores!=null && scores.size()>0){
+                score.setId(scores.get(0).getId());
+                sm.updateByPrimaryKey(score);
+            }else {
+                sm.insert(score);
+            }
+
+
         }
         return resultMap;
     }

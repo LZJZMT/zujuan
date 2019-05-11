@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
     <style>
-        .layui-card-body{overflow-x: hidden;} /* 禁止刷新后出现横向滚动条 */
+        .layui-fluid {
+            overflow-y: scroll;
+        }
+
+        /* 禁止刷新后出现横向滚动条 */
     </style>
 </head>
 <body>
-
 <div class="layui-fluid">
-    <div class="layui-card layui-fluid" >
+    <div class="layui-card layui-fluid">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline">
@@ -30,7 +33,7 @@
                     </div>
                     <label class="layui-form-label">考试名称</label>
                     <div class="layui-input-inline">
-                        <select name="pid" id="paperSelectId" >
+                        <select name="pid" id="paperSelectId">
                             <option value="">全部</option>
                         </select>
                     </div>
@@ -49,7 +52,13 @@
                 <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
                 <button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>
                 <button class="layui-btn layuiadmin-btn-comm" data-type="reload">刷新</button>
-                <button class="layui-btn layuiadmin-btn-comm" data-type="upload" id="upload">从文件导入成绩</button>
+                <button type="button" class="layui-btn " id="selectFile">选择学生成绩文件</button>
+                <div class="layui-form layui-inline">
+                    <select name="pid"  id="paperSelectId2" >
+                        <option value="">---请选择考试名称---</option>
+                    </select>
+                </div>
+                <button type="button" class="layui-btn" id="uploadFile">开始上传</button>
                 <button class="layui-btn layuiadmin-btn-comm" data-type="downloadTemplate">下载文件导入模板</button>
             </div>
             <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
@@ -68,22 +77,42 @@
         base: '../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'table','upload'], function () {
+    }).use(['index', 'table', 'upload'], function () {
             var $ = layui.$
                 , form = layui.form
                 , table = layui.table
-                ,upload = layui.upload;
-            selectPaperName($,form);
+                , upload = layui.upload;
+            selectPaperName($, form);
 
-        //指定允许上传的文件类型
-        upload.render({
-            elem: '#upload'
-            ,url: '/score/uploadScoreByFile'
-            ,accept: 'file' //普通文件
-            ,done: function(res){
-                console.log(res)
-            }
-        });
+            var data = {};
+            //指定允许上传的文件类型
+            upload.render({
+                elem: '#selectFile'
+                , url: '/score/uploadScoreByFile'
+                , accept: 'file'
+                , data: data
+                , exts: 'xlsx'
+                , auto: false
+                , bindAction: '#uploadFile'
+                , done: function (res) {
+                    if(res.code == '0'){
+                        layer.msg("上传成功");
+                        //table.reload();
+                        table.reload('LAY-app-content-comm');
+                    }else{
+                        layer.alert(res.msg);
+                    }
+                }
+                , before: function () {
+                    pid = $("#paperSelectId2").val();
+                    data.pid = pid;
+                    if (pid == "" || pid==undefined) {
+                        layer.msg("请选择考试名称");
+                        return;
+                    }
+                }
+            });
+
 
             table.render({
                 elem: '#LAY-app-content-comm'
@@ -92,9 +121,9 @@
                 , cols: [[
                     {type: 'checkbox'}
                     , {align: 'center', field: 'xuehao', title: '学号', sort: true, edit: 'text'}
-                    , {align: 'center', field: 'name', title: '姓名', sort: false, edit: 'text'}
-                    , {align: 'center', field: 'score', title: '成绩', sort: true, edit: 'text'}
-                    ,{align: 'center', field: 'examName', title: '考试名称', sort: true, edit: 'text'}
+                    , {align: 'center', width:200,field: 'name', title: '姓名', sort: false, edit: 'text'}
+                    , {align: 'center', width:100,field: 'score', title: '成绩', sort: true, edit: 'text'}
+                    , {align: 'center', field: 'examName', title: '考试名称', sort: true, edit: 'text'}
                     , {title: '操作', align: 'center', fixed: 'right', toolbar: '#table-content-com'}
                 ]]
                 , page: true
@@ -146,7 +175,7 @@
                 $.ajax({
                     url: '/score/updateScore'
                     , type: 'post'
-                    , data: JSON.parse('{"id":"'+data.id+'",'+'"'+newField+'":"'+value+'"}')
+                    , data: JSON.parse('{"id":"' + data.id + '",' + '"' + newField + '":"' + value + '"}')
                     , success: function (res) {
                         if (res.code == 0) {
                             layer.msg(res.msg);
@@ -239,8 +268,8 @@
                 ,
                 reload: function () {
                     table.reload('LAY-app-content-comm');
-                },downloadTemplate:function () {
-                    window.location.href="../import_score_template.xlsx";
+                }, downloadTemplate: function () {
+                    window.location.href = "../import_score_template.xlsx";
                 }
             }
 
@@ -254,21 +283,27 @@
 
         }
     );
-    function selectPaperName($,form){
+
+    function selectPaperName($, form) {
         $.ajax({
-            url:"/examPaper/getAllPaper",
-            type:"GET",
-            success:function(list){
-                var role = document.getElementById("paperSelectId");        //add_role_name给select定义的id
-                if (list== null || list.length==0){
+            url: "/examPaper/getAllPaper",
+            type: "GET",
+            success: function (list) {
+                var role = document.getElementById("paperSelectId");
+                var role2 = document.getElementById("paperSelectId2"); //add_role_name给select定义的id
+                if (list == null || list.length == 0) {
                     layer.alert("暂无考试可以录入成绩")
                 }
-                for(var i=0;i<list.length;i++){
+                for (var i = 0; i < list.length; i++) {
                     var option = document.createElement("option");    // 创建添加option属性
-                    option.setAttribute("value",list[i].pid);                  // 给option的value添加值
-                    option.innerText=list[i].name;             // 打印option对应的纯文本
+                    option.setAttribute("value", list[i].pid);                  // 给option的value添加值
+                    option.innerText = list[i].name;             // 打印option对应的纯文本
+                    var option2 = document.createElement("option");    // 创建添加option属性
+                    option2.setAttribute("value", list[i].pid);                  // 给option的value添加值
+                    option2.innerText = list[i].name;
                     role.appendChild(option);                          // 给select 添加option子标签
-                    form.render("select");                                // 刷性select，显示出数据
+                    role2.appendChild(option2);
+                    form.render('select');
                 }
             }
         });
