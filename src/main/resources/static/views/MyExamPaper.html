@@ -95,6 +95,9 @@
     }).use(['index', 'form'], function () {
         var $ = layui.$
             , form = layui.form;
+        if ($(".question-block").length ==0){
+            layer.alert("您暂未添加考试~");
+        }
     })
 
     function exportDoc() {

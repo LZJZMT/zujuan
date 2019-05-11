@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8">
     <title>新增试卷</title>
@@ -102,7 +102,7 @@
                         layer.msg("新增失败");
                     }else{
                         layer.msg("新增成功");
-                        location.href = '/examPaper/myExamPaper'
+                        location.href = '/examPaper/examPaperList'
                     }
                 }
             });

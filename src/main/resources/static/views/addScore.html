@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>题目列表</title>
+    <title>成绩录入</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -10,53 +10,31 @@
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
     <style>
-        body{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
-        .layui-fluid{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
+        .layui-card-body{overflow-x: hidden;} /* 禁止刷新后出现横向滚动条 */
     </style>
 </head>
-
 <body>
 
 <div class="layui-fluid">
-    <div class="layui-card">
+    <div class="layui-card layui-fluid" >
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">题目内容</label>
+                    <label class="layui-form-label">学号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="question" placeholder="请输入题目内容" autocomplete="off" class="layui-input">
+                        <input type="text" name="xuehao" placeholder="请输入学号" autocomplete="off" class="layui-input">
                     </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">类型</label>
+                    <label class="layui-form-label">姓名</label>
                     <div class="layui-input-inline">
-                        <select name="type" id="typeId">
+                        <input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">考试名称</label>
+                    <div class="layui-input-inline">
+                        <select name="pid" id="paperSelectId" >
                             <option value="">全部</option>
-                            <option value="1">选择题</option>
-                            <option value="2">填空题</option>
-                            <option value="3">判断题</option>
-                            <option value="4">问答题</option>
                         </select>
                     </div>
                 </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">难度</label>
-                    <div class="layui-input-inline">
-                        <select name="degree" id="examdegree" >
-                            <option value="">全部</option>
-                            <option value="1">简单</option>
-                            <option value="2">一般</option>
-                            <option value="3">较难</option>
-                            <option value="4">困难</option>
-                        </select>
-                    </div>
-                </div>
-                <!--<div class="layui-inline">-->
-                <!--<label class="layui-form-label">评论内容</label>-->
-                <!--<div class="layui-input-inline">-->
-                <!--<input type="text" name="content" placeholder="请输入" autocomplete="off" class="layui-input">-->
-                <!--</div>-->
-                <!--</div>-->
                 <div class="layui-inline">
                     <button class="layui-btn layuiadmin-btn-comm" data-type="reload" lay-submit
                             lay-filter="LAY-app-contcomm-search">
@@ -69,13 +47,13 @@
         <div class="layui-card-body">
             <div style="padding-bottom: 10px;">
                 <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
-                <button class="layui-btn layuiadmin-btn-comm" data-type="print">打印试题</button>
+                <button class="layui-btn layuiadmin-btn-comm" data-type="add">添加</button>
                 <button class="layui-btn layuiadmin-btn-comm" data-type="reload">刷新</button>
+                <button class="layui-btn layuiadmin-btn-comm" data-type="upload" id="upload">从文件导入成绩</button>
+                <button class="layui-btn layuiadmin-btn-comm" data-type="downloadTemplate">下载文件导入模板</button>
             </div>
             <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
             <script type="text/html" id="table-content-com">
-                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="see"><i class="layui-icon layui-icon-edit"></i>预览</a>
-                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>修改</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
                         class="layui-icon layui-icon-delete"></i>删除</a>
             </script>
@@ -84,33 +62,43 @@
 </div>
 
 <script src="../layuiadmin/layui/layui.js"></script>
+<script src="../layuiadmin/layui/layui-xtree.js"></script>
 <script>
     layui.config({
         base: '../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'table'], function () {
+    }).use(['index', 'table','upload'], function () {
             var $ = layui.$
                 , form = layui.form
-                , table = layui.table;
+                , table = layui.table
+                ,upload = layui.upload;
+            selectPaperName($,form);
+
+        //指定允许上传的文件类型
+        upload.render({
+            elem: '#upload'
+            ,url: '/score/uploadScoreByFile'
+            ,accept: 'file' //普通文件
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+
             table.render({
-                //width: 430,
                 elem: '#LAY-app-content-comm'
-                , url: '/exam/list'
+                , url: '/score/list'
                 , method: 'post'
                 , cols: [[
                     {type: 'checkbox'}
-                    , {title: '序号',  type: 'numbers'}
-                    , {align: 'center', field: 'question',width:320, title: '题目内容',sort: true}
-                    ,{field:'answer',title:'答案'}
-                    ,{field:'degreeString',title:'难度',sort: true}
-                    ,{field:'zsdname', title:'关联知识点'}
-                    ,{field:'typeString',title:'类型', sort: true}
-                    , {title: '操作', align: 'center', width:220,  toolbar: '#table-content-com'}
+                    , {align: 'center', field: 'xuehao', title: '学号', sort: true, edit: 'text'}
+                    , {align: 'center', field: 'name', title: '姓名', sort: false, edit: 'text'}
+                    , {align: 'center', field: 'score', title: '成绩', sort: true, edit: 'text'}
+                    ,{align: 'center', field: 'examName', title: '考试名称', sort: true, edit: 'text'}
+                    , {title: '操作', align: 'center', fixed: 'right', toolbar: '#table-content-com'}
                 ]]
                 , page: true
                 , even: true //斑马线效果
-                , limit : 40
             })
             //监听工具条
             table.on('tool(LAY-app-content-comm)', function (obj) {
@@ -118,8 +106,8 @@
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', function (index) {
                         $.ajax({
-                            url: '/exam/delById',
-                            data: {id: obj.data.eid},
+                            url: '/score/delById',
+                            data: {id: obj.data.id},
                             //'id='+obj.data.id,
                             //我想传obj.data.id 这个值是1，后台要接受id这个参数
                             type: 'post',
@@ -138,24 +126,6 @@
 
                     })
 
-                }else if(obj.event === 'edit'){
-                        var index = layer.open({
-                            title:'修改试题信息',
-                            type: 2,
-                            content: '/exam/editExam?eid='+obj.data.eid,
-                            area: ['300px', '300px'],
-                            maxmin: true
-                        });
-                        layer.full(index);
-                }else{
-                    var index = layer.open({
-                        title:'修改试题信息',
-                        type: 2,
-                        content: '/exam/seeExam?eid='+obj.data.eid,
-                        area: ['700px', '300px'],
-                        maxmin: true
-                    });
-
                 }
             })
 
@@ -168,7 +138,29 @@
                     where: field
                 });
             });
-
+            //监听单元格单击修改
+            table.on('edit(LAY-app-content-comm)', function (obj) {
+                var value = obj.value//更改后得字段
+                    , data = obj.data //更改前得键值对
+                    , newField = obj.field; //更改得字段名
+                $.ajax({
+                    url: '/score/updateScore'
+                    , type: 'post'
+                    , data: JSON.parse('{"id":"'+data.id+'",'+'"'+newField+'":"'+value+'"}')
+                    , success: function (res) {
+                        if (res.code == 0) {
+                            layer.msg(res.msg);
+                        } else {
+                            layer.msg(res.msg, {
+                                anim: 6
+                            });
+                        }
+                    }
+                });
+                /*layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value, {
+                    offset: '15px'
+                })*/
+            })
 
             //点击事件
             var active = {
@@ -181,7 +173,7 @@
                     }
                     layer.confirm('确定删除吗？', function (index) {
                         $.ajax({
-                            url: '/exam/batchDel',
+                            url: '/score/batchDel',
                             data: JSON.stringify(checkData),
                             type: 'post',
                             dataType: 'json',
@@ -209,9 +201,9 @@
                     function () {
                         layer.open({
                             type: 2
-                            , title: '添加知识点'
-                            , content: 'addForm.html'
-                            , area: ['360px', '520px']
+                            , title: ''
+                            , content: 'addScoreForm.html'
+                            , area: ['360px', '320px']
                             , btn: ['确定', '取消']
                             , yes: function (index, layero) {
                                 var iframeWindow = window['layui-layer-iframe' + index]
@@ -222,7 +214,7 @@
                                     var field = data.field; //获取提交的字段
                                     //提交 Ajax 成功后，静态更新表格中的数据
                                     $.ajax({
-                                        url: '/zsd/add'
+                                        url: '/score/add'
                                         , type: 'post'
                                         , data: field
                                         , success: function (res) {
@@ -237,8 +229,6 @@
                                             }
                                         }
                                     });
-                                    // table.reload('LAY-user-front-submit'); //数据刷新
-                                    // layer.close(index); //关闭弹层
                                 });
 
                                 submit.trigger('click');
@@ -249,33 +239,8 @@
                 ,
                 reload: function () {
                     table.reload('LAY-app-content-comm');
-                },
-                print:function () {
-                    var checkStatus = table.checkStatus('LAY-app-content-comm')
-                        , checkData = checkStatus.data; //得到选中的数据
-
-                    if (checkData.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-
-                    $.ajax({
-                        url: '/paper/downloadWordByIds',
-                        data: JSON.stringify(checkData),
-                        type: 'post',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        success: function (res) {
-                            if (res.code == 0) {
-                                location.href = res.msg;
-                            } else {
-                                layer.msg(res.msg, {
-                                    anim: 6
-                                });
-                            }
-
-                        }
-                    })
-
+                },downloadTemplate:function () {
+                    window.location.href="../import_score_template.xlsx";
                 }
             }
 
@@ -285,9 +250,29 @@
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });
+
+
         }
-    )
-    ;
+    );
+    function selectPaperName($,form){
+        $.ajax({
+            url:"/examPaper/getAllPaper",
+            type:"GET",
+            success:function(list){
+                var role = document.getElementById("paperSelectId");        //add_role_name给select定义的id
+                if (list== null || list.length==0){
+                    layer.alert("暂无考试可以录入成绩")
+                }
+                for(var i=0;i<list.length;i++){
+                    var option = document.createElement("option");    // 创建添加option属性
+                    option.setAttribute("value",list[i].pid);                  // 给option的value添加值
+                    option.innerText=list[i].name;             // 打印option对应的纯文本
+                    role.appendChild(option);                          // 给select 添加option子标签
+                    form.render("select");                                // 刷性select，显示出数据
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

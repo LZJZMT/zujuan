@@ -1,5 +1,6 @@
 package com.zujuan.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,10 +23,20 @@ public class ExamPaper implements Serializable {
 
     private Integer time;
 
-
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     private Date createTime;
+
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date examTime;
+
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date reviseTime;
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>题目列表</title>
+    <title>我的考试</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
     <style>
-        body{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
-        .layui-fluid{overflow-y: scroll;} /* 禁止刷新后出现横向滚动条 */
+        .layui-card-body{overflow-x: hidden;} /* 禁止刷新后出现横向滚动条 */
     </style>
 </head>
 
@@ -22,33 +21,15 @@
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">题目内容</label>
+                    <label class="layui-form-label">考试名称</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="question" placeholder="请输入题目内容" autocomplete="off" class="layui-input">
+                        <input type="text" name="name" placeholder="请输入考试名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">类型</label>
+                    <label class="layui-form-label">年级专业</label>
                     <div class="layui-input-inline">
-                        <select name="type" id="typeId">
-                            <option value="">全部</option>
-                            <option value="1">选择题</option>
-                            <option value="2">填空题</option>
-                            <option value="3">判断题</option>
-                            <option value="4">问答题</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">难度</label>
-                    <div class="layui-input-inline">
-                        <select name="degree" id="examdegree" >
-                            <option value="">全部</option>
-                            <option value="1">简单</option>
-                            <option value="2">一般</option>
-                            <option value="3">较难</option>
-                            <option value="4">困难</option>
-                        </select>
+                        <input type="text" name="njzy" placeholder="请输入年级专业" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <!--<div class="layui-inline">-->
@@ -67,17 +48,12 @@
             </div>
         </div>
         <div class="layui-card-body">
-            <div style="padding-bottom: 10px;">
-                <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
-                <button class="layui-btn layuiadmin-btn-comm" data-type="print">打印试题</button>
-                <button class="layui-btn layuiadmin-btn-comm" data-type="reload">刷新</button>
-            </div>
+
             <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
             <script type="text/html" id="table-content-com">
-                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="see"><i class="layui-icon layui-icon-edit"></i>预览</a>
-                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>修改</a>
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-edit"></i>下载试卷</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
-                        class="layui-icon layui-icon-delete"></i>删除</a>
+                        class="layui-icon layui-icon-delete"></i>移除</a>
             </script>
         </div>
     </div>
@@ -96,16 +72,15 @@
             table.render({
                 //width: 430,
                 elem: '#LAY-app-content-comm'
-                , url: '/exam/list'
+                , url: '/examPaper/MyExamPaperList'
                 , method: 'post'
                 , cols: [[
                     {type: 'checkbox'}
                     , {title: '序号',  type: 'numbers'}
-                    , {align: 'center', field: 'question',width:320, title: '题目内容',sort: true}
-                    ,{field:'answer',title:'答案'}
-                    ,{field:'degreeString',title:'难度',sort: true}
-                    ,{field:'zsdname', title:'关联知识点'}
-                    ,{field:'typeString',title:'类型', sort: true}
+                    , {align: 'center', field: 'name', title: '考试名称',sort: false}
+                    ,{field:'njzy',title:'年级专业'}
+                    ,{field:'examTime',title:'考试时间',sort: true}
+                    ,{field:'reviseTime',title:'改卷时间', sort: true}
                     , {title: '操作', align: 'center', width:220,  toolbar: '#table-content-com'}
                 ]]
                 , page: true
@@ -116,15 +91,13 @@
             table.on('tool(LAY-app-content-comm)', function (obj) {
                 <!--layer.confirm('真的删除行么');-->
                 if (obj.event === 'del') {
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('真的删除么', function (index) {
                         $.ajax({
-                            url: '/exam/delById',
-                            data: {id: obj.data.eid},
-                            //'id='+obj.data.id,
-                            //我想传obj.data.id 这个值是1，后台要接受id这个参数
+                            url: '/examPaper/delMyFormExam',
+                            data: {pid: obj.data.pid},
                             type: 'post',
                             success: function (res) {
-                                if (res.code == 0) {
+                                if (res.code == '0') {
                                     layer.msg('删除成功');
                                     obj.del();
                                     layer.close(index);
@@ -139,23 +112,16 @@
                     })
 
                 }else if(obj.event === 'edit'){
-                        var index = layer.open({
-                            title:'修改试题信息',
-                            type: 2,
-                            content: '/exam/editExam?eid='+obj.data.eid,
-                            area: ['300px', '300px'],
-                            maxmin: true
-                        });
-                        layer.full(index);
-                }else{
                     var index = layer.open({
                         title:'修改试题信息',
                         type: 2,
-                        content: '/exam/seeExam?eid='+obj.data.eid,
-                        area: ['700px', '300px'],
+                        content: '/exam/editExam?eid='+obj.data.eid,
+                        area: ['300px', '300px'],
                         maxmin: true
                     });
-
+                    layer.full(index);
+                }else{
+                    location.href = obj.data.fileUrl;
                 }
             })
 

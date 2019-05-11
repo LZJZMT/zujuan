@@ -12,21 +12,25 @@
 
 <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
     <div class="layui-form-item">
-
-        <label class="layui-form-label">父知识点</label>
+        <label class="layui-form-label">考试名称</label>
         <div class="layui-input-inline">
-            <select name="parentid" id="zsdSelectId">
-                <option value="">无</option>
+            <select name="pid" id="paperSelectId" lay-verify="required">
             </select>
         </div>
-
-        <label class="layui-form-label">知识点名称</label>
+        <label class="layui-form-label">学号</label>
         <div class="layui-input-inline">
-            <input type="text" name="zsdname" lay-verify="required" placeholder="请输入知识点名称" autocomplete="off" class="layui-input">
+            <input type="text" name="xuehao" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">成绩</label>
+        <div class="layui-input-inline">
+            <input type="text" name="score" lay-verify="required" placeholder="请输入成绩" autocomplete="off" class="layui-input">
         </div>
 
     </div>
-
     <div class="layui-form-item layui-hide">
         <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
     </div>
@@ -41,20 +45,23 @@
     }).use(['index', 'form'], function(){
         var $ = layui.$
             ,form = layui.form ;
-        selectRoleName(layui.$,form);    // 调用查询方法
+        selectPaperName(layui.$,form);    // 调用查询方法
 
     })
 
-    function selectRoleName($,form){
+    function selectPaperName($,form){
         $.ajax({
-            url:"/zsd/getAllParentZsd",
+            url:"/examPaper/getAllPaper",
             type:"GET",
             success:function(list){
-                var role = document.getElementById("zsdSelectId");        //add_role_name给select定义的id
+                var role = document.getElementById("paperSelectId");        //add_role_name给select定义的id
+                if (list== null || list.length==0){
+                    layer.alert("暂无考试可以录入成绩")
+                }
                 for(var i=0;i<list.length;i++){
                     var option = document.createElement("option");    // 创建添加option属性
-                    option.setAttribute("value",list[i].id);                  // 给option的value添加值
-                    option.innerText=list[i].zsdname;             // 打印option对应的纯文本
+                    option.setAttribute("value",list[i].pid);                  // 给option的value添加值
+                    option.innerText=list[i].name;             // 打印option对应的纯文本
                     role.appendChild(option);                          // 给select 添加option子标签
                     form.render("select");                                // 刷性select，显示出数据
                 }

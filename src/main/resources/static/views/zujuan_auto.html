@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8">
     <title>智能组卷</title>
@@ -32,7 +32,7 @@
         position: relative;
         z-index: 0;
         zoom: 1;
-        width: 80%;
+        width: 77%;
     }
 
     .smarter-section .result-head {
@@ -141,19 +141,17 @@
         font-weight: bold;
     }
 
-    .setting-item .difficult-type {
-        width: 225px;
-    }
+    
 
     .setting-item div {
     }
 </style>
 <body>
 
-<div style="float: left;width: 15%">
+<div style="float: left;">
     <form class="layui-form " style="float: left;">
         <h1>选择知识点</h1>
-        <div id="xtree1" style="width:300px;padding: 10px 0 25px 5px;"></div>
+        <div id="xtree1" style="width:240px;padding: 10px 0 25px 5px;"></div>
     </form>
 </div>
 <div class="smarter-section" id="J_ResultRegion" style="float: left">
@@ -185,101 +183,101 @@
             <div class="setting-item f-cb" style="display: block;font-size:18px">
                 <div class="f-fl f-cb">
                     <span class="setting-tit f-fl" title="单选题">单选题：</span>
-                    <div class="f-fl difficult-type" style="margin-left: 40px">
+                    <div class="f-fl difficult-type" style="margin-left: 20px">
                         <span>简单</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>一般</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>较难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>困难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                 </div>
                 <hr>
                 <div class="f-fl f-cb">
                     <span class="setting-tit f-fl" title="填空题">填空题：</span>
-                    <div class="f-fl difficult-type" style="margin-left: 40px">
+                    <div class="f-fl difficult-type" style="margin-left: 20px">
                         <span>简单</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>一般</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>较难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>困难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                 </div>
                 <hr>
                 <div class="f-fl f-cb">
                     <span class="setting-tit f-fl" title="判断题">判断题：</span>
-                    <div class="f-fl difficult-type" style="margin-left: 40px">
+                    <div class="f-fl difficult-type" style="margin-left: 20px">
                         <span>简单</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>一般</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>&nbsp;
                     <div class="f-fl difficult-type">
                         <span>较难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>困难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                 </div>
                 <hr>
                 <div class="f-fl f-cb">
                     <span class="setting-tit f-fl" title="问答题">问答题：</span>
-                    <div class="f-fl difficult-type" style="margin-left: 40px">
+                    <div class="f-fl difficult-type" style="margin-left: 20px">
                         <span>简单</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>一般</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>较难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                     <div class="f-fl difficult-type">
                         <span>困难</span>
-                        <input type="number" min="0" style="width: 40px;height: 30px"/>
-                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道试题可用</span>
+                        <input type="number" min="0" max="0" style="width: 40px;height: 30px"/>
+                        <span style="color: #CCCCCC"><i class="numOfExam">0</i>&nbsp;道可用</span>
                     </div>
                 </div>
                 <hr>
-                <div style="float: left;margin-left: 500px;margin-bottom: 10px">
+                <div style="float: left;margin-left: 395px;margin-bottom: 10px">
                     <!--<button class="layui-btn layui-btn-normal">
                         <a lay-href="404.html">生成试卷</a></button>-->
                     <a href="javascript:void(0)" class="layui-btn" onclick="autoZujuan('/examPaper/autoZujuan','预览试卷')">生成试卷</a>
@@ -334,17 +332,7 @@
                     ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
                 })
             }
-            /*,tabDelete: function(othis){
-                //删除指定Tab项
-                element.tabDelete('demo', '44'); //删除：“商品管理”
 
-
-                othis.addClass('layui-btn-disabled');
-            }
-            ,tabChange: function(){
-                //切换到指定Tab项
-                element.tabChange('demo', '22'); //切换到：用户管理
-            }*/
         };
             var xtree1 = new layuiXtree({
                 elem: 'xtree1'   //(必填) 放置xtree的容器id，不要带#号
@@ -415,9 +403,20 @@
 
     function autoZujuan(url,tabName) {
         var numOfAuto = [];
+
         $("input[type=number]").each(function (index) {
             numOfAuto.push($(this).val()==''?0:$(this).val());
         })
+
+        var sum =0;
+        for(var ii = 0;ii < numOfAuto.length;ii++){
+             sum+=numOfAuto[ii];
+        }
+        if (sum < 1){
+            layer.alert("请输入题型数量");
+            return;
+        }
+
         var jsonObj={"numOfAuto":numOfAuto.join(",")};
 
         $.ajax({

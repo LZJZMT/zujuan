@@ -13,6 +13,7 @@ import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExamPaperVO;
 import com.zujuan.vo.ExaminationVO;
 import com.zujuan.vo.PagerExamRVO;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -58,17 +59,51 @@ public class ExamPaperController {
 
     public static List<Examination> examinations = null;
 
+    @ResponseBody
+    @RequestMapping("getAllPaper")
+    public List getAllPaper(){
+        List<ExamPaperFormat> examPaperFormats = examPaperFormatMapper.selectByExample(null);
+        ArrayList<ExamPaper> examPapers1 = new ArrayList<>();
+        for (ExamPaperFormat examPaperFormat : examPaperFormats) {
+            ExamPaperExample examPaperExample = new ExamPaperExample();
+            examPaperExample.createCriteria().andPidEqualTo(examPaperFormat.getPaperId());
+            List<ExamPaper> examPapers = examPaperMapper.selectByExample(examPaperExample);
+            if (examPapers!=null && examPapers.size()>0){
+                examPapers1.add(examPapers.get(0));
+            }
+        }
+        return examPapers1;
+    }
+
+    @ResponseBody
     @RequestMapping("/MyExamPaperList")
-    public String MyExamPaperList(ModelMap modelMap) {
+    public PageBean MyExamPaperList(String njzy,String name) {
+        ExamPaperFormatExample example = new ExamPaperFormatExample();
+
         try {
             User user = GetCurrentUser.getCurrentUser();
-            ExamPaperFormatExample example = new ExamPaperFormatExample();
+
             example.createCriteria().andAuthorIdEqualTo(user.getId());
             List<ExamPaperFormat> formatList = examPaperFormatMapper.selectByExample(example);
             List<ExamPaper> myExamPaper = new ArrayList<>();
             for (ExamPaperFormat examPaperFormat : formatList) {
-                ExamPaper examPaper = examPaperMapper.selectByPrimaryKey(examPaperFormat.getPaperId());
-                myExamPaper.add(examPaper);
+
+                ExamPaperExample examPaperExample = new ExamPaperExample();
+                ExamPaperExample.Criteria criteria = examPaperExample.createCriteria();
+                criteria.andPidEqualTo(examPaperFormat.getPaperId());
+                if(!("".equals(name) ||name == null)){
+                    criteria.andNameLike("%"+name+"%");
+                }
+                if(!("".equals(njzy) ||njzy == null)){
+                    criteria.andNjzyLike("%"+njzy+"%");
+                }
+                List<ExamPaper> examPapers = examPaperMapper.selectByExample(examPaperExample);
+                if(examPapers ==null || examPapers.size()==0){
+                    continue;
+                }
+
+                myExamPaper.add(examPapers.get(0));
+                criteria = null;
             }
             List<ExamPaperVO> examPaperVOS = BeanUtil.copyList(myExamPaper, ExamPaperVO.class);
             for (ExamPaperVO examPaper : examPaperVOS) {
@@ -79,15 +114,19 @@ public class ExamPaperController {
                 if (list != null && list.size() > 0) {
                     examPaper.setAuthorName(list.get(0).getUsername());
                 }
-
             }
             Collections.reverse(examPaperVOS);
-            modelMap.addAttribute("examPaperList", examPaperVOS);
+            PageBean pageBean = new PageBean();
+            pageBean.setCount(examPaperVOS.size()+"");
+            pageBean.setCode("0");
+            pageBean.setMsg("成功");
+            pageBean.setData(examPaperVOS);
+            return pageBean;
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/views/user/login.html";
+            return null;
         }
-        return "MyExamPaper";
+
     }
 
     @ResponseBody
@@ -117,6 +156,7 @@ public class ExamPaperController {
             example.createCriteria().andAuthorIdEqualTo(user.getId())
                     .andPaperIdEqualTo(pid);
         } catch (Exception e) {
+            e.printStackTrace();
             resultMap.put("code",1);
             resultMap.put("msg","请先登录");return resultMap;
         }
@@ -257,11 +297,11 @@ public class ExamPaperController {
             examinationVO.setZsdname(ks.selectByPrimary(examinationVO.getKnowId()).getZsdname());
             list.add(examinationVO);
         }
-
         modelMap.addAttribute("voList", list);
         return "previewPaper";
     }
 
+    //生成题目信息
     @ResponseBody
     @RequestMapping("/autoZujuan")
     public Map autoZujuan(String numOfAuto){
@@ -328,6 +368,7 @@ public class ExamPaperController {
             for (ExamPaperVO examPaperVO : examPaperVOS) {
                 examPaperVO.setAuthorName(GetCurrentUser.getCurrentUser().getUsername());
             }
+            Collections.reverse(myExamPaperList);
             modelMap.addAttribute("examPaperList", examPaperVOS);
         } catch (Exception e) {
             return "redirect:/views/user/login.html";

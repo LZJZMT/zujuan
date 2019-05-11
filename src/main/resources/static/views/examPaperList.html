@@ -98,6 +98,9 @@
     }).use(['index', 'form'], function () {
         var $ = layui.$
             , form = layui.form;
+        if ($(".question-block").length ==0){
+            layer.alert("试卷列表暂无试卷，快去组卷吧~");
+        }
     })
 
     function exportDoc() {
