@@ -77,13 +77,18 @@
     function exportDoc() {
         var form = document.getElementById('paperForm');
         form.submit();
-        layer.full(layer.open({
+        if(top.layui.index){
+            top.layui.index.openTabsPage('/views/addPaper.html',"保存试卷")
+        }else{
+            window.open('/views/addPaper.html')
+        }
+        /*layer.full(layer.open({
             title:'保存试卷',
             type: 2,
             content: '/views/addPaper.html',
             area: ['700px', '300px'],
             maxmin: true
-        }));
+        }));*/
     }
 </script>
 </html>

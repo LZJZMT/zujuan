@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +41,26 @@ public class ScoreController {
     private ScoreMapper sm;
     @Autowired
     private ExamPaperService examPaperService;
-    //搜索和获取所有知识点
 
+    @ResponseBody
+    @RequestMapping("/fenduan")
+    public List fenduan(Long pid){
+
+        int[] scoreDuan = new int[10];
+        ScoreExample scoreExample = new ScoreExample();
+        scoreExample.createCriteria().andPidEqualTo(pid);
+        List<Score> scores = sm.selectByExample(scoreExample);
+        for (Score score : scores) {
+            int i = score.getScore().intValue() / 10;
+            scoreDuan[i>9?9:i]++;
+        }
+        List<Integer> resultList = new ArrayList<Integer>(scoreDuan.length);
+        for (int s : scoreDuan) {
+            resultList.add(s);
+        }
+        return resultList;
+    }
+    //搜索和获取所有知识点
     @RequestMapping("/list")
     public PageBean list(Score score, Integer page, Integer limit){
         PageBean pageBean = new PageBean();
@@ -117,7 +136,7 @@ public class ScoreController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int r = 1; r < sheet.getLastRowNum(); r++) {
+        for (int r = 1; r <= sheet.getLastRowNum(); r++) {
             Row row = sheet.getRow(r);//通过sheet表单对象得到 行对象
             if (row == null){
                 continue;

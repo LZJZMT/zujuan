@@ -10,11 +10,7 @@
     <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
     <style>
-        .layui-fluid {
-            overflow-y: scroll;
-        }
-
-        /* 禁止刷新后出现横向滚动条 */
+        .layui-card-body{overflow-x: hidden;} /* 禁止刷新后出现横向滚动条 */
     </style>
 </head>
 <body>
@@ -98,7 +94,7 @@
                     if(res.code == '0'){
                         layer.msg("上传成功");
                         //table.reload();
-                        table.reload('LAY-app-content-comm');
+                        location.reload()
                     }else{
                         layer.alert(res.msg);
                     }
@@ -120,11 +116,11 @@
                 , method: 'post'
                 , cols: [[
                     {type: 'checkbox'}
-                    , {align: 'center', field: 'xuehao', title: '学号', sort: true, edit: 'text'}
+                    , {align: 'center', field: 'xuehao',width:200, title: '学号', sort: true, edit: 'text'}
                     , {align: 'center', width:200,field: 'name', title: '姓名', sort: false, edit: 'text'}
                     , {align: 'center', width:100,field: 'score', title: '成绩', sort: true, edit: 'text'}
                     , {align: 'center', field: 'examName', title: '考试名称', sort: true, edit: 'text'}
-                    , {title: '操作', align: 'center', fixed: 'right', toolbar: '#table-content-com'}
+                    , {title: '操作', align: 'center',width:100, toolbar: '#table-content-com'}
                 ]]
                 , page: true
                 , even: true //斑马线效果
@@ -210,8 +206,7 @@
                             success: function (res) {
                                 if (res.code == 0) {
                                     layer.msg('删除成功');
-                                    table.reload();
-                                    table.reload('LAY-app-content-comm');
+                                    window.location.reload();
                                 } else {
                                     layer.msg(res.msg, {
                                         anim: 6
@@ -250,7 +245,7 @@
                                             if (res.code == 0) {
                                                 layer.msg(res.msg);
                                                 iframeWindow.location.reload()
-                                                table.reload();
+                                                //table.reload();
                                             } else {
                                                 layer.msg(res.msg, {
                                                     anim: 6
@@ -267,7 +262,7 @@
 
                 ,
                 reload: function () {
-                    table.reload('LAY-app-content-comm');
+                    table.reload('LAY-app-content-comm')
                 }, downloadTemplate: function () {
                     window.location.href = "../import_score_template.xlsx";
                 }

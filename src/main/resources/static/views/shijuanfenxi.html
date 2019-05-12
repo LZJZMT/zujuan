@@ -26,7 +26,7 @@
     var myChart2 = echarts.init(document.getElementById('chartmain2'));
     option = {
         title : {
-            text: '试题题量分析',
+            text: '题型分析',
             subtext: '',
             x:'center'
         },
@@ -35,15 +35,37 @@
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['选择题','填空题','判断题','问答题']
+            orient : 'vertical',
+            x : 'left',
+            data:['选择题','填空题','判断题','问答题']
         },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
+                    }
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
         series : [
             {
-                name: '题型',
-                type: 'pie',
-                 radius : '55%',
+                name:'题型分析',
+                type:'pie',
+                radius : '55%',
                 center: ['50%', '60%'],
                 data:[
                     {value:0, name:'选择题'},
@@ -65,15 +87,37 @@
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['容易','一般','较难','困难']
+            orient : 'vertical',
+            x : 'left',
+            data:['容易','一般','较难','困难']
         },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
+                    }
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
         series : [
             {
-                name: '难度',
-                type: 'pie',
-                 radius : '55%',
+                name:'难度分析',
+                type:'pie',
+                radius : '55%',
                 center: ['50%', '60%'],
                 data:[
                     {value:0, name:'容易'},
@@ -95,21 +139,45 @@
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: []
+            orient : 'vertical',
+            x : 'left',
+            data:[]
         },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
+                    }
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
         series : [
             {
-                name: '知识点',
-                type: 'pie',
+                name:'知识点分析',
+                type:'pie',
                 radius : '55%',
                 center: ['50%', '60%'],
                 data:[
+
                 ]
             }
         ]
     };
+
     var str=location.href;
     var pid = str.split("?")[1].split("=")[1];
     $.ajax({

@@ -10,13 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-05-09 23:56:00
+Date: 2019-05-12 00:41:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `examination`
+-- Table structure for examination
 -- ----------------------------
 DROP TABLE IF EXISTS `examination`;
 CREATE TABLE `examination` (
@@ -31,7 +31,7 @@ CREATE TABLE `examination` (
   PRIMARY KEY (`eid`),
   KEY `题目知识点` (`know_id`),
   CONSTRAINT `题目知识点` FOREIGN KEY (`know_id`) REFERENCES `knowledge` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of examination
@@ -60,10 +60,11 @@ INSERT INTO `examination` VALUES ('54', '<p><span>所表达的子集是</span><s
 INSERT INTO `examination` VALUES ('55', '<p><span>啊啊啊的子集是</span><span>所表达的子集是</span><span>所表达的子集是？</span></p>', null, '√', '', '1', '3', '53');
 INSERT INTO `examination` VALUES ('56', '<p><span>啊啊啊的子集是</span><span>所表达的子集是</span><span>所表达的子集是？</span></p>', null, '√', '', '1', '3', '53');
 INSERT INTO `examination` VALUES ('57', '哈哈哈哈哈哈哈哈哈哈哈哈____', null, 'x', '', '1', '2', '79');
-INSERT INTO `examination` VALUES ('58', '<p>下面。。。。。。。。。。。。<img src=\"/image/155602430258991133.png\" alt=\"undefined\"></p><p>A.xxx B.xxx</p>', '{}', 'A', '', '3', '1', '65');
+INSERT INTO `examination` VALUES ('59', 'qweweqweqwe<img src=\"/image/155749120533377895.png\" alt=\"undefined\">', '{}', 'A', '', '2', '1', '45');
+INSERT INTO `examination` VALUES ('60', '驱蚊器恶趣味&nbsp;<img src=\"/image/155750045081671844.png\" alt=\"undefined\">', null, '七千万', '', '1', '2', '50');
 
 -- ----------------------------
--- Table structure for `exam_basket`
+-- Table structure for exam_basket
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_basket`;
 CREATE TABLE `exam_basket` (
@@ -78,7 +79,7 @@ CREATE TABLE `exam_basket` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `exam_paper`
+-- Table structure for exam_paper
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_paper`;
 CREATE TABLE `exam_paper` (
@@ -99,15 +100,12 @@ CREATE TABLE `exam_paper` (
   `author_id` bigint(20) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper
 -- ----------------------------
-INSERT INTO `exam_paper` VALUES ('35', 'HGHJ123184329', '桂林电子科技大学离散数学期末考试试卷', '100', '2019-04-13 17:37:07', '2019-04-13 08:00:00', '2019-04-30 08:00:00', '1.2', '15软件工程', '/image/exampaper/桂林电子科技大学离散数学期末考试试卷836.1660561205831.doc', null, null, null, null, '12', '120');
-INSERT INTO `exam_paper` VALUES ('36', 'RZ20192813123', '桂林电子科技大学离散数学期末考试试卷', '100', '2019-04-13 17:40:41', '2019-04-24 00:00:00', '2019-04-29 00:00:00', '1.2', '2015软件工程', '/image/exampaper/桂林电子科技大学离散数学期末考试试卷0.doc', null, null, null, null, '12', '120');
 INSERT INTO `exam_paper` VALUES ('37', 'BS321293912', '离散数学试卷离散数学试卷', '100', '2019-04-13 20:28:17', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '1.5', '2015计算机科学与技术', '/image/exampaper/离散数学试卷离散数学试卷530.doc', null, null, null, null, '12', '120');
-INSERT INTO `exam_paper` VALUES ('38', 'BS12012301284', '桂林电子科技大学离散数学题目最多的一次考试', '91', '2019-04-14 14:29:01', '2019-04-25 08:00:00', '2019-04-26 08:00:00', '2.2', '15软件工程', '/image/exampaper/桂林电子科技大学离散数学题目最多的一次考试141.doc', null, null, null, null, '12', '120');
 INSERT INTO `exam_paper` VALUES ('39', '123', '123', '100', '2019-04-14 14:42:41', '2019-04-01 00:00:00', '2019-04-14 00:00:00', '2', '1231', '/image/exampaper/123742.doc', null, null, null, null, '12', '123');
 INSERT INTO `exam_paper` VALUES ('40', 'BS2139123', '自动生成的试卷', '48', '2019-04-23 20:20:37', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '2', '软件工程', '/image/exampaper/自动生成的试卷124.doc', null, null, null, null, '1', '120');
 INSERT INTO `exam_paper` VALUES ('41', '12', '自动生成', '60', '2019-04-23 20:22:08', '2019-04-23 00:00:00', '2019-04-23 00:00:00', '2.4', '123', '/image/exampaper/自动生成446.doc', null, null, null, null, '1', '123');
@@ -117,9 +115,14 @@ INSERT INTO `exam_paper` VALUES ('44', '123123', 'qw', '100', '2019-04-23 20:31:
 INSERT INTO `exam_paper` VALUES ('45', 'qwe', 'qwe', '100', '2019-04-23 20:32:16', '2019-04-01 00:00:00', '2019-04-23 20:32:16', '2', 'qwe', '/image/exampaper/qwe21958.doc', null, null, null, null, '1', '123');
 INSERT INTO `exam_paper` VALUES ('46', 'qwe', 'qweqwe', '100', '2019-04-23 20:35:59', '2019-04-23 00:00:00', '2019-04-23 20:35:58', '1.8', '12', '/image/exampaper/qweqwe82107.doc', null, null, null, null, '1', '12');
 INSERT INTO `exam_paper` VALUES ('47', 'BS21391392', '桂电离散数学试卷11111111', '100', '2019-04-23 20:59:38', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '2.2', '软件工程', '/image/exampaper/桂电离散数学试卷1111111155153.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('49', 'qweqwe', 'qweqwe', '66', '2019-05-10 19:39:01', '2019-05-10 19:38:46', '2019-05-24 00:08:00', '2', 'qwe', '/image/exampaper/qweqwe65194.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('50', 'werwer', 'ederwe', '100', '2019-05-10 19:43:51', '2019-05-24 00:00:00', '2019-05-10 19:43:50', '2.2', 'werwer', '/image/exampaper/ederwe37854.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('51', 'werwer', 'reewrwer', '79', '2019-05-10 19:52:08', '2019-05-17 00:00:00', '2019-05-31 00:00:00', '2.3', 'werwer', '/image/exampaper/reewrwer9033.doc', null, null, null, null, '1', '120');
+INSERT INTO `exam_paper` VALUES ('52', '234', '23', '100', '2019-05-10 19:56:10', '2019-05-17 00:00:00', '2019-05-11 00:00:00', '2', '234', '/image/exampaper/2376196.doc', null, null, null, null, '1', '12');
+INSERT INTO `exam_paper` VALUES ('53', 'eqwe', 'qweqw', '100', '2019-05-10 19:58:04', '2019-05-31 00:00:00', '2019-05-10 19:57:24', '2', 'qwe', '/image/exampaper/qweqw93819.doc', null, null, null, null, '1', '122');
 
 -- ----------------------------
--- Table structure for `exam_paper_format`
+-- Table structure for exam_paper_format
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_paper_format`;
 CREATE TABLE `exam_paper_format` (
@@ -127,19 +130,18 @@ CREATE TABLE `exam_paper_format` (
   `author_id` bigint(20) DEFAULT NULL,
   `paper_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper_format
 -- ----------------------------
 INSERT INTO `exam_paper_format` VALUES ('1', '1', '48');
-INSERT INTO `exam_paper_format` VALUES ('2', '1', '42');
-INSERT INTO `exam_paper_format` VALUES ('3', '1', '39');
-INSERT INTO `exam_paper_format` VALUES ('4', '1', '38');
-INSERT INTO `exam_paper_format` VALUES ('9', '1', '46');
+INSERT INTO `exam_paper_format` VALUES ('13', '1', '53');
+INSERT INTO `exam_paper_format` VALUES ('14', '1', '52');
+INSERT INTO `exam_paper_format` VALUES ('15', '1', '51');
 
 -- ----------------------------
--- Table structure for `exam_type`
+-- Table structure for exam_type
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_type`;
 CREATE TABLE `exam_type` (
@@ -157,7 +159,7 @@ INSERT INTO `exam_type` VALUES ('3', '判断题');
 INSERT INTO `exam_type` VALUES ('4', '问答题');
 
 -- ----------------------------
--- Table structure for `knowledge`
+-- Table structure for knowledge
 -- ----------------------------
 DROP TABLE IF EXISTS `knowledge`;
 CREATE TABLE `knowledge` (
@@ -165,7 +167,7 @@ CREATE TABLE `knowledge` (
   `zsdName` varchar(255) NOT NULL,
   `parentId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of knowledge
@@ -217,7 +219,7 @@ INSERT INTO `knowledge` VALUES ('79', '无向树', '78');
 INSERT INTO `knowledge` VALUES ('80', '有向树', '78');
 
 -- ----------------------------
--- Table structure for `pager_exam_r`
+-- Table structure for pager_exam_r
 -- ----------------------------
 DROP TABLE IF EXISTS `pager_exam_r`;
 CREATE TABLE `pager_exam_r` (
@@ -230,31 +232,13 @@ CREATE TABLE `pager_exam_r` (
   KEY `题目` (`eid`),
   CONSTRAINT `题目` FOREIGN KEY (`eid`) REFERENCES `examination` (`eid`) ON UPDATE CASCADE,
   CONSTRAINT `试卷` FOREIGN KEY (`pid`) REFERENCES `exam_paper` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pager_exam_r
 -- ----------------------------
-INSERT INTO `pager_exam_r` VALUES ('52', '31', '35', '20');
-INSERT INTO `pager_exam_r` VALUES ('53', '32', '35', '20');
-INSERT INTO `pager_exam_r` VALUES ('54', '33', '35', '40');
-INSERT INTO `pager_exam_r` VALUES ('55', '34', '35', '20');
-INSERT INTO `pager_exam_r` VALUES ('56', '31', '36', null);
-INSERT INTO `pager_exam_r` VALUES ('57', '32', '36', null);
-INSERT INTO `pager_exam_r` VALUES ('58', '33', '36', null);
-INSERT INTO `pager_exam_r` VALUES ('59', '34', '36', null);
 INSERT INTO `pager_exam_r` VALUES ('60', '31', '37', null);
 INSERT INTO `pager_exam_r` VALUES ('61', '34', '37', null);
-INSERT INTO `pager_exam_r` VALUES ('62', '31', '38', '12');
-INSERT INTO `pager_exam_r` VALUES ('63', '32', '38', '12');
-INSERT INTO `pager_exam_r` VALUES ('64', '35', '38', '3');
-INSERT INTO `pager_exam_r` VALUES ('65', '37', '38', '5');
-INSERT INTO `pager_exam_r` VALUES ('66', '34', '38', '4');
-INSERT INTO `pager_exam_r` VALUES ('67', '38', '38', '5');
-INSERT INTO `pager_exam_r` VALUES ('68', '40', '38', '12');
-INSERT INTO `pager_exam_r` VALUES ('69', '42', '38', '12');
-INSERT INTO `pager_exam_r` VALUES ('70', '44', '38', '12');
-INSERT INTO `pager_exam_r` VALUES ('71', '45', '38', '14');
 INSERT INTO `pager_exam_r` VALUES ('72', '31', '39', null);
 INSERT INTO `pager_exam_r` VALUES ('73', '31', '40', '12');
 INSERT INTO `pager_exam_r` VALUES ('74', '52', '40', '12');
@@ -291,9 +275,25 @@ INSERT INTO `pager_exam_r` VALUES ('104', '34', '47', '20');
 INSERT INTO `pager_exam_r` VALUES ('105', '35', '47', '20');
 INSERT INTO `pager_exam_r` VALUES ('106', '44', '47', '20');
 INSERT INTO `pager_exam_r` VALUES ('107', '47', '47', '20');
+INSERT INTO `pager_exam_r` VALUES ('116', '52', '49', '22');
+INSERT INTO `pager_exam_r` VALUES ('117', '40', '49', '22');
+INSERT INTO `pager_exam_r` VALUES ('118', '31', '49', '22');
+INSERT INTO `pager_exam_r` VALUES ('119', '41', '50', null);
+INSERT INTO `pager_exam_r` VALUES ('120', '40', '50', null);
+INSERT INTO `pager_exam_r` VALUES ('121', '38', '50', null);
+INSERT INTO `pager_exam_r` VALUES ('122', '32', '50', null);
+INSERT INTO `pager_exam_r` VALUES ('123', '35', '51', '22');
+INSERT INTO `pager_exam_r` VALUES ('124', '47', '51', '23');
+INSERT INTO `pager_exam_r` VALUES ('125', '52', '51', '34');
+INSERT INTO `pager_exam_r` VALUES ('126', '48', '52', null);
+INSERT INTO `pager_exam_r` VALUES ('127', '31', '52', null);
+INSERT INTO `pager_exam_r` VALUES ('128', '32', '52', null);
+INSERT INTO `pager_exam_r` VALUES ('129', '31', '53', null);
+INSERT INTO `pager_exam_r` VALUES ('130', '32', '53', null);
+INSERT INTO `pager_exam_r` VALUES ('131', '33', '53', null);
 
 -- ----------------------------
--- Table structure for `persistent_logins`
+-- Table structure for persistent_logins
 -- ----------------------------
 DROP TABLE IF EXISTS `persistent_logins`;
 CREATE TABLE `persistent_logins` (
@@ -311,10 +311,10 @@ INSERT INTO `persistent_logins` VALUES ('admin', '1QojRq+VqPgbUgRY2uyuVg==', 'p1
 INSERT INTO `persistent_logins` VALUES ('user', 'BJGaXRo1xUHWxzzfDSCAHA==', 'BYKbIljFHn914HEVtSYsRA==', '2019-04-14 20:45:35');
 INSERT INTO `persistent_logins` VALUES ('admin2', 'k7IK8zuvFBqoMt3eTx1IlQ==', 'f0frO9nVhAFYDCrkYWryUA==', '2019-01-10 14:23:21');
 INSERT INTO `persistent_logins` VALUES ('李子健1', 'OCg0LQEaeCKUUdG7l6nORA==', '23OFrz97qMmoXgXx9F0+pw==', '2019-01-10 13:36:18');
-INSERT INTO `persistent_logins` VALUES ('1500330217', 'omSU6SEk51dZq5YVPBsQ0A==', 'aD+FWcb6bT8+AOQwsh667A==', '2019-05-09 17:51:51');
+INSERT INTO `persistent_logins` VALUES ('1500330217', 'v/zsvEMB6Qm8GG7LWdMTkQ==', '7blmEsWlbuIlbvbw0sz++w==', '2019-05-11 22:16:31');
 
 -- ----------------------------
--- Table structure for `role`
+-- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
@@ -329,7 +329,34 @@ CREATE TABLE `role` (
 INSERT INTO `role` VALUES ('1', '管理员');
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for score
+-- ----------------------------
+DROP TABLE IF EXISTS `score`;
+CREATE TABLE `score` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `xuehao` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `score` double DEFAULT NULL,
+  `pid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of score
+-- ----------------------------
+INSERT INTO `score` VALUES ('3', '23123123', '122', '1', '53');
+INSERT INTO `score` VALUES ('5', '11', '1', '111', '53');
+INSERT INTO `score` VALUES ('6', '122', '12', '1212', '53');
+INSERT INTO `score` VALUES ('7', '234234', '234', '323', '53');
+INSERT INTO `score` VALUES ('14', '1500330217', '李子健88', '999', '52');
+INSERT INTO `score` VALUES ('15', '1500330218', '李子健12314', '12315', '52');
+INSERT INTO `score` VALUES ('16', '1500330217', '李子健88', '999', '53');
+INSERT INTO `score` VALUES ('17', '1500330218', '李子健12314', '12315', '53');
+INSERT INTO `score` VALUES ('20', '1500330217', '李子健88', '999', '51');
+INSERT INTO `score` VALUES ('21', '1500330218', '李子健12314', '12315', '51');
+
+-- ----------------------------
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
