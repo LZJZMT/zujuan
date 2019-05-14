@@ -13,13 +13,11 @@ import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExamPaperVO;
 import com.zujuan.vo.ExaminationVO;
 import com.zujuan.vo.PagerExamRVO;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -60,7 +58,7 @@ public class ExamPaperController {
     public static List<Examination> examinations = null;
 
     @ResponseBody
-    @RequestMapping("getAllPaper")
+    @RequestMapping("/getAllPaper")
     public List getAllPaper(){
         List<ExamPaperFormat> examPaperFormats = examPaperFormatMapper.selectByExample(null);
         ArrayList<ExamPaper> examPapers1 = new ArrayList<>();
@@ -73,6 +71,13 @@ public class ExamPaperController {
             }
         }
         return examPapers1;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getAllPaper2")
+    public List getAllPaper2(){
+        List<ExamPaper> examPapers = examPaperMapper.selectByExample(null);
+        return examPapers;
     }
 
     @ResponseBody
@@ -272,6 +277,90 @@ public class ExamPaperController {
         return maps;
     }
 
+
+    @ResponseBody
+    @RequestMapping("duibifenxi")
+    public Map duibifenxi(Long pid1,Long pid2){
+
+        PagerExamRExample examRExample1 = new PagerExamRExample();
+        examRExample1.createCriteria().andPidEqualTo(pid1);
+        List<PagerExamR> list1 = pagerExamRService.selectByExample(examRExample1);
+        PagerExamRExample examRExample2 = new PagerExamRExample();
+        examRExample2.createCriteria().andPidEqualTo(pid2);
+        List<PagerExamR> list2 = pagerExamRService.selectByExample(examRExample2);
+        int xz = 0;
+        int tk = 0;
+        int pd = 0;
+        int wd = 0;
+
+        int jd = 0;
+        int yb = 0;
+        int jn = 0;
+        int kn = 0;
+        HashMap<Object, Integer> zsd = new HashMap<>();
+
+        for (PagerExamR pagerExamR : list1) {
+            Long eid = pagerExamR.getEid();
+            Examination examination = examService.getById(eid);
+            Long knowId = examination.getKnowId();
+            Knowledge knowledge = ks.selectByPrimary(knowId);
+            String zsdname = knowledge.getZsdname();
+            int i = zsd.get(zsdname) == null ? 0 : zsd.get(zsdname);
+            zsd.put(zsdname,++i);
+            switch (examination.getDegree().intValue()){
+                case 1:jd++;break;
+                case 2:yb++;break;
+                case 3:jn++;break;
+                case 4:kn++;break;
+            }
+
+            switch (examination.getType()){
+                case 1:xz++;break;
+                case 2:tk++;break;
+                case 3:pd++;break;
+                case 4:wd++;break;
+            }
+        }
+        ArrayList<Integer> p1tx = new ArrayList<>();
+        ArrayList<Integer> p2tx = new ArrayList<>();
+        ArrayList<Integer> p1nd = new ArrayList<>();
+        ArrayList<Integer> p2nd = new ArrayList<>();
+        p1tx.add(xz);p1tx.add(tk);p1tx.add(pd); p1tx.add(wd);
+        p1nd.add(jd);p1nd.add(yb);p1nd.add(jn);p1nd.add(kn);
+        xz = 0;        tk = 0;        pd = 0;        wd = 0;
+        jd = 0;        yb = 0;        jn = 0;        kn = 0;
+        for (PagerExamR pagerExamR : list2) {
+            Long eid = pagerExamR.getEid();
+            Examination examination = examService.getById(eid);
+            Long knowId = examination.getKnowId();
+            Knowledge knowledge = ks.selectByPrimary(knowId);
+            String zsdname = knowledge.getZsdname();
+            int i = zsd.get(zsdname) == null ? 0 : zsd.get(zsdname);
+            zsd.put(zsdname,++i);
+            switch (examination.getDegree().intValue()){
+                case 1:jd++;break;
+                case 2:yb++;break;
+                case 3:jn++;break;
+                case 4:kn++;break;
+            }
+
+            switch (examination.getType()){
+                case 1:xz++;break;
+                case 2:tk++;break;
+                case 3:pd++;break;
+                case 4:wd++;break;
+            }
+        }
+        p2tx.add(xz);p2tx.add(tk);p2tx.add(pd); p2tx.add(wd);
+        p2nd.add(jd);p2nd.add(yb);p2nd.add(jn);p2nd.add(kn);
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("p1nd",p1nd);
+        hashMap.put("p2nd",p2nd);
+        hashMap.put("p1tx",p1tx);
+        hashMap.put("p2tx",p2tx);
+        return hashMap;
+    }
 
     @RequestMapping("/autoExamPaper")
     public String previewPaper(ModelMap modelMap) {

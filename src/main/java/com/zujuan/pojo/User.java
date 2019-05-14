@@ -1,5 +1,6 @@
 package com.zujuan.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
@@ -14,6 +15,8 @@ public class User implements UserDetails {
     private String password;
     private String phone;
     private String email;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date registertime;
     private Integer type;
     private static final long serialVersionUID = 1L;

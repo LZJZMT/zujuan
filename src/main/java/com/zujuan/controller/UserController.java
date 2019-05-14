@@ -1,6 +1,8 @@
 package com.zujuan.controller;
 
+import com.zujuan.mapper.UserMapper;
 import com.zujuan.pojo.MailBean;
+import com.zujuan.pojo.PageBean;
 import com.zujuan.pojo.User;
 import com.zujuan.pojo.UserExample;
 import com.zujuan.service.UserService;
@@ -38,6 +40,9 @@ public class UserController {
     @Autowired
     private SendMail sendMail;
 
+    @Autowired
+    private UserMapper um;
+
     @RequestMapping("/changePwd")
     @ResponseBody
     public Map changePwd(String oldPassword, String password) {
@@ -59,6 +64,60 @@ public class UserController {
         return map;
 
     }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public Map del(Long id) {
+        Map failResultMap = GetResultBean.getFailResultMap();
+        User currentUser = null;
+        try {
+            currentUser = GetCurrentUser.getCurrentUser();
+        } catch (Exception e) {
+            failResultMap.put("msg","请先登录");
+            return failResultMap;
+        }
+        if (currentUser.getType()!=1){
+            failResultMap.put("msg","权限不足");
+            return failResultMap;
+        }
+        if (id.equals(currentUser.getId())){
+            failResultMap.put("msg","无法删除自己");
+            return failResultMap;
+        }
+
+
+        um.deleteByPrimaryKey(id);
+        return GetResultBean.getResultMap();
+    }
+
+
+    @RequestMapping("/reset")
+    @ResponseBody
+    public Map reset(Long id) {
+
+        Map failResultMap = GetResultBean.getFailResultMap();
+        User currentUser = null;
+        try {
+            currentUser = GetCurrentUser.getCurrentUser();
+        } catch (Exception e) {
+            failResultMap.put("msg","请先登录");
+            return failResultMap;
+        }
+        if (currentUser.getType()!=1){
+            failResultMap.put("msg","权限不足");
+            return failResultMap;
+        }
+
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andIdEqualTo(id);
+        List list = us.queryByExample(userExample);
+        User u = (User)list.get(0);
+        u.setPassword("a123456");
+        um.updateByPrimaryKeySelective(u);
+        return GetResultBean.getResultMap();
+    }
+
+
     @ResponseBody
     @RequestMapping("/sendEmail")
     public Map sendEmail(String email,String type){
@@ -117,6 +176,32 @@ public class UserController {
         }
         map.addAttribute("user",user);
         return "set/user/info";
+    }
+
+    @ResponseBody
+    @RequestMapping("/userList")
+    public PageBean userList(Integer page, Integer limit){
+
+        User user = null;
+        try {
+            user = GetCurrentUser.getCurrentUser();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (user.getType() == 2){
+            return null;
+        }
+        PageBean pageBean = new PageBean();
+
+        List list = us.queryByExample(null);
+
+        pageBean.setCount(list.size()+"");
+        int right = page*limit >= list.size()?list.size():page*limit;
+
+        pageBean.setData(list.subList((page-1)*limit,right));
+
+        return pageBean;
+
     }
 
     @ResponseBody

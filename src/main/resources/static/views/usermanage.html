@@ -1,10 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+    <style>
+        .layui-card-body{overflow-x: hidden;} /* 禁止刷新后出现横向滚动条 */
+    </style>
 </head>
+
 <body>
-$END$
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">考试名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" placeholder="请输入考试名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">年级专业</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="njzy" placeholder="请输入年级专业" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-comm" data-type="reload" lay-submit
+                            lay-filter="LAY-app-contcomm-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body">
+
+            <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
+            <script type="text/html" id="table-content-com">
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="reset"><i
+                        class="layui-icon "></i>重置密码</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                        class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function () {
+            var $ = layui.$
+                , form = layui.form
+                , table = layui.table;
+            table.render({
+                //width: 430,
+                elem: '#LAY-app-content-comm'
+                , url: '/user/userList'
+                , method: 'post'
+                , cols: [[
+                    {type: 'checkbox'}
+                    , {title: '序号',  type: 'numbers',width:50}
+                    , {align: 'center', field: 'username', width:200,title: '用户名',sort: false}
+                    ,{field:'email',title:'邮箱地址',width:280}
+                    ,{field:'registertime',title:'注册时间',width:220,sort: true}
+                    ,{field:'type',title:'用户类型',width:150, sort: true, templet: function(res){
+                          var s =   (res.type=='1' || res.type==1 )?'管理员':'教师';return s;
+                        }}
+                    , {title: '操作', align: 'center', width:200,  toolbar: '#table-content-com'}
+                ]]
+                , page: true
+                , even: true //斑马线效果
+                , limit : 40
+            })
+            //监听工具条
+            table.on('tool(LAY-app-content-comm)', function (obj) {
+                <!--layer.confirm('真的删除行么');-->
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除么', function (index) {
+                        $.ajax({
+                            url: '/user/del',
+                            data: {id: obj.data.id},
+                            type: 'post',
+                            success: function (res) {
+                                if (res.code == '0') {
+                                    layer.msg('删除成功');
+                                    obj.del();
+                                    layer.close(index);
+                                } else {
+                                    layer.msg(res.msg, {
+                                        anim: 6
+                                    });
+                                }
+                            }
+                        })
+
+                    })
+
+                }else if(obj.event === 'reset'){
+                    layer.confirm('确定重置吗，默认密码为 a123456', function (index) {
+                        $.ajax({
+                            url: '/user/reset',
+                            data: {id: obj.data.id},
+                            type: 'post',
+                            success: function (res) {
+                                if (res.code == '0') {
+                                    layer.msg('重置成功，新密码为a123456');
+                                    layer.close(index);
+                                } else {
+                                    layer.msg(res.msg, {
+                                        anim: 6
+                                    });
+                                }
+                            }
+                        })
+                    })
+
+                }
+            })
+
+
+            //监听搜索
+            form.on('submit(LAY-app-contcomm-search)', function (data) {
+                var field = data.field;
+                //执行重载
+                table.reload('LAY-app-content-comm', {
+                    where: field
+                });
+            });
+
+
+            //点击事件
+            var active = {
+                batchdel: function () {
+                    var checkStatus = table.checkStatus('LAY-app-content-comm')
+                        , checkData = checkStatus.data; //得到选中的数据
+
+                    if (checkData.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.confirm('确定删除吗？', function (index) {
+                        $.ajax({
+                            url: '/exam/batchDel',
+                            data: JSON.stringify(checkData),
+                            type: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (res) {
+                                if (res.code == 0) {
+                                    layer.msg('删除成功');
+                                    table.reload();
+                                    table.reload('LAY-app-content-comm');
+                                } else {
+                                    layer.msg(res.msg, {
+                                        anim: 6
+                                    });
+                                }
+
+                            }
+                        })
+                    })
+
+                    //执行 Ajax 后重载
+
+
+                }
+                , add:
+                    function () {
+                        layer.open({
+                            type: 2
+                            , title: '添加知识点'
+                            , content: 'addForm.html'
+                            , area: ['360px', '520px']
+                            , btn: ['确定', '取消']
+                            , yes: function (index, layero) {
+                                var iframeWindow = window['layui-layer-iframe' + index]
+                                    , submitID = 'LAY-user-front-submit'
+                                    , submit = layero.find('iframe').contents().find('#' + submitID);
+                                //监听提交
+                                iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                    var field = data.field; //获取提交的字段
+                                    //提交 Ajax 成功后，静态更新表格中的数据
+                                    $.ajax({
+                                        url: '/zsd/add'
+                                        , type: 'post'
+                                        , data: field
+                                        , success: function (res) {
+                                            if (res.code == 0) {
+                                                layer.msg(res.msg);
+                                                iframeWindow.location.reload()
+                                                table.reload();
+                                            } else {
+                                                layer.msg(res.msg, {
+                                                    anim: 6
+                                                });
+                                            }
+                                        }
+                                    });
+                                    // table.reload('LAY-user-front-submit'); //数据刷新
+                                    // layer.close(index); //关闭弹层
+                                });
+
+                                submit.trigger('click');
+                            }
+                        });
+                    }
+
+                ,
+                reload: function () {
+                    table.reload('LAY-app-content-comm');
+                },
+                print:function () {
+                    var checkStatus = table.checkStatus('LAY-app-content-comm')
+                        , checkData = checkStatus.data; //得到选中的数据
+
+                    if (checkData.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+
+                    $.ajax({
+                        url: '/paper/downloadWordByIds',
+                        data: JSON.stringify(checkData),
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (res) {
+                            if (res.code == 0) {
+                                location.href = res.msg;
+                            } else {
+                                layer.msg(res.msg, {
+                                    anim: 6
+                                });
+                            }
+
+                        }
+                    })
+
+                }
+            }
+
+
+            $('.layui-btn.layuiadmin-btn-comm'
+            ).on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        }
+    )
+    ;
+</script>
 </body>
 </html>

@@ -22,7 +22,7 @@
     <button class="layui-btn layuiadmin-btn-comm" onclick="fenxi()">成绩统计</button>
 </div>
 <div id="chartmain" style="width:700px; height: 500px; float: left"></div>
-<div id="chartmain1" style="width:600px; height: 600px;float: left"></div>
+<div id="chartmain1" style="width:500px; height: 500px;float: left"></div>
 <div id="chartmain2" style="width:600px; height: 600px;float: left"></div>
 
 
@@ -46,7 +46,7 @@
             success: function (list) {
                 var role = document.getElementById("paperSelectId");
                 if (list == null || list.length == 0) {
-                    layer.alert("暂无考试可以录入成绩")
+                    layer.alert("暂无考试可以分析")
                 }
                 for (var i = 0; i < list.length; i++) {
                     var option = document.createElement("option");    // 创建添加option属性
@@ -111,27 +111,83 @@
                     markPoint: {
                         data: [
                             {type: 'max', name: '最大值'},
-                            {type: 'min', name: '最小值'}
+                           // {type: 'min', name: '最小值'}
                         ]
-                    },
+                    }/*,
                     markLine: {
                         data: [
                             {type: 'average', name: '平均值'}
                         ]
-                    }
+                    }*/
                 }
             ]
         };
 
+
+        var option1 = {
+            title : {
+                text: '及格率',
+                subtext: '',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient : 'vertical',
+                x : 'left',
+                data:['不及格率','及格率']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'及格率',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:0, name:'不及格率'},
+                        {value:0, name:'及格率'}
+                    ]
+                }
+            ]
+        };
         var myChart = echarts.init(document.getElementById('chartmain'));
+        var myChart1 = echarts.init(document.getElementById('chartmain1'));
         $.ajax({
             url: '/score/fenduan',
             data: {pid: pid},
             success: function (obj) {
                 for (var p in obj) {//遍历json对象的每个key/value对,p为key
-                    option.series[0].data.push(obj add[p]);
+                    option.series[0].data.push(obj[p]);
                 }
-                myChart.setOption(option)
+                option1.title.subtext = testName;
+                option1.series[0].data[0].value=obj[10];
+                option1.series[0].data[1].value=obj[11];
+                myChart.setOption(option);
+                myChart1.setOption(option1);
             }
         })
 
