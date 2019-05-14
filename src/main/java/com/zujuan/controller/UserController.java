@@ -188,13 +188,15 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (user.getType() == 2){
+        /*if (user.getType() == 2){
             return null;
-        }
+        }*/
         PageBean pageBean = new PageBean();
 
-        List list = us.queryByExample(null);
-
+        List<User> list = us.queryByExample(null);
+        for (User u : list) {
+            u.setPassword("******");
+        }
         pageBean.setCount(list.size()+"");
         int right = page*limit >= list.size()?list.size():page*limit;
 
