@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50549
 File Encoding         : 65001
 
-Date: 2019-05-12 00:41:40
+Date: 2019-05-14 15:34:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -100,7 +100,7 @@ CREATE TABLE `exam_paper` (
   `author_id` bigint(20) DEFAULT NULL,
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper
@@ -113,13 +113,13 @@ INSERT INTO `exam_paper` VALUES ('42', 'eee', 'eee', '60', '2019-04-23 20:26:33'
 INSERT INTO `exam_paper` VALUES ('43', 'qwe', 'qe', '36', '2019-04-23 20:29:36', '2019-04-05 00:00:00', '2019-04-23 20:29:36', '1.7', '12', '/image/exampaper/qe119.doc', null, null, null, null, '1', '120');
 INSERT INTO `exam_paper` VALUES ('44', '123123', 'qw', '100', '2019-04-23 20:31:47', '2019-04-23 00:00:00', '2019-04-27 00:00:00', '2', '123', '/image/exampaper/qw44590.doc', null, null, null, null, '1', '12');
 INSERT INTO `exam_paper` VALUES ('45', 'qwe', 'qwe', '100', '2019-04-23 20:32:16', '2019-04-01 00:00:00', '2019-04-23 20:32:16', '2', 'qwe', '/image/exampaper/qwe21958.doc', null, null, null, null, '1', '123');
-INSERT INTO `exam_paper` VALUES ('46', 'qwe', 'qweqwe', '100', '2019-04-23 20:35:59', '2019-04-23 00:00:00', '2019-04-23 20:35:58', '1.8', '12', '/image/exampaper/qweqwe82107.doc', null, null, null, null, '1', '12');
 INSERT INTO `exam_paper` VALUES ('47', 'BS21391392', '桂电离散数学试卷11111111', '100', '2019-04-23 20:59:38', '2019-04-23 00:00:00', '2019-04-25 00:00:00', '2.2', '软件工程', '/image/exampaper/桂电离散数学试卷1111111155153.doc', null, null, null, null, '1', '120');
 INSERT INTO `exam_paper` VALUES ('49', 'qweqwe', 'qweqwe', '66', '2019-05-10 19:39:01', '2019-05-10 19:38:46', '2019-05-24 00:08:00', '2', 'qwe', '/image/exampaper/qweqwe65194.doc', null, null, null, null, '1', '120');
 INSERT INTO `exam_paper` VALUES ('50', 'werwer', 'ederwe', '100', '2019-05-10 19:43:51', '2019-05-24 00:00:00', '2019-05-10 19:43:50', '2.2', 'werwer', '/image/exampaper/ederwe37854.doc', null, null, null, null, '1', '120');
 INSERT INTO `exam_paper` VALUES ('51', 'werwer', 'reewrwer', '79', '2019-05-10 19:52:08', '2019-05-17 00:00:00', '2019-05-31 00:00:00', '2.3', 'werwer', '/image/exampaper/reewrwer9033.doc', null, null, null, null, '1', '120');
 INSERT INTO `exam_paper` VALUES ('52', '234', '23', '100', '2019-05-10 19:56:10', '2019-05-17 00:00:00', '2019-05-11 00:00:00', '2', '234', '/image/exampaper/2376196.doc', null, null, null, null, '1', '12');
 INSERT INTO `exam_paper` VALUES ('53', 'eqwe', 'qweqw', '100', '2019-05-10 19:58:04', '2019-05-31 00:00:00', '2019-05-10 19:57:24', '2', 'qwe', '/image/exampaper/qweqw93819.doc', null, null, null, null, '1', '122');
+INSERT INTO `exam_paper` VALUES ('54', 'BS29139123', '桂林电子科技大学离散数学考试', '100', '2019-05-12 14:07:07', '2019-05-09 00:00:00', '2019-05-31 00:00:00', '2', '16级软件工程', '/image/exampaper/桂林电子科技大学离散数学考试18429.doc', null, null, null, null, '1', '120');
 
 -- ----------------------------
 -- Table structure for exam_paper_format
@@ -130,7 +130,7 @@ CREATE TABLE `exam_paper_format` (
   `author_id` bigint(20) DEFAULT NULL,
   `paper_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam_paper_format
@@ -139,6 +139,7 @@ INSERT INTO `exam_paper_format` VALUES ('1', '1', '48');
 INSERT INTO `exam_paper_format` VALUES ('13', '1', '53');
 INSERT INTO `exam_paper_format` VALUES ('14', '1', '52');
 INSERT INTO `exam_paper_format` VALUES ('15', '1', '51');
+INSERT INTO `exam_paper_format` VALUES ('16', '1', '54');
 
 -- ----------------------------
 -- Table structure for exam_type
@@ -232,7 +233,7 @@ CREATE TABLE `pager_exam_r` (
   KEY `题目` (`eid`),
   CONSTRAINT `题目` FOREIGN KEY (`eid`) REFERENCES `examination` (`eid`) ON UPDATE CASCADE,
   CONSTRAINT `试卷` FOREIGN KEY (`pid`) REFERENCES `exam_paper` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pager_exam_r
@@ -265,11 +266,6 @@ INSERT INTO `pager_exam_r` VALUES ('94', '34', '44', null);
 INSERT INTO `pager_exam_r` VALUES ('95', '54', '44', null);
 INSERT INTO `pager_exam_r` VALUES ('96', '35', '44', null);
 INSERT INTO `pager_exam_r` VALUES ('97', '31', '45', null);
-INSERT INTO `pager_exam_r` VALUES ('98', '41', '46', null);
-INSERT INTO `pager_exam_r` VALUES ('99', '49', '46', null);
-INSERT INTO `pager_exam_r` VALUES ('100', '52', '46', null);
-INSERT INTO `pager_exam_r` VALUES ('101', '46', '46', null);
-INSERT INTO `pager_exam_r` VALUES ('102', '57', '46', null);
 INSERT INTO `pager_exam_r` VALUES ('103', '32', '47', '20');
 INSERT INTO `pager_exam_r` VALUES ('104', '34', '47', '20');
 INSERT INTO `pager_exam_r` VALUES ('105', '35', '47', '20');
@@ -291,6 +287,7 @@ INSERT INTO `pager_exam_r` VALUES ('128', '32', '52', null);
 INSERT INTO `pager_exam_r` VALUES ('129', '31', '53', null);
 INSERT INTO `pager_exam_r` VALUES ('130', '32', '53', null);
 INSERT INTO `pager_exam_r` VALUES ('131', '33', '53', null);
+INSERT INTO `pager_exam_r` VALUES ('132', '31', '54', null);
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -308,10 +305,9 @@ CREATE TABLE `persistent_logins` (
 -- Records of persistent_logins
 -- ----------------------------
 INSERT INTO `persistent_logins` VALUES ('admin', '1QojRq+VqPgbUgRY2uyuVg==', 'p1qQsXMHaflswuIRdny2NA==', '2019-04-23 21:02:50');
-INSERT INTO `persistent_logins` VALUES ('user', 'BJGaXRo1xUHWxzzfDSCAHA==', 'BYKbIljFHn914HEVtSYsRA==', '2019-04-14 20:45:35');
 INSERT INTO `persistent_logins` VALUES ('admin2', 'k7IK8zuvFBqoMt3eTx1IlQ==', 'f0frO9nVhAFYDCrkYWryUA==', '2019-01-10 14:23:21');
 INSERT INTO `persistent_logins` VALUES ('李子健1', 'OCg0LQEaeCKUUdG7l6nORA==', '23OFrz97qMmoXgXx9F0+pw==', '2019-01-10 13:36:18');
-INSERT INTO `persistent_logins` VALUES ('1500330217', 'v/zsvEMB6Qm8GG7LWdMTkQ==', '7blmEsWlbuIlbvbw0sz++w==', '2019-05-11 22:16:31');
+INSERT INTO `persistent_logins` VALUES ('1500330217', 'x05Boj8CMkVMUX48MKr4Rg==', 'BLjrDzb5GwNDV2O/oUOZsw==', '2019-05-14 11:16:11');
 
 -- ----------------------------
 -- Table structure for role
@@ -339,21 +335,25 @@ CREATE TABLE `score` (
   `score` double DEFAULT NULL,
   `pid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('3', '23123123', '122', '1', '53');
-INSERT INTO `score` VALUES ('5', '11', '1', '111', '53');
-INSERT INTO `score` VALUES ('6', '122', '12', '1212', '53');
-INSERT INTO `score` VALUES ('7', '234234', '234', '323', '53');
-INSERT INTO `score` VALUES ('14', '1500330217', '李子健88', '999', '52');
-INSERT INTO `score` VALUES ('15', '1500330218', '李子健12314', '12315', '52');
-INSERT INTO `score` VALUES ('16', '1500330217', '李子健88', '999', '53');
-INSERT INTO `score` VALUES ('17', '1500330218', '李子健12314', '12315', '53');
-INSERT INTO `score` VALUES ('20', '1500330217', '李子健88', '999', '51');
-INSERT INTO `score` VALUES ('21', '1500330218', '李子健12314', '12315', '51');
+INSERT INTO `score` VALUES ('30', '1500330217', '李子健88', '66', '51');
+INSERT INTO `score` VALUES ('31', '1500330218', '李子健12314', '15', '51');
+INSERT INTO `score` VALUES ('32', '1500330217', '李子健88', '999', '53');
+INSERT INTO `score` VALUES ('33', '1500330218', '李子健12314', '12315', '53');
+INSERT INTO `score` VALUES ('34', '1500330217', '李子健88', '999', '52');
+INSERT INTO `score` VALUES ('35', '1500330218', '李子健12314', '12315', '52');
+INSERT INTO `score` VALUES ('36', '1500330219', '李12子健', '415.2', '52');
+INSERT INTO `score` VALUES ('37', '1500330217', '李子健88', '65', '54');
+INSERT INTO `score` VALUES ('38', '1500330218', '李子健12314', '66', '54');
+INSERT INTO `score` VALUES ('39', '1500330219', '李12子健', '78', '54');
+INSERT INTO `score` VALUES ('40', '1500330220', '李帅', '143', '54');
+INSERT INTO `score` VALUES ('41', '6555664', '李子健111', '23', '53');
+INSERT INTO `score` VALUES ('42', '1500330219', '李12子健', '15.2', '51');
+INSERT INTO `score` VALUES ('43', '1500330219', '李12子健', '415.2', '53');
 
 -- ----------------------------
 -- Table structure for user
@@ -368,16 +368,13 @@ CREATE TABLE `user` (
   `registerTime` date DEFAULT NULL,
   `type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', '1500330217', '123', '15676383609', '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('2', 'admin2', '179013', null, '852533466@qq.com', '2019-01-09', '2');
-INSERT INTO `user` VALUES ('3', 'admin2', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
-INSERT INTO `user` VALUES ('4', 'admin2', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
-INSERT INTO `user` VALUES ('5', 'admin2', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('6', 'admin3', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('7', 'admin4', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
 INSERT INTO `user` VALUES ('8', 'admin5', 'qqqqqq', null, '852533466@qq.com', '2019-01-09', '2');
@@ -385,3 +382,4 @@ INSERT INTO `user` VALUES ('9', '李子健', 'qqqqqq', null, '852533466@qq.com',
 INSERT INTO `user` VALUES ('10', '李子健1', 'qqqq1234', null, '852533466@qq.com', '2019-01-10', '2');
 INSERT INTO `user` VALUES ('11', 'adminadmin', 'qqqq1234', null, '852533466@qq.com', '2019-01-11', '2');
 INSERT INTO `user` VALUES ('12', 'user', '123', null, null, null, '1');
+INSERT INTO `user` VALUES ('13', 'admin', 'qqqq1234', null, '852533466@qq.com', '2019-05-13', '2');

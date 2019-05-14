@@ -60,12 +60,7 @@
           <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-reg-submit">注 册</button>
         </div>
         <div class="layui-trans layui-form-item layadmin-user-login-other">
-          <label>社交账号注册</label>
-          <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-          <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-          <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
-          
-          <a href="login.html" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+         <a href="login.html" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
           <a href="login.html" class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>
         </div>
       </div>
@@ -106,13 +101,12 @@
       if(!field.agreement){
         return layer.msg('你必须同意用户协议才能注册');
       }
-      layer.msg(JSON.stringify(field));
       //请求接口
       admin.req({
         url: '/user/register' //实际使用请改成服务端真实接口
         ,data: field
         ,method:"post"
-        ,done: function(res){        
+        ,done: function(res){
           layer.msg('注册成功', {
             offset: '15px'
             ,icon: 1

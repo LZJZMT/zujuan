@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>预览题目</title>
+    <title>试卷对比分析</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -12,19 +12,27 @@
     <script src="../echarts/echart.js"></script>
 </head>
 <body>
-<div class="layui-form">
-    <label class="layui-form-label">考试名称</label>
-    <div class="layui-input-inline">
-        <select name="pid" id="paperSelectId">
-            <option value="">---请选择试卷名称---</option>
-        </select>
+<div style="float:left;margin-left: 300px">
+    <div class="layui-form">
+        试卷名称1
+        <div class="layui-input-inline">
+            <select name="pid1" id="paperSelectId1">
+                <option value="">---请选择考试名称---</option>
+            </select>
+        </div>
+        试卷名称2
+        <div class="layui-input-inline">
+            <select name="pid2" id="paperSelectId2">
+                <option value="">---请选择考试名称---</option>
+            </select>
+        </div>
+        <button class="layui-btn layuiadmin-btn-comm" onclick="fenxi()">试卷对比分析</button>
     </div>
-    <button class="layui-btn layuiadmin-btn-comm" onclick="fenxi()">试卷分析</button>
+    <div id="chartmain" style="width:700px; height: 500px; float: left"></div>
+    <hr>
+    <div id="chartmain1" style="width:700px; height: 500px;float: left"></div>
+    <div id="chartmain2" style="width:600px; height: 600px;float: left"></div>
 </div>
-<div id="chartmain" style="width:600px; height: 600px; float: left"></div>
-<div id="chartmain1" style="width:600px; height: 600px;float: left"></div>
-<div id="chartmain2" style="width:600px; height: 600px;float: left"></div>
-
 
 </body>
 <script src="../layuiadmin/layui/layui.js"></script>
@@ -44,209 +52,159 @@
             url: "/examPaper/getAllPaper2",
             type: "GET",
             success: function (list) {
-                var role = document.getElementById("paperSelectId");
+                var role1 = document.getElementById("paperSelectId1");
+                var role2 = document.getElementById("paperSelectId2");
                 if (list == null || list.length == 0) {
-                    layer.alert("暂无试卷可以分析")
+                    layer.alert("暂无考试可以分析")
                 }
                 for (var i = 0; i < list.length; i++) {
                     var option = document.createElement("option");    // 创建添加option属性
                     option.setAttribute("value", list[i].pid);                  // 给option的value添加值
                     option.innerText = list[i].name;             // 打印option对应的纯文本
-                    role.appendChild(option);                          // 给select 添加option子标签
+                    role1.appendChild(option);
+                    var option2 = document.createElement("option");    // 创建添加option属性
+                    option2.setAttribute("value", list[i].pid);                  // 给option的value添加值
+                    option2.innerText = list[i].name;             // 打印option对应的纯文本
+                    role2.appendChild(option2);                          // 给select 添加option子标签
                     form.render('select');
                 }
             }
         });
     }
 </script>
-<script src="../layuiadmin/layui/jquery.min.js"></script>
-<script>
-function fenxi() {
-    var pid = $("#paperSelectId").val();
-    //初始化echarts实例
-    var myChart = echarts.init(document.getElementById('chartmain'));
-    var myChart1 = echarts.init(document.getElementById('chartmain1'));
-    var myChart2 = echarts.init(document.getElementById('chartmain2'));
-    option = {
-        title : {
-            text: '题型分析',
-            subtext: '',
-            x:'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient : 'vertical',
-            x : 'left',
-            data:['选择题','填空题','判断题','问答题']
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {
-                    show: true,
-                    type: ['pie', 'funnel'],
-                    option: {
-                        funnel: {
-                            x: '25%',
-                            width: '50%',
-                            funnelAlign: 'left',
-                            max: 1548
-                        }
-                    }
-                },
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        calculable : true,
-        series : [
-            {
-                name:'题型分析',
-                type:'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
-                data:[
-                    {value:0, name:'选择题'},
-                    {value:0, name:'填空题'},
-                    {value:0, name:'判断题'},
-                    {value:0, name:'问答题'}
-                ]
-            }
-        ]
-    };
-    option1 = {
-        title : {
-            text: '试题难度分析',
-            subtext: '',
-            x:'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient : 'vertical',
-            x : 'left',
-            data:['容易','一般','较难','困难']
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {
-                    show: true,
-                    type: ['pie', 'funnel'],
-                    option: {
-                        funnel: {
-                            x: '25%',
-                            width: '50%',
-                            funnelAlign: 'left',
-                            max: 1548
-                        }
-                    }
-                },
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        calculable : true,
-        series : [
-            {
-                name:'难度分析',
-                type:'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
-                data:[
-                    {value:0, name:'容易'},
-                    {value:0, name:'一般'},
-                    {value:0, name:'较难'},
-                    {value:0, name:'困难'}
-                ]
-            }
-        ]
-    };
-    option2 = {
-        title : {
-            text: '试题知识点分析',
-            subtext: '',
-            x:'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient : 'vertical',
-            x : 'left',
-            data:[]
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {
-                    show: true,
-                    type: ['pie', 'funnel'],
-                    option: {
-                        funnel: {
-                            x: '25%',
-                            width: '50%',
-                            funnelAlign: 'left',
-                            max: 1548
-                        }
-                    }
-                },
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        calculable : true,
-        series : [
-            {
-                name:'知识点分析',
-                type:'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
-                data:[
-
-                ]
-            }
-        ]
-    };
-    $.ajax({
-        url:'/examPaper/fenxi',
-        data:{pid:pid},
-        success:function (obj) {
-            option.title.subtext = obj[0].name;
-            option.series[0].data[0].value=obj[0].xz;
-            option.series[0].data[1].value=obj[0].tk;
-            option.series[0].data[2].value=obj[0].pd;
-            option.series[0].data[3].value=obj[0].xz;
-            //使用制定的配置项和数据显示图表
-            myChart.setOption(option);
-            option1.title.subtext = obj[0].name;
-            option1.series[0].data[0].value=obj[1].jd;
-            option1.series[0].data[1].value=obj[1].yb;
-            option1.series[0].data[2].value=obj[1].jn;
-            option1.series[0].data[3].value=obj[1].kn;
-            //使用制定的配置项和数据显示图表
-            myChart1.setOption(option1);
-            option2.title.subtext = obj[0].name;
-            var  i = 0;
-            for(var p in obj[2]){//遍历json对象的每个key/value对,p为key
-                option2.series[0].data.push({value:obj[2][p],name:p});
-                option2.legend.data.push(p);
-            }
-            myChart2.setOption(option2);
-        }
-    })
-}
+<script src="../layuiadmin/layui/jquery.min.js">
 </script>
+<script>
+    function fenxi() {
+        var pid1 = $("#paperSelectId1").val();
+        var testName1 = $("#paperSelectId1").find("option:selected").text();
+
+        var pid2 = $("#paperSelectId2").val();
+        var testName2 = $("#paperSelectId2").find("option:selected").text();
+        if (pid1 == "" || pid2 == "") {
+            layer.msg("请选择考试名称");
+            return;
+        }
+        var option = {
+            title: {
+                text: '难度对比分析',
+                subtext: '试卷难度'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [testName1, testName2]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['容易', '一般', '较难', '困难']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: testName1,
+                    type: 'bar',
+                    data: []
+                }
+                /*,
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }*/
+                , {
+                    name: testName2,
+                    type: 'bar',
+                    data: []
+                }
+            ]
+        };
+
+        var option1 = {
+            title: {
+                text: '題型对比分析',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [testName1, testName2]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: false},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['选择题', '填空题','判断题','问答题']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: testName1,
+                    type: 'bar',
+                    data: [],
+                }
+                , {
+                    name: testName2,
+                    type: 'bar',
+                    data: [],
+                }
+            ]
+        };
+        var myChart = echarts.init(document.getElementById('chartmain'));
+        var myChart1 = echarts.init(document.getElementById('chartmain1'));
+        $.ajax({
+            url: '/examPaper/duibifenxi',
+            data: {pid1: pid1, pid2: pid2},
+            success: function (obj) {
+                for (var p in obj.p1nd) {//遍历json对象的每个key/value对,p为key
+                    option.series[0].data.push(obj.p1nd[p]);
+                    option.series[1].data.push(obj.p2nd[p]);
+                }
+                for (var p in obj.p2nd) {//遍历json对象的每个key/value对,p为key
+                    option1.series[0].data.push(obj.p1tx[p]);
+                    option1.series[1].data.push(obj.p2tx[p]);
+                }
+                myChart.setOption(option);
+                myChart1.setOption(option1);
+            }
+        })
+
+    }
+
+</script>
+
 </html>

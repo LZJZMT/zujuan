@@ -22,10 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -43,21 +40,79 @@ public class ScoreController {
     private ExamPaperService examPaperService;
 
     @ResponseBody
+    @RequestMapping("/duibifenduan")
+    public Map duibifenduan(Long pid1,Long pid2){
+        int[] scoreDuan1 = new int[10];
+        int[] scoreDuan2 = new int[10];
+        ScoreExample scoreExample = new ScoreExample();
+        scoreExample.createCriteria().andPidEqualTo(pid1);
+        List<Score> scores = sm.selectByExample(scoreExample);
+
+        ScoreExample scoreExample2 = new ScoreExample();
+        scoreExample2.createCriteria().andPidEqualTo(pid2);
+        List<Score> scores2 = sm.selectByExample(scoreExample2);
+        int num1 = 0;
+        int num2 = 0;
+        for (Score score : scores) {
+            int i = score.getScore().intValue() / 10;
+            scoreDuan1[i>9?9:i]++;
+            if (score.getScore().intValue() <60){
+                num1++;
+            }
+        }
+        ArrayList<Integer> jige = new ArrayList<>();
+        for (Score score : scores2) {
+            int i = score.getScore().intValue() / 10;
+            scoreDuan2[i>9?9:i]++;
+            if (score.getScore().intValue() <60){
+                num2++;
+            }
+        }
+        jige.add(num1);
+        jige.add(scores.size()-num1);
+        jige.add(num2);
+        jige.add(scores2.size()-num2);
+        List<Integer> resultList = new ArrayList<Integer>(scoreDuan1.length);
+        for (int s : scoreDuan1) {
+            resultList.add(s);
+        }
+
+        List<Integer> resultList2 = new ArrayList<Integer>(scoreDuan2.length);
+        for (int s : scoreDuan2) {
+            resultList2.add(s);
+        }
+
+        /*resultList.add(num);
+        resultList.add(scores.size()-num);*/
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        hashMap.put("p1",resultList);
+        hashMap.put("p2",resultList2);
+        hashMap.put("jige",jige);
+        return hashMap;
+    }
+
+    @ResponseBody
     @RequestMapping("/fenduan")
     public List fenduan(Long pid){
-
         int[] scoreDuan = new int[10];
         ScoreExample scoreExample = new ScoreExample();
         scoreExample.createCriteria().andPidEqualTo(pid);
         List<Score> scores = sm.selectByExample(scoreExample);
+        int num = 0;
         for (Score score : scores) {
             int i = score.getScore().intValue() / 10;
             scoreDuan[i>9?9:i]++;
+            if (score.getScore().intValue() <60){
+                num++;
+            }
         }
         List<Integer> resultList = new ArrayList<Integer>(scoreDuan.length);
         for (int s : scoreDuan) {
             resultList.add(s);
         }
+
+        resultList.add(num);
+        resultList.add(scores.size()-num);
         return resultList;
     }
     //搜索和获取所有知识点
