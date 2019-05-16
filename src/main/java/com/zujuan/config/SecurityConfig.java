@@ -20,12 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyAuthenticationProvider provider;  //注入我们自己的AuthenticationProvider
-
     @Autowired
     private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
     @Autowired
     private AuthenticationFailureHandler myAuthenticationFailureHandler;
-
     @Autowired
     private DataSource dataSource;
 
@@ -41,16 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin()                    //  定义当需要用户登录时候，转到的登录页面。
-//                .loginPage("login.html")
-//                .loginProcessingUrl("/user/login").permitAll()
-//                .and()
-//                .authorizeRequests()       // 定义哪些URL需要被保护、哪些不需要被保护
-//                //.antMatchers("/**/register.html","/layuiadmin/**").permitAll()
-//                .anyRequest().authenticated()  // 任何请求,登录后可以访问
-//                .and()
-//                .csrf().disable();          // 关闭csrf防护;
-
         http.formLogin().loginPage("/views/user/login.html").loginProcessingUrl("/user/login")  //表单登录，permitAll()表示这个不需要验证 登录页面，登录失败页面
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler).permitAll()
@@ -69,14 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutSuccessUrl("/views/user/login.html")
                 .logoutUrl("/user/logout")
-
                 .deleteCookies("JSESSIONID");
-
-
     }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(provider);
-//    }
 }

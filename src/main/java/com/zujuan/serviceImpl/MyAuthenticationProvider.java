@@ -29,8 +29,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         }else{
             return new UsernamePasswordAuthenticationToken(userDetails,userDetails.getPassword(),userDetails.getAuthorities());
         }
-
-
     }
 
     @Override
