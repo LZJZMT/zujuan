@@ -77,7 +77,7 @@
                 , cols: [[
                     {type: 'checkbox'}
                     , {title: '序号',  type: 'numbers'}
-                    , {align: 'center', field: 'name', title: '考试名称',sort: false}
+                    , { field: 'name', title: '考试名称',sort: false}
                     ,{field:'njzy',title:'年级专业'}
                     ,{field:'examTime',title:'考试时间',sort: true}
                     ,{field:'reviseTime',title:'改卷时间', sort: true}
@@ -169,78 +169,6 @@
 
                     //执行 Ajax 后重载
 
-
-                }
-                , add:
-                    function () {
-                        layer.open({
-                            type: 2
-                            , title: '添加知识点'
-                            , content: 'addForm.html'
-                            , area: ['360px', '520px']
-                            , btn: ['确定', '取消']
-                            , yes: function (index, layero) {
-                                var iframeWindow = window['layui-layer-iframe' + index]
-                                    , submitID = 'LAY-user-front-submit'
-                                    , submit = layero.find('iframe').contents().find('#' + submitID);
-                                //监听提交
-                                iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                                    var field = data.field; //获取提交的字段
-                                    //提交 Ajax 成功后，静态更新表格中的数据
-                                    $.ajax({
-                                        url: '/zsd/add'
-                                        , type: 'post'
-                                        , data: field
-                                        , success: function (res) {
-                                            if (res.code == 0) {
-                                                layer.msg(res.msg);
-                                                iframeWindow.location.reload()
-                                                table.reload();
-                                            } else {
-                                                layer.msg(res.msg, {
-                                                    anim: 6
-                                                });
-                                            }
-                                        }
-                                    });
-                                    // table.reload('LAY-user-front-submit'); //数据刷新
-                                    // layer.close(index); //关闭弹层
-                                });
-
-                                submit.trigger('click');
-                            }
-                        });
-                    }
-
-                ,
-                reload: function () {
-                    table.reload('LAY-app-content-comm');
-                },
-                print:function () {
-                    var checkStatus = table.checkStatus('LAY-app-content-comm')
-                        , checkData = checkStatus.data; //得到选中的数据
-
-                    if (checkData.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-
-                    $.ajax({
-                        url: '/paper/downloadWordByIds',
-                        data: JSON.stringify(checkData),
-                        type: 'post',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        success: function (res) {
-                            if (res.code == 0) {
-                                location.href = res.msg;
-                            } else {
-                                layer.msg(res.msg, {
-                                    anim: 6
-                                });
-                            }
-
-                        }
-                    })
 
                 }
             }
