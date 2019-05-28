@@ -12,6 +12,7 @@ import com.zujuan.utils.GetCurrentUser;
 import com.zujuan.utils.GetResultBean;
 import com.zujuan.utils.ResultViewMap;
 import com.zujuan.vo.ExaminationVO;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @Description:
@@ -68,6 +70,12 @@ public class ExamController {
                 String option = JSON.toJSONString(optionMap);
                 examination.setOptionJson(option);
             }
+            Pattern compile = Pattern.compile("<br><p></p>$");
+            if (compile.matcher(examination.getQuestion()).find()){
+                examination.setQuestion(examination.getQuestion().substring(0,examination.getQuestion().length()-11));
+            }
+
+
             //如果选择了子知识点，设置题目关联子知识点
             if (knowIdChild != null) {
                 examination.setKnowId(knowIdChild);

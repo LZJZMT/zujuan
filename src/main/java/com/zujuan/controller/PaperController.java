@@ -4,6 +4,7 @@ import com.zujuan.pojo.Examination;
 import com.zujuan.service.ExamBasketService;
 import com.zujuan.service.ExamPaperService;
 import com.zujuan.service.ExamService;
+import com.zujuan.utils.CommonUtils;
 import com.zujuan.utils.ExportDoc;
 import com.zujuan.utils.GetResultBean;
 import freemarker.template.Template;
@@ -21,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description:
@@ -52,6 +54,12 @@ public class PaperController {
             for (Examination examination : examinations) {
                 examList.add(es.getById(examination.getEid()));
             }
+
+            List<Examination> collect = examList.stream()
+                    .sorted((e1, e2) -> e1.getType() - e2.getType())
+                    .collect(Collectors.toList());
+            examList.clear();
+            examList.addAll(collect);
             ExportDoc exportDoc = new ExportDoc("gb2312");
             exportDoc.set_NextPart("------=_NextPart_01D4C48A.B50DABD0");
             exportDoc.setPreFile("file:///C:/213792E5/");
@@ -60,7 +68,8 @@ public class PaperController {
             int index = 1;
             LinkedList<String> imageBase64BlockList = new LinkedList<>();
             LinkedList<String> oFileList = new LinkedList<>();
-            String fileName = "E:/image/paper/离散数学练习题"+new Date().getTime()+".doc";
+            String fileNameByNowDateTime = CommonUtils.getFileNameByNowDateTime()+"_"+ (int)((Math.random()*9+1)*1000000);
+            String fileName = "E:/image/paper/离散数学练习题"+fileNameByNowDateTime+".doc";
             Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "gb2312"));
             for (Examination examination : examList) {
                 String wordQuestion = exportDoc.handHtml2Word(examination.getQuestion(), imageBase64BlockList, oFileList);

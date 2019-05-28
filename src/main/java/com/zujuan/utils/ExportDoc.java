@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Random;
 
 
 @Data
@@ -71,8 +72,8 @@ public class ExportDoc {
             String fileType = Files.probeContentType(path);
 
 
-
-            String docFileName = "image" + (int)((Math.random()*9+1)*100000) + "."
+            String fileNameByNowDateTime = CommonUtils.getFileNameByNowDateTime()+"_"+ (int)((Math.random()*9+1)*1000000);
+            String docFileName = "image" + fileNameByNowDateTime + "."
                     + fileTypeName;
 
 
@@ -97,7 +98,7 @@ public class ExportDoc {
             oFileList.add(oFile);
 
         }
-        doc.getElementsByTag("body").append("<br>");
+        //doc.getElementsByTag("body").append("<br>");
         String body = doc.getElementsByTag("body").html();
         return body;
     }
