@@ -7,6 +7,7 @@ import com.zujuan.pojo.ExamPaperExample;
 import com.zujuan.pojo.Examination;
 import com.zujuan.service.ExamBasketService;
 import com.zujuan.service.ExamPaperService;
+import com.zujuan.utils.CommonUtils;
 import com.zujuan.utils.ExportDoc;
 import com.zujuan.utils.GetCurrentUser;
 import freemarker.template.Template;
@@ -52,8 +53,8 @@ public class ExamPaperServiceImpl implements ExamPaperService {
         exportDoc.set_NextPart("------=_NextPart_01D4C472.EB54B520");
         exportDoc.setPreFile("file:///C:/8589A2B1/");
         Template template = exportDoc.getTemplate("t1.mht", "gb2312");
-
-        String fileUrl = "exampaper/" + paperName + (int) (100000 * Math.random()) + ".doc";
+        String fileNameByNowDateTime = CommonUtils.getFileNameByNowDateTime()+"_"+ (int)((Math.random()*9+1)*1000000);
+        String fileUrl = "exampaper/" + fileNameByNowDateTime+paperName + (int) (100000 * Math.random()) + ".doc";
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localDirectory + fileUrl), "gb2312"));
         HashMap<String, Object> map = new HashMap<>();
         map.put("courseCode", "21312312");

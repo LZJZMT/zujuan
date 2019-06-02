@@ -133,7 +133,6 @@ layui.define(['form', 'upload'], function(exports){
   
   //设置密码
   form.on('submit(setmypass)', function(obj){
-    layer.msg("sb");
     admin.req({
       url: '/user/changePwd'
       ,data: obj.field

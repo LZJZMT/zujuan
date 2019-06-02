@@ -72,8 +72,7 @@ public class ExportDoc {
             String fileType = Files.probeContentType(path);
 
 
-            String fileNameByNowDateTime = CommonUtils.getFileNameByNowDateTime()+"_"+ (int)((Math.random()*9+1)*1000000);
-            String docFileName = "image" + fileNameByNowDateTime + "."
+            String docFileName = "image" + (int)((Math.random()*9+1)*100000) + "."
                     + fileTypeName;
 
 
