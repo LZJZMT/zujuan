@@ -40,5 +40,5 @@ public interface ExaminationMapper {
 
     Long countByConditionPage(Long[] ids, Long[] notInIds, Examination examination);
 
-    List selectByExampleLimit(int type, double degree, Integer size);
+    List selectByExampleLimit(int type, double degree, Integer size,String know_ids);
 }

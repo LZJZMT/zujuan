@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().headers().frameOptions().disable()//关闭frame保护
                 .and().rememberMe()                                   // 记住我相关配置
                 .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(1200)//1200秒免登陆
+                .tokenValiditySeconds(120000)//1200秒免登陆
                 .and()
                 .csrf().disable();
         http.logout()

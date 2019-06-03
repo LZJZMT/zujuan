@@ -393,10 +393,39 @@ public class ExamPaperController {
     //生成题目信息
     @ResponseBody
     @RequestMapping("/autoZujuan")
-    public Map autoZujuan(String numOfAuto){
+    public Map autoZujuan(String numOfAuto,String know_ids){
 
         ArrayList<Examination> examinations;
         try {
+
+            String[] zsdIdsStr = know_ids.split(",");
+            Long[] zsdIds = new Long[zsdIdsStr.length];
+            for (int i = 0; i < zsdIdsStr.length; i++) {
+                zsdIds[i] = Long.decode(zsdIdsStr[i]);
+            }
+            List<Long> zsdIdList = new ArrayList();
+
+            for (Long zsdId : zsdIds) {
+                zsdIdList.add(zsdId);
+            }
+            KnowledgeExample knowledgeExample = new KnowledgeExample();
+            knowledgeExample.createCriteria().andParentidIn(zsdIdList);
+            List<Knowledge> knowledgeList = ks.selectByExample(knowledgeExample);
+            for (Knowledge knowledge : knowledgeList) {
+                zsdIdList.add(knowledge.getId());
+            }
+            HashSet h = new HashSet(zsdIdList);
+            zsdIdList.clear();
+            zsdIdList.addAll(h);
+            StringBuilder sb = new StringBuilder();
+            sb.append("(");
+            for (Long zsdId : zsdIdList){
+                sb.append(zsdId);
+                sb.append(",");
+            }
+            sb.append("-1");
+            sb.append(")");
+
             String[] split = numOfAuto.split(",");
             ArrayList<Integer> list = new ArrayList<>();
             for (String s : split) {
@@ -404,12 +433,11 @@ public class ExamPaperController {
             }
 
             examinations = new ArrayList<>();
-
+            System.out.println(sb.toString());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i) == 0) continue;
-                examinations.addAll(examService.selectByExampleLimit(i/4+1,(double)i%4+1,list.get(i)));
+                examinations.addAll(examService.selectByExampleLimit(i/4+1,(double)i%4+1,list.get(i),sb.toString()));
             }
-            Thread.sleep(1000);
             if (examinations.size() == 0){
                 throw new RuntimeException("未找到合适的题目，请变更条件重试");
             }
@@ -499,7 +527,7 @@ public class ExamPaperController {
         Double format = Double.valueOf(df.format(degree / list.size()));
         examPaper.setDegree(format);
         examPaper.setTotalScore(totalScore == 0 ? 100 : totalScore);
-        String file_url = examPaperService.generateDocFromBasket(examPaper.getName());
+        String file_url = examPaperService.generateDocFromBasket(examPaper.getName(),examPaper);
         examPaper.setFileUrl(file_url);
         examPaperService.add(examPaper);
 

@@ -27,5 +27,5 @@ public interface ExamService {
 
     List<ExaminationVO> convert2VOlist(List<Examination> examinations);
 
-    List selectByExampleLimit(int i, double v, Integer integer);
+    List selectByExampleLimit(int i, double v, Integer integer,String know_ids);
 }

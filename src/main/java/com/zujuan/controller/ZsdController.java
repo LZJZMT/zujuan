@@ -35,7 +35,6 @@ public class ZsdController {
         if (ids == null || "".equals(ids)){
             return nums;
         }
-        System.out.println(ids);
         String[] zsdIdsStr = ids.split(",");
         Long[] zsdIds = new Long[zsdIdsStr.length];
         for (int i = 0; i < zsdIdsStr.length; i++) {

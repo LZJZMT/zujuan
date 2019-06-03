@@ -152,7 +152,7 @@
   </sql>
   <select id="selectByExampleLimit" parameterType="map" resultMap="BaseResultMap">
 
-    select * from examination where type = ${type} and degree = ${degree}
+    select * from examination where type = ${type} and degree = ${degree} and know_id in ${know_ids}
       order by  RAND() limit ${size}
   </select>
 

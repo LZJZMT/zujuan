@@ -48,7 +48,7 @@ public class ExamPaperServiceImpl implements ExamPaperService {
 
 
     @Override
-    public String generateDocFromBasket(String paperName) throws Exception {
+    public String generateDocFromBasket(String paperName, ExamPaper examPaper) throws Exception {
         ExportDoc exportDoc = new ExportDoc("gb2312");
         exportDoc.set_NextPart("------=_NextPart_01D4C472.EB54B520");
         exportDoc.setPreFile("file:///C:/8589A2B1/");
@@ -57,9 +57,9 @@ public class ExamPaperServiceImpl implements ExamPaperService {
         String fileUrl = "exampaper/" + fileNameByNowDateTime+paperName + (int) (100000 * Math.random()) + ".doc";
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(localDirectory + fileUrl), "gb2312"));
         HashMap<String, Object> map = new HashMap<>();
-        map.put("courseCode", "21312312");
-        map.put("njzy", "17级软件工程");
-        map.put("time", "120");
+        map.put("courseCode", examPaper.getCourseCode());
+        map.put("njzy", examPaper.getNjzy());
+        map.put("time", examPaper.getTime());
         LinkedList<String> imageBase64BlockList = new LinkedList<>();
         LinkedList<String> oFileList = new LinkedList<>();
         int index = 1;

@@ -116,16 +116,16 @@
                 , url: '/score/list'
                 , method: 'post'
                 , cols: [[
-                    {type: 'checkbox'}
-                    , {align: 'center', field: 'xuehao', title: '学号', sort: true, edit: 'text'}
-                    , {align: 'center', field: 'name', title: '姓名', sort: false, edit: 'text'}
-                    , {align: 'center', field: 'score', title: '成绩', sort: true, edit: 'text'}
+                    {type: 'checkbox',width:60}
+                    , {align: 'center', field: 'xuehao', width:200,title: '学号', sort: true, edit: 'text'}
+                    , {align: 'center', field: 'name', width:180,title: '姓名', sort: false, edit: 'text'}
+                    , {align: 'center', field: 'score', width:120,title: '成绩', sort: true, edit: 'text'}
                     , {align: 'center', field: 'examName', width:300,title: '考试名称', sort: true, edit: 'text'}
-                    , {title: '操作', align: 'center', width:140,toolbar: '#table-content-com'}
+                    , {title: '操作', align: 'center', width:150,toolbar: '#table-content-com'}
                 ]]
                 , page: true
                 , even: true //斑马线效果
-                , limit : 40
+                , limit : 20
             })
             //监听工具条
             table.on('tool(LAY-app-content-comm)', function (obj) {

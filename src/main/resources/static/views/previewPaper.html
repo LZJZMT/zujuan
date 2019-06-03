@@ -22,7 +22,8 @@
     <input type="hidden" th:name="'examPaper['+${userStat.index}+'].eid'" th:value="${vo.eid}">
     <div class="q-mc">
         <div class="q-tit">
-            <span th:utext="${vo.question}"></span><!--userStat.index+1+'、'+-->
+            <span th:utext="${userStat.index}+1+'. '"></span>
+            <span th:utext="${vo.question}"></span>
             <p style="margin-top: 6px" th:if="${vo.imgUrl}!=''">
                 <img th:src="${vo.imgUrl}">
             </p>

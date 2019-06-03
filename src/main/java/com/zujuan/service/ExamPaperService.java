@@ -29,7 +29,7 @@ public interface ExamPaperService {
 
     List<ExamPaper> getNotMyExamPaper() throws Exception;
 
-    String generateDocFromBasket(String paperName) throws Exception;
+    String generateDocFromBasket(String paperName, ExamPaper examPaper) throws Exception;
 
     Document addIndexToQuestion(String question, int index);
 }

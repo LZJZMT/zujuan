@@ -146,8 +146,8 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public List selectByExampleLimit(int type, double degree, Integer size) {
-        return em.selectByExampleLimit(type,degree,size);
+    public List selectByExampleLimit(int type, double degree, Integer size,String know_ids) {
+        return em.selectByExampleLimit(type,degree,size,know_ids);
     }
 
 }

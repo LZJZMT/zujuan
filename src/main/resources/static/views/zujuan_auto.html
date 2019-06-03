@@ -140,18 +140,13 @@
         text-overflow: ellipsis;
         font-weight: bold;
     }
-
-    
-
-    .setting-item div {
-    }
 </style>
 <body>
 
 <div style="float: left;">
     <form class="layui-form " style="float: left;">
         <h1>选择知识点</h1>
-        <div id="xtree1" style="width:240px;padding: 10px 0 25px 5px;"></div>
+        <div id="xtree1" style="width:268px;padding: 10px 0 25px 5px;"></div>
     </form>
 </div>
 <div class="smarter-section" id="J_ResultRegion" style="float: left">
@@ -282,28 +277,8 @@
                         <a lay-href="404.html">生成试卷</a></button>-->
                     <a href="javascript:void(0)" class="layui-btn" onclick="autoZujuan('/examPaper/autoZujuan','预览试卷')">生成试卷</a>
                 </div>
-                <!--<div class="setting-fun f-fr">
-                    <span>难度系数：<strong class="cof">0</strong></span>
-                    <i class="del icona-del1"></i>
-                </div>-->
             </div>
 
-            <!--<div class="difficult">
-                该份试卷总体难度系数：
-                <span class="highlight J_difficulty_coefficient">0.0</span>
-                <span class="what-wrap">
-                                <b class="icona-help1"></b>
-                                <div class="what-tip">
-                                    <b class="icona-dia-tri"></b>
-                                    <div class="tip-msg">
-                                        <p>容易题：难度系数0.8</p>
-                                        <p>普通题：难度系数0.6</p>
-                                        <p>困难题：难度系数0.2</p>
-                                        <p>试卷总难度系数=所有试题的难度系数之和/总试题数</p>
-                                    </div>
-                                </div>
-                            </span>
-            </div>-->
         </div>
     </div>
 </div>
@@ -417,7 +392,8 @@
             return;
         }
 
-        var jsonObj={"numOfAuto":numOfAuto.join(",")};
+        var jsonObj={"numOfAuto":numOfAuto.join(",")
+                    ,"know_ids":zsdIds.join(",")};
 
         $.ajax({
             url: url
@@ -427,7 +403,7 @@
             , data: jsonObj
             , success: function (res) {
                 if (res.code == 1) {
-                    layui.msg("组卷失败"+res.msg);
+                    alert("组卷失败"+res.msg);
                 }else{
                     location.href="/examPaper/autoExamPaper";
                 }

@@ -29,6 +29,9 @@ public class CommonController {
     public String home(ModelMap modelMap){
         try {
             modelMap.addAttribute("username", GetCurrentUser.getCurrentUser().getUsername());
+            modelMap.addAttribute("visibility",
+                    GetCurrentUser.getCurrentUser().getType()==1?
+                            "visibility:visible":"visibility:hidden");
         } catch (Exception e) {
             return "redirect:/views/user/login.html";
         }
